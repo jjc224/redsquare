@@ -2,29 +2,47 @@
 // Author: Thomas Nixon
 
 
-#include "mysql_connection.h"
-#include "mysql_driver.h"
+
 #include <string>
+#include "FileArchiver.h"
 
 
-class VersionRec;
-
-
-class FileArchiver
+bool FileArchiver::Exitsts(std::string filename)
 {
 
-	protected:
-		sql::Connection *dbcon;
-		sql::Driver *driver;
+}
 
-	public:
-		bool Exitsts(std::string filename);
-		bool Compare(std::string filename);
-		bool Insert(std::string filename, std::string comment);
-		VersionRec GetVersionInfo(std::string filename);
-		bool Update(std::string filename);
-		VersionRec GetLastVersionInfo(std::string filename);
-		bool RetrieveVersion(int versionnum, std::string filebname, std::string retrievedname);
-		void Close();
+bool FileArchiver::Compare(std::string filename)
+{
 
-};
+}
+
+bool FileArchiver::Insert(std::string filename, std::string comment)
+{
+
+}
+
+VersionRec FileArchiver::GetVersionInfo(std::string filename)
+{
+
+}
+
+bool FileArchiver::Update(std::string filename)
+{
+
+}
+
+VersionRec FileArchiver::GetLastVersionInfo(std::string filename)
+{
+
+}
+
+bool FileArchiver::RetrieveVersion(int versionnum, std::string filebname, std::string retrievedname)
+{
+
+}
+
+void FileArchiver::Close()
+{
+
+}
