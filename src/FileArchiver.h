@@ -18,6 +18,8 @@ class FileArchiver
 		sql::Driver *driver;
 
 	public:
+		FileArchiver();
+		~FileArchiver();
 		bool Exitsts(std::string filename);
 		bool Compare(std::string filename);
 		bool Insert(std::string filename, std::string comment);
@@ -25,6 +27,6 @@ class FileArchiver
 		bool Update(std::string filename);
 		VersionRec GetLastVersionInfo(std::string filename);
 		bool RetrieveVersion(int versionnum, std::string filebname, std::string retrievedname);
+		string decrypt(string s);
 		void Close();
-
 };
