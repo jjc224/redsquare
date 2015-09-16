@@ -23,6 +23,7 @@
       <itemPath>FileRecord.cpp</itemPath>
       <itemPath>Makefile</itemPath>
       <itemPath>MurmurHash3.cpp</itemPath>
+      <itemPath>VersionRecord.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -73,6 +74,8 @@
       </item>
       <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="VersionRecord.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
@@ -121,6 +124,8 @@
       <item path="MurmurHash3.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="VersionRecord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>

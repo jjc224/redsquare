@@ -57,11 +57,13 @@ bool FileArchiver::Exists(std::string filename)
 
 bool FileArchiver::Compare(std::string filename)
 {
+	//TODO: add logic here
 	return false;
 }
 
 bool FileArchiver::Insert(std::string filename, std::string comment)
 {
+	//TODO: add logic here
 	return false;
 }
 
@@ -91,6 +93,7 @@ VersionRecord FileArchiver::GetVersionInfo(std::string filename)
 
 bool FileArchiver::Update(std::string filename)
 {
+	//TODO: add logic here
 	return false;
 }
 
