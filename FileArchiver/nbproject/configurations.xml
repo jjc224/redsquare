@@ -7,6 +7,7 @@
       <itemPath>DBConnector.h</itemPath>
       <itemPath>FileArchiver.h</itemPath>
       <itemPath>FileRecord.h</itemPath>
+      <itemPath>MurmurHash3.h</itemPath>
       <itemPath>VersionRecord.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -19,7 +20,9 @@
       <itemPath>DBConfigurationFileUtility.cpp</itemPath>
       <itemPath>DBConnector.cpp</itemPath>
       <itemPath>FileArchiver.cpp</itemPath>
+      <itemPath>FileRecord.cpp</itemPath>
       <itemPath>Makefile</itemPath>
+      <itemPath>MurmurHash3.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -60,9 +63,15 @@
       </item>
       <item path="FileArchiver.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="FileRecord.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="FileRecord.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Makefile" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MurmurHash3.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -103,9 +112,15 @@
       </item>
       <item path="FileArchiver.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="FileRecord.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="FileRecord.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Makefile" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MurmurHash3.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>

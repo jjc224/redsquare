@@ -31,7 +31,7 @@ protected:
 	//the full path name of the file
 	std::string Filename;
 	//the hash of the current version of the file
-	int CurrentVersionHash
+	int CurrentVersionHash;
 	//the hash of the original version of the file
 	int OriginalVersionHash;
 	//the current revision number
@@ -49,6 +49,8 @@ protected:
 	//Adds a new version of the file
 	//Will fail if the hash of the filebuffer data is the same as the current version hash
 	bool AddNewVersion(int FileLength, const char* FileBuffer, int LastModifiedTime);
+        
+        unsigned int GetHashOfFileBuffer(int FileLength, const char* FileBuffer);
 private:
 };
 
