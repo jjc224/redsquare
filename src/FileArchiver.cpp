@@ -17,7 +17,7 @@ using namespace std;
 // Prepares connection
 FileArchiver::FileArchiver()
 {
-  // Get data for connection from file
+	// Get data for connection from file
 	string host;
 	string dbname;
 	string user;
@@ -35,11 +35,11 @@ FileArchiver::FileArchiver()
 	user = decrypt(user);
 	pw = decrypt(pw);
 
-  // Connect to database
+	// Connect to database
 	try
 	{	
-  	driver = get_driver_instance();
-  	dbcon = driver->connect(host, user, pw); 
+		driver = get_driver_instance();
+		dbcon = driver->connect(host, user, pw); 
 	}
 	catch (sql::SQLException &	e)
 	{
@@ -53,31 +53,31 @@ FileArchiver::FileArchiver()
 
 FileArchiver::~FileArchiver()
 {
-  Close();
+	Close();
 }
 
 bool FileArchiver::Exists(std::string filename)
 {
-  try
-  {
-  	// Run Query
-  	sql::Statement *stmt = dbcon->createStatement();;
-  	sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.somewhere where someID = "+ filename);
-  	
-  	// Output Results
-  	while(rs->next())
-  		cout << rs->getString(1) << endl;
-  
-  	delete rs;
-  	delete stmt;
-  }
-  catch (sql::SQLException &	e)
-  {
-  	cout << "ERROR: " << endl;
-  	cout << e.what() << endl;
-  	cout << e.getErrorCode() << endl;
-  	cout << e.getSQLState() << endl;
-  }
+	try
+	{
+		// Run Query
+		sql::Statement *stmt = dbcon->createStatement();;
+		sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.somewhere where someID = "+ filename);
+		
+		// Output Results
+		while(rs->next())
+			cout << rs->getString(1) << endl;
+	
+		delete rs;
+		delete stmt;
+	}
+	catch (sql::SQLException &	e)
+	{
+		cout << "ERROR: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
+	}
 }
 
 bool FileArchiver::Compare(std::string filename)
@@ -92,26 +92,26 @@ bool FileArchiver::Insert(std::string filename, std::string comment)
 
 VersionRec FileArchiver::GetVersionInfo(std::string filename)
 {
-  try
-  {
-  	// Run Query
-  	sql::Statement *stmt = dbcon->createStatement();;
-  	sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.comments");
-  	
-  	// Output Results
-  	while(rs->next())
-  		cout << rs->getString(1) << endl;
-  
-  	delete rs;
-  	delete stmt;
-  }
-  catch (sql::SQLException &	e)
-  {
-  	cout << "ERROR: " << endl;
-  	cout << e.what() << endl;
-  	cout << e.getErrorCode() << endl;
-  	cout << e.getSQLState() << endl;
-  }
+	try
+	{
+		// Run Query
+		sql::Statement *stmt = dbcon->createStatement();;
+		sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.comments");
+		
+		// Output Results
+		while(rs->next())
+			cout << rs->getString(1) << endl;
+	
+		delete rs;
+		delete stmt;
+	}
+	catch (sql::SQLException &	e)
+	{
+		cout << "ERROR: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
+	}
 }
 
 bool FileArchiver::Update(std::string filename)
@@ -121,50 +121,50 @@ bool FileArchiver::Update(std::string filename)
 
 VersionRec FileArchiver::GetLastVersionInfo(std::string filename)
 {
-  try
-  {
-  	// Run Query
-  	sql::Statement *stmt = dbcon->createStatement();;
-  	sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.comments");
-  	
-  	// Output Results
-  	while(rs->next())
-  		cout << rs->getString(1) << endl;
-  
-  	delete rs;
-  	delete stmt;
-  }
-  catch (sql::SQLException &	e)
-  {
-  	cout << "ERROR: " << endl;
-  	cout << e.what() << endl;
-  	cout << e.getErrorCode() << endl;
-  	cout << e.getSQLState() << endl;
-  }
+	try
+	{
+		// Run Query
+		sql::Statement *stmt = dbcon->createStatement();;
+		sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.comments");
+		
+		// Output Results
+		while(rs->next())
+			cout << rs->getString(1) << endl;
+	
+		delete rs;
+		delete stmt;
+	}
+	catch (sql::SQLException &	e)
+	{
+		cout << "ERROR: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
+	}
 }
 
 bool FileArchiver::RetrieveVersion(int versionnum, std::string filebname, std::string retrievedname)
 {
-  try
-  {
-  	// Run Query
-  	sql::Statement *stmt = dbcon->createStatement();;
-  	sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.comments");
-  	
-  	// Output Results
-  	while(rs->next())
-  		cout << rs->getString(1) << endl;
-  
-  	delete rs;
-  	delete stmt;
-  }
-  catch (sql::SQLException &	e)
-  {
-  	cout << "ERROR: " << endl;
-  	cout << e.what() << endl;
-  	cout << e.getErrorCode() << endl;
-  	cout << e.getSQLState() << endl;
-  }
+	try
+	{
+		// Run Query
+		sql::Statement *stmt = dbcon->createStatement();;
+		sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.comments");
+		
+		// Output Results
+		while(rs->next())
+			cout << rs->getString(1) << endl;
+	
+		delete rs;
+		delete stmt;
+	}
+	catch (sql::SQLException &	e)
+	{
+		cout << "ERROR: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
+	}
 }
 
 void FileArchiver::Close()
