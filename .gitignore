@@ -26,3 +26,5 @@
 *.exe
 *.out
 *.app
+/FileArchiver/dist/
+/FileArchiver/build/

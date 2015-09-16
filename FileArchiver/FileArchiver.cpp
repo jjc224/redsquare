@@ -11,44 +11,14 @@
 
 #include <string>
 #include "FileArchiver.h"
+#include "DBConnector.h"
 
 using namespace std;
 
 // Prepares connection
 FileArchiver::FileArchiver()
 {
-	// Get data for connection from file
-	string host;
-	string dbname;
-	string user;
-	string pw;
-
-	ifstream ins("db.txt");
-	getline(ins, dbname);
-	getline(ins, user);
-	getline(ins, pw);
-	getline(ins, host);
-	ins.close();	
-
-	host = decrypt(host);
-	dbname = decrypt(dbname);
-	user = decrypt(user);
-	pw = decrypt(pw);
-
-	// Connect to database
-	try
-	{	
-		driver = get_driver_instance();
-		dbcon = driver->connect(host, user, pw); 
-	}
-	catch (sql::SQLException &	e)
-	{
-		cout << "Initial Conection Failed: " << endl;
-		cout << e.what() << endl;
-		cout << e.getErrorCode() << endl;
-		cout << e.getSQLState() << endl;
-	}
-	
+    dbcon = DBConnector::GetConnection();
 }
 
 FileArchiver::~FileArchiver()

@@ -14,8 +14,8 @@ class FileArchiver
 {
 
 	protected:
-		sql::Connection *dbcon;
-		sql::Driver *driver;
+		sql::Connection* dbcon;
+		//sql::Driver* driver;
 
 	public:
 		FileArchiver();

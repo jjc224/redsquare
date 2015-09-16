@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>DBConnector.h</itemPath>
       <itemPath>FileArchiver.h</itemPath>
       <itemPath>FileRecord.h</itemPath>
       <itemPath>VersionRecord.h</itemPath>
@@ -16,6 +17,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>DBConfigurationFileUtility.cpp</itemPath>
+      <itemPath>DBConnector.cpp</itemPath>
       <itemPath>FileArchiver.cpp</itemPath>
       <itemPath>Makefile</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -45,7 +47,9 @@
       </qt>
       <compileType>
       </compileType>
-      <item path="DBConfigurationFileUtility.cpp" ex="false" tool="1" flavor2="0">
+      <item path="DBConnector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="DBConnector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FileArchiver.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -85,6 +89,10 @@
         </asmTool>
       </compileType>
       <item path="DBConfigurationFileUtility.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="DBConnector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="DBConnector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="FileArchiver.cpp" ex="false" tool="1" flavor2="0">
       </item>
