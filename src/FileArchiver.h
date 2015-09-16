@@ -20,7 +20,7 @@ class FileArchiver
 	public:
 		FileArchiver();
 		~FileArchiver();
-		bool Exitsts(std::string filename);
+		bool Exists(std::string filename);
 		bool Compare(std::string filename);
 		bool Insert(std::string filename, std::string comment);
 		VersionRec GetVersionInfo(std::string filename);

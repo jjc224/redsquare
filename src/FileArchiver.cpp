@@ -30,10 +30,10 @@ FileArchiver::FileArchiver()
 	getline(ins, host);
 	ins.close();	
 
-	host    = decrypt(host);
-	dbname    = decrypt(dbname);
-	user    = decrypt(user);
-	pw    = decrypt(pw);
+	host = decrypt(host);
+	dbname = decrypt(dbname);
+	user = decrypt(user);
+	pw = decrypt(pw);
 
   // Connect to database
 	try
@@ -56,7 +56,7 @@ FileArchiver::~FileArchiver()
   Close();
 }
 
-bool FileArchiver::Exitsts(std::string filename)
+bool FileArchiver::Exists(std::string filename)
 {
   try
   {
