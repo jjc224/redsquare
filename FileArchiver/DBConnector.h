@@ -8,14 +8,13 @@
 #ifndef DBCONNECTOR_H
 #define	DBCONNECTOR_H
 
-#include "mysql_connection.h"
-#include "mysql_driver.h"
+#include <mysql_connection.h>
+#include <mysql_driver.h>
 
 class DBConnector
 {
 public:
 	DBConnector();
-	DBConnector(const DBConnector& orig);
 	virtual ~DBConnector();
 	
 	static sql::Connection* GetConnection();

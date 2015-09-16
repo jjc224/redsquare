@@ -2,13 +2,15 @@
 // Author: Thomas Nixon
 
 
+#ifndef FILEARCHIVER_H
+#define FILEARCHIVER_H
+
 #include "mysql_connection.h"
 #include "mysql_driver.h"
 #include <string>
 
 
-class VersionRec;
-
+#include "VersionRecord.h"
 
 class FileArchiver
 {
@@ -23,10 +25,11 @@ class FileArchiver
 		bool Exists(std::string filename);
 		bool Compare(std::string filename);
 		bool Insert(std::string filename, std::string comment);
-		VersionRec GetVersionInfo(std::string filename);
+		VersionRecord GetVersionInfo(std::string filename);
 		bool Update(std::string filename);
-		VersionRec GetLastVersionInfo(std::string filename);
+		VersionRecord GetLastVersionInfo(std::string filename);
 		bool RetrieveVersion(int versionnum, std::string filebname, std::string retrievedname);
-		string decrypt(string s);
 		void Close();
 };
+
+#endif

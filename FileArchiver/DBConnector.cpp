@@ -6,16 +6,30 @@
  */
 
 #include <string>
+#include <fstream>
+
+#include <mysql_connection.h>
+#include <mysql_driver.h>
+
+#include <cppconn/driver.h>
+#include <cppconn/exception.h>
+#include <cppconn/resultset.h>
+#include <cppconn/statement.h>
 
 #include "DBConnector.h"
 
+
 using namespace std;
 
-DBConnector::DBConnector()
+string decrypt(string s)
 {
+	for (unsigned int i = 0; i < s.size(); i++)
+		s[i] = s[i] - 1 - i%2;
+
+	return s;
 }
 
-DBConnector::DBConnector(const DBConnector& orig)
+DBConnector::DBConnector()
 {
 }
 
@@ -52,7 +66,7 @@ sql::Connection* DBConnector::GetConnection()
 			driver = get_driver_instance();
 			dbcon = driver->connect(host, user, pw); 
 	}
-	catch (sql::SQLException &	e)
+	catch (sql::SQLException&	e)
 	{
 			cout << "Initial Conection Failed: " << endl;
 			cout << e.what() << endl;

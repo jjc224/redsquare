@@ -1,5 +1,9 @@
+
+#ifndef VERSIONRECORD_H
+#define VERSIONRECORD_H
+
 #include <string>
-class FileRecord
+class VersionRecord
 {
 public:
 	
@@ -13,3 +17,5 @@ protected:
 private:
 
 };
+
+#endif

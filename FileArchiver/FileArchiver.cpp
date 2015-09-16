@@ -12,6 +12,7 @@
 #include <string>
 #include "FileArchiver.h"
 #include "DBConnector.h"
+#include "VersionRecord.h"
 
 using namespace std;
 
@@ -48,19 +49,23 @@ bool FileArchiver::Exists(std::string filename)
 		cout << e.getErrorCode() << endl;
 		cout << e.getSQLState() << endl;
 	}
+	
+	
+	//TODO: return correct result
+	return false;
 }
 
 bool FileArchiver::Compare(std::string filename)
 {
-
+	return false;
 }
 
 bool FileArchiver::Insert(std::string filename, std::string comment)
 {
-
+	return false;
 }
 
-VersionRec FileArchiver::GetVersionInfo(std::string filename)
+VersionRecord FileArchiver::GetVersionInfo(std::string filename)
 {
 	try
 	{
@@ -86,10 +91,10 @@ VersionRec FileArchiver::GetVersionInfo(std::string filename)
 
 bool FileArchiver::Update(std::string filename)
 {
-
+	return false;
 }
 
-VersionRec FileArchiver::GetLastVersionInfo(std::string filename)
+VersionRecord FileArchiver::GetLastVersionInfo(std::string filename)
 {
 	try
 	{
@@ -143,10 +148,3 @@ void FileArchiver::Close()
 	delete dbcon;
 }
 
-string FileArchiver::decrypt(string s)
-{
-	for (int i = 0; i < s.size(); i++)
-		s[i] = s[i] - 1 - i%2;
-
-	return s;
-}

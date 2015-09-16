@@ -46,6 +46,11 @@
         <modules>core gui widgets</modules>
       </qt>
       <compileType>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="DBConnector.cpp" ex="false" tool="1" flavor2="0">
       </item>

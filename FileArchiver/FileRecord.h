@@ -1,4 +1,6 @@
 
+#ifndef FILERECORD_H
+
 #include <string>
 class FileRecord
 {
@@ -48,3 +50,5 @@ protected:
 	bool AddNewVersion(int FileLength, const char* FileBuffer, int LastModifiedTime);
 private:
 };
+
+#endif
