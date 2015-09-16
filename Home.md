@@ -15,6 +15,7 @@ Wild characters work here
 `git add *.cpp *.h`
 ### Committing
 Since git is a distributed VCS, you need to commit your changes to your repository, then push it to the main repository.
+
 `git commit -m "Put a comment here about what you've changed"`
 
 `git push origin master`
