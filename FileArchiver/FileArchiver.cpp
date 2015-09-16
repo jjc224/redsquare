@@ -19,7 +19,7 @@ using namespace std;
 // Prepares connection
 FileArchiver::FileArchiver()
 {
-    dbcon = DBConnector::GetConnection();
+	dbcon = DBConnector::GetConnection();
 }
 
 FileArchiver::~FileArchiver()

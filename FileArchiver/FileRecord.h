@@ -1,5 +1,6 @@
 
 #ifndef FILERECORD_H
+#define FILERECORD_H
 
 #include <string>
 class FileRecord
