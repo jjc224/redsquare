@@ -29,7 +29,6 @@ class FileArchiver
 		bool Update(std::string filename);
 		VersionRecord GetLastVersionInfo(std::string filename);
 		bool RetrieveVersion(int versionnum, std::string filebname, std::string retrievedname);
-                char* GetDataFromFile(std::string filename, int &length);
 		void Close();
 };
 
