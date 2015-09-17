@@ -228,7 +228,7 @@ void FileArchiver::Close()
 char* FileArchiver::GetDataFromFile(string filename, int &length)
 {
     // Prepare variables
-    char* data = 0;
+    char* data = 0; 
     length = 0;
     
     // read file in

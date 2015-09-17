@@ -27,7 +27,7 @@ class FileArchiver
 		bool Insert(std::string filename, std::string comment);
 		VersionRecord GetVersionInfo(std::string filename);
 		bool Update(std::string filename);
-		VersionRecord GetLastVersionInfo(std::string filename);
+		VersionRecord GetLastVersionInfo(std::string filename); 
 		bool RetrieveVersion(int versionnum, std::string filebname, std::string retrievedname);
                 char* GetDataFromFile(std::string filename, int &length);
 		void Close();
