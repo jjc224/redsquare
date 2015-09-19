@@ -18,6 +18,8 @@ public:
 	bool CreateFile(std::string filename);
 	
 	VersionRecord GetVersion(unsigned int versionID);
+	
+	void PurgeOldVersions(int numberOfVersionsToKeep);
 
 	//caller is responsible for releasing memory
 	char* GetVersionData(unsigned int versionID);

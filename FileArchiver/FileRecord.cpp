@@ -10,6 +10,8 @@
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
 
+#include <boost/filesystem.hpp>
+
 #include "DBConnector.h"
 
 using namespace std;
@@ -48,16 +50,24 @@ FileRecord::FileRecord(std::string filename)
 
 bool FileRecord::CreateFile(string filename)
 {
+	//TODO: logic
 	return false;
 }
 
 VersionRecord FileRecord::GetVersion(unsigned int versionID)
 {
+	//TODO: add logic
 	return VersionRecord();
+}
+
+void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
+{
+	//TODO: add logic
 }
 
 char* FileRecord::GetVersionData(unsigned int versionID)
 {
+	//TODO: add logic
 	return NULL;
 }
 

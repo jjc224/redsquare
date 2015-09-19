@@ -53,6 +53,8 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
