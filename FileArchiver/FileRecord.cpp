@@ -16,21 +16,65 @@ using namespace std;
 
 FileRecord::FileRecord()
 {
+	Init();
+}
+
+void FileRecord::Init()
+{
 	dbcon = DBConnector::GetConnection();
 
 	// Initialise protected members for return in case for some reason they weren't later on (see member functions).
 	Filename            = "";
-	CurrentVersionHash  = -1;
-	OriginalVersionHash = -1;
-	CurrentRevision     = -1;
-	OriginalLength      = -1;
-	CurrentLength       = -1;
-	ModifiedTime        = -1;
+	CurrentVersionHash  = 0;
+	OriginalVersionHash = 0;
+	CurrentRevision     = 0;
+	OriginalLength      = 0;
+	CurrentLength       = 0;
+	ModifiedTime        = 0;
+
+	bIsValid = false;
 }
 
 FileRecord::~FileRecord()
 {
 	dbcon->close();
+}
+
+FileRecord::FileRecord(std::string filename)
+{
+	Init();
+	RetrieveFileRecordFromDB(filename);
+}
+
+bool FileRecord::CreateFile(string filename)
+{
+	return false;
+}
+
+VersionRecord FileRecord::GetVersion(unsigned int versionID)
+{
+	return VersionRecord();
+}
+
+char* FileRecord::GetVersionData(unsigned int versionID)
+{
+	return NULL;
+}
+
+int FileRecord::GetNumberOfVersions()
+{
+	return 0;
+}
+
+int FileRecord::GetCurrentVersionID()
+{
+	return 0;
+}
+
+//Ensures there is a valid corresponding record in the database
+bool FileRecord::IsValid()
+{
+	return bIsValid;
 }
 
 bool FileRecord::GetVersionFileContents(int RequestedVersionNumber, char* OutFileBuffer, int BufferLength)
@@ -41,11 +85,6 @@ bool FileRecord::GetVersionFileContents(int RequestedVersionNumber, char* OutFil
 bool FileRecord::GetVersionFileContents(int RequestedVersionNumber, char* OutFileBuffer, int BufferLength, int& OutVersionLength)
 {
 	return false;
-}
-
-int GetNumberOfVersions()
-{
-	
 }
 
 std::string FileRecord::GetFilename()
@@ -80,7 +119,6 @@ bool FileRecord::AddNewVersion(string NewFileVersionPath)
 	}
 	
 	ins.seekg(0, ios::end);
-	
 	int fileLength = ins.tellg();
 	
 	char* fileData = new char[fileLength];
@@ -107,9 +145,21 @@ bool FileRecord::AddNewVersion(int FileLength, const char* FileBuffer, int LastM
 	return true;
 }
 
+bool FileRecord::IsChanged()
+{
+	//TODO: add logic here
+	return true;
+}
+
 unsigned int FileRecord::GetHashOfFileBuffer(int FileLength, const char* FileBuffer)
 {
 	uint32_t out;
 	MurmurHash3_x86_32(FileBuffer, FileLength, 10000, &out);
 	return out;
+}
+
+bool FileRecord::RetrieveFileRecordFromDB(string filename)
+{
+	//TODO: Add code to retrieve record from DB
+	return bIsValid;
 }

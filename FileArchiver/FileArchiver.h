@@ -50,7 +50,7 @@ class FileArchiver
 		std::vector<std::string> GetFileNames();
 		
 		// Detect all file changes and return the ones that have changed
-		std::vector<FileRecord> DetectChangesRecords();
+		std::vector<FileRecord> DetectChangedRecords();
 		
 //		void Close();		
 //		bool Compare(std::string pathFilename);

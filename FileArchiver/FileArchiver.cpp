@@ -38,7 +38,8 @@ FileArchiver::~FileArchiver()
 // Checks if a file exists already
 bool FileArchiver::Exists(std::string filename)
 {
-    
+    FileRecord myFile(filename);
+    return myFile.IsValid();
 }
 
 // Gets a file record for a filename
@@ -66,21 +67,33 @@ bool FileArchiver::AddVersion(std::string filename)
 }
 
 // Returns all the files in the database as a vector
-std::vector<FileRecord> FileArchiver::GetFiles()
+vector<FileRecord> FileArchiver::GetFiles()
 {
     
 }
 
 // Returns all the filename stored in the database
-std::vector<std::string> FileArchiver::GetFileNames()
+vector<std::string> FileArchiver::GetFileNames()
 {
     
 }
 
 // Detect all file changes and return the ones that have changed
-std::vector<FileRecord> FileArchiver::DetectChangesRecords()
+vector<FileRecord> FileArchiver::DetectChangedRecords()
 {
-    
+    vector<FileRecord> records = GetFiles();
+    vector<FileRecord> changed;
+
+    for(int i = 0; i < records.size(); i++)
+    {
+        FileRecord& myFile = records[i];
+        if(myFile.IsValid() && myFile.IsChanged())
+        {
+            changed.push_back(myFile);
+        }
+    }
+
+    return changed;
 }
 
 
