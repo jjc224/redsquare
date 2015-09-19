@@ -5,11 +5,27 @@
 #include <string>
 #include "DBConnector.h"
 
+#include "VersionRecord.h"
+
 class FileRecord
 {
 public:
 	FileRecord();
 	~FileRecord();
+
+	//Creates the file record on the data 
+	bool CreateFile();
+	
+	VersionRecord& GetVersion(unsigned int versionID);
+
+	char* GetVersionData(unsigned int versionID);
+
+	// Returns the number of versions this file has
+	int GetNumberOfVersions();
+
+	int GetCurrentVersionID();
+
+	bool IsValid();
 
 	// Gets the contents of a requested version number
 	// Outputs the data into a supplied file buffer
@@ -19,10 +35,7 @@ public:
 
 	// Same as previous definition, also outputs the length of the requested version in bytes to the supplied integer
 	bool GetVersionFileContents(int RequestedVersionNumber, char* OutFileBuffer, int BufferLength, int& OutVersionLength);
-
-	// Returns the number of versions this file has
-	int GetNumberOfVersions();
-
+	
 	// Gets the full file path
 	std::string GetFilename();
 
@@ -38,6 +51,7 @@ public:
 	// Friendly function for adding a new file version
 	// Returns false if the version has not changed
 	bool AddNewVersion(std::string NewFileVersionPath);
+	bool AddNewVersion(char* filedata, unsigned int length);
 
 protected:
 	// The full path name of the file
@@ -68,10 +82,10 @@ protected:
 	// Will fail if the hash of the filebuffer data is the same as the current version hash
 	bool AddNewVersion(int FileLength, const char* FileBuffer, int LastModifiedTime);
         
-        //uses murmur3 to get a 32 bit hash of the full file
-        unsigned int GetHashOfFileBuffer(int FileLength, const char* FileBuffer);
+    //uses murmur3 to get a 32 bit hash of the full file
+    unsigned int GetHashOfFileBuffer(int FileLength, const char* FileBuffer);
         
-        sql::Connection* dbcon;
+    sql::Connection* dbcon;
 };
 
 #endif
