@@ -5,30 +5,39 @@
 class VersionRecord
 {
 public:
+	
+	// Constructor
 	VersionRecord();
+	
+	// Destructor
 	~VersionRecord();
+	
 	//public accessor and mutator (get/set) functions for the most of private data members
-	void SetVersionIdentifier();
-	unsigned int GetVersionIdentifier(); 
+	void SetVersionId();
+	
+	// Returns the id of a version
+	unsigned int GetVersionId(); 
 
-	void SetVersionNumber();
+	// Returns the version number
 	unsigned int GetVersionNumber();
 
-	void SetLength();
-	unsigned int GetLength(); 
+	// Returns the size 
+	unsigned int GetSize(); 
 
-	void SetOverallHash();
-	unsigned int GetOverallHash(); 
+	// Returns the hash of the 
+	unsigned int GetHash(); 
+	
 	//public members for transfer of record to/from persistent storage - the function signatures will depend on the persistance mechanism that is chosen
-	bool CreateVersion(char * datastream, unsigned int length, VersionRecord &previousVersion);
-        unsigned int GetBlockHash();
-        std::string GetComment();
-        char * GetFileData();
-        bool IsValid();
-        int GetNumBlocks();
-        
+	bool CreateVersion(std::string pathFilename);
+	
+	// Returns the comment on the version
+	std::string GetComment();
+	
+	// Returns true if the data in Version is usable
+	bool IsValid();
+	 
 protected:
-	//The version indentifier - generated primary key
+	//The version identifier - generated primary key
 	unsigned int VersionIdentifier;
 	//The version number of this version
 	unsigned int VersionNumber;
@@ -36,7 +45,10 @@ protected:
 	unsigned int Length;
 	//the has of the entire version of the file
 	unsigned int OverallHash;
-	 
+	
+	// Returns 
+	unsigned int GetBlockHash();
+	
 private:
 
 };

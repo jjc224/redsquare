@@ -13,46 +13,66 @@ VersionRecord::~VersionRecord()
 
 }
 
-void VersionRecord::SetVersionIdentifier()
+unsigned int VersionRecord::GetVersionId()
 {
 
 }
 
-unsigned int VersionRecord::GetVersionIdentifier()
-{
-
-}
-
-void VersionRecord::SetVersionNumber()
-{
-
-}
 unsigned int VersionRecord::GetVersionNumber()
 {
 
 }
 
-void VersionRecord::SetLength()
-{
-
-}
-
-unsigned int VersionRecord::GetLength()
+unsigned int VersionRecord::GetSize()
 {
 
 } 
 
-void VersionRecord::SetOverallHash()
-{
-
-}
-unsigned int VersionRecord::GetOverallHash()
+unsigned int VersionRecord::GetHash()
 {
 
 } 
 
-bool VersionRecord::CreateVersion(char * datastream, unsigned int length, VersionRecord &previousVersion)
+bool VersionRecord::CreateVersion(string pathFilename)
 {
+    // Generate hash on disk
+    
+    // If hash exists
+    
+        // don't create and return false
+    
+    // Else
+    
+        // Create Version record in db
+    
+        // Open File
+
+        // Get Block
+
+        // Hash 1
+
+        // Hash 2
+
+        // Query DB Hash 1 in table Blocks
+
+        // If hash 1 already exists
+
+            // Query DB Hash 2 in table Blocks
+
+            // If hash 2 already exists
+
+                // Use existing block
+
+            // Else
+
+                // Create a new block
+
+        // Else
+
+            // Create new block
+    
+    
+    
     
 }
 
@@ -65,17 +85,7 @@ std::string VersionRecord::GetComment()
 
 }
 
-char * VersionRecord::GetFileData()
-{
-    
-}
-
 bool VersionRecord::IsValid()
-{
-    
-}
-
-int VersionRecord::GetNumBlocks()
 {
     
 }
