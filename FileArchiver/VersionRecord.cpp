@@ -13,42 +13,69 @@ VersionRecord::~VersionRecord()
 
 }
 
-void VersionRecord::setVersionIdentifier()
+void VersionRecord::SetVersionIdentifier()
 {
 
 }
 
-unsigned int VersionRecord::getVersionIdentifier()
+unsigned int VersionRecord::GetVersionIdentifier()
 {
 
 }
 
-void VersionRecord::setVersionNumber()
+void VersionRecord::SetVersionNumber()
 {
 
 }
-unsigned int VersionRecord::getVersionNumber()
-{
-
-}
-
-void VersionRecord::setLength()
+unsigned int VersionRecord::GetVersionNumber()
 {
 
 }
 
-unsigned int VersionRecord::getLength()
+void VersionRecord::SetLength()
+{
+
+}
+
+unsigned int VersionRecord::GetLength()
 {
 
 } 
 
-void VersionRecord::setHash()
+void VersionRecord::SetOverallHash()
 {
 
 }
-unsigned int VersionRecord::getHash()
+unsigned int VersionRecord::GetOverallHash()
 {
 
 } 
 
+bool VersionRecord::CreateVersion(char * datastream, unsigned int length, VersionRecord &previousVersion)
+{
+    
+}
 
+unsigned int VersionRecord::GetBlockHash()
+{
+    
+}
+std::string VersionRecord::GetComment()
+{
+
+}
+
+char * VersionRecord::GetFileData()
+{
+    
+}
+
+bool VersionRecord::IsValid()
+{
+    
+}
+
+int VersionRecord::GetNumBlocks()
+{
+    
+}

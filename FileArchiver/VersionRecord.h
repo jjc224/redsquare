@@ -17,7 +17,7 @@ public:
 	void setLength();
 	unsigned int GetLength(); 
 
-	void setHash();
+	void SetOverallHash();
 	unsigned int GetOverallHash(); 
 	//public members for transfer of record to/from persistent storage - the function signatures will depend on the persistance mechanism that is chosen
 	bool CreateVersion(char * datastream, unsigned int length, VersionRecord &previousVersion);
