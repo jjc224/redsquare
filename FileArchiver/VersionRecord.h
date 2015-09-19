@@ -8,13 +8,13 @@ public:
 	VersionRecord();
 	~VersionRecord();
 	//public accessor and mutator (get/set) functions for the most of private data members
-	void GetVersionIdentifier();
+	void SetVersionIdentifier();
 	unsigned int GetVersionIdentifier(); 
 
 	void SetVersionNumber();
 	unsigned int GetVersionNumber();
 
-	void setLength();
+	void SetLength();
 	unsigned int GetLength(); 
 
 	void SetOverallHash();
@@ -36,10 +36,7 @@ protected:
 	unsigned int Length;
 	//the has of the entire version of the file
 	unsigned int OverallHash;
-	//collection of records for the blocks that characterize how this version differs from the last saved version;
-	//each record will have a block number, a hash, a length, and a byte array (the compressed data for the file block);
-	//these data may be "simple" elements in seperate collections, or may be defined as a struct type in a collection of structs
-	//--->missing that variable 
+	 
 private:
 
 };
