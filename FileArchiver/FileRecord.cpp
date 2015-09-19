@@ -13,6 +13,7 @@
 #include <boost/filesystem.hpp>
 
 #include "DBConnector.h"
+#include "ProjectConstants.h"
 
 using namespace std;
 
@@ -157,7 +158,23 @@ bool FileRecord::AddNewVersion(int FileLength, const char* FileBuffer, int LastM
 
 bool FileRecord::IsChanged()
 {
-	//TODO: add logic here
+	if(IsValid() == false)
+	{
+		return false;
+	}
+	
+	if(boost::filesystem::exists(Filename) == false)
+	{
+		return false;
+	}
+	
+	unsigned int fileHash;
+	MurmurHash3_x86_32_FromFile(Filename, MURMUR_SEED_1, &fileHash);
+	
+	if(fileHash == CurrentVersionHash)
+	{
+		return false;
+	}
 	return true;
 }
 

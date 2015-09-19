@@ -8,6 +8,7 @@
       <itemPath>FileArchiver.h</itemPath>
       <itemPath>FileRecord.h</itemPath>
       <itemPath>MurmurHash3.h</itemPath>
+      <itemPath>ProjectConstants.h</itemPath>
       <itemPath>VersionRecord.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -76,6 +77,8 @@
       </item>
       <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="ProjectConstants.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="VersionRecord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="VersionRecord.h" ex="false" tool="3" flavor2="0">
@@ -126,6 +129,8 @@
       <item path="MurmurHash3.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ProjectConstants.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="VersionRecord.cpp" ex="false" tool="1" flavor2="0">
       </item>
