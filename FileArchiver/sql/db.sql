@@ -33,5 +33,7 @@ create table Block (
 	hash1 int(11),
 	hash2 int(11),
 	data mediumblob,
-	primary key (id)
+	primary key (id),
+	index(hash1),
+	index(hash2)
 );
