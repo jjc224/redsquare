@@ -7,20 +7,26 @@ class VersionRecord
 public:
 	VersionRecord();
 	~VersionRecord();
-	//public accessor and mutator (get/set) functions for the most of private data memebers
-	void setVersionIdentifier();
-	unsigned int getVersionIdentifier(); 
+	//public accessor and mutator (get/set) functions for the most of private data members
+	void GetVersionIdentifier();
+	unsigned int GetVersionIdentifier(); 
 
-	void setVersionNumber();
-	unsigned int getVersionNumber();
+	void SetVersionNumber();
+	unsigned int GetVersionNumber();
 
 	void setLength();
-	unsigned int getLength(); 
+	unsigned int GetLength(); 
 
 	void setHash();
-	unsigned int getHash(); 
+	unsigned int GetOverallHash(); 
 	//public members for transfer of record to/from persistent storage - the function signatures will depend on the persistance mechanism that is chosen
-	
+	bool CreateVersion(char * datastream, unsigned int length, VersionRecord &previousVersion);
+        unsigned int GetBlockHash();
+        std::string GetComment();
+        char * GetFileData();
+        bool IsValid();
+        int GetNumBlocks();
+        
 protected:
 	//The version indentifier - generated primary key
 	unsigned int VersionIdentifier;
