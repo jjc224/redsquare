@@ -1,5 +1,5 @@
 create table File (
-	filename varchar(255),
+	filename varchar(767),
 	curhash int(11),
 	curversion int(11),
 	numversions int(11),
