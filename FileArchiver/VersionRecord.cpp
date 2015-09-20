@@ -116,19 +116,19 @@ bool VersionRecord::CreateVersion(string pathFilename)
                 {
                     // Use existing block
                     sql::Statement *stmt = dbcon->createStatement();
-                    bool bSuccess = sql::ResultSet *rs = stmt->executeQuery("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                    bool bSuccess = stmt->executeQuery("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                     delete stmt;
                 }
                 else
                 {
                     // Create a new block
                     sql::Statement *stmt = dbcon->createStatement();
-                    bool bSuccess = sql::ResultSet *rs = stmt->executeQuery("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + block + ")");
+                    bool bSuccess = stmt->executeQuery("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
                     delete stmt;                  
                     
                     // Link block with VtoB
-                    sql::Statement *stmt = dbcon->createStatement();
-                    bool bSuccess = sql::ResultSet *rs = stmt->executeQuery("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                    stmt = dbcon->createStatement();
+                    bSuccess = stmt->executeQuery("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                     delete stmt;
                 }
             }
@@ -136,12 +136,12 @@ bool VersionRecord::CreateVersion(string pathFilename)
             {
                 // Create a new block
                 sql::Statement *stmt = dbcon->createStatement();
-                bool bSuccess = sql::ResultSet *rs = stmt->executeQuery("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + block + ")");
+                bool bSuccess = stmt->executeQuery("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
                 delete stmt;                  
 
                 // Link block with VtoB
-                sql::Statement *stmt = dbcon->createStatement();
-                bool bSuccess = sql::ResultSet *rs = stmt->executeQuery("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                stmt = dbcon->createStatement();
+                bSuccess = stmt->executeQuery("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                 delete stmt;
             }
         }
