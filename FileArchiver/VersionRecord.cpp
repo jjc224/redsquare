@@ -22,11 +22,28 @@ using namespace std;
 
 VersionRecord::VersionRecord()
 {
-    dbcon = DBConnector::GetConnection();
+    Init();
 }
 VersionRecord::~VersionRecord()
 {
     dbcon->close();
+}
+
+// Constructor
+VersionRecord::VersionRecord(std::string filename, unsigned int versionNumber)
+{
+	Init();
+	RetrieveVersionRecordFromDB(filename, versionNumber);
+}
+
+void VersionRecord::Init()
+{
+	dbcon = DBConnector::GetConnection();
+}
+
+bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned int versionNumber)
+{
+	//TODO: retrieve record from DB and mark record as valid on success
 }
 
 unsigned int VersionRecord::GetVersionId()

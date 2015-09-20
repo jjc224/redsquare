@@ -8,6 +8,9 @@ public:
 	
 	// Constructor
 	VersionRecord();
+        
+        // Constructor
+	VersionRecord(std::string filename, unsigned int versionNumber);
 	
 	// Destructor
 	~VersionRecord();
@@ -36,6 +39,10 @@ public:
 	bool GetFileData(std::string fileOutPath);
 	 
 protected:
+        //retrieves the record information from the database
+	bool RetrieveVersionRecordFromDB(std::string inFilename, unsigned int versionNumber);
+        void Init();
+    
 	//The version identifier - generated primary key
 	unsigned int VersionId;
 	//The version number of this version
