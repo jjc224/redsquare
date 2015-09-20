@@ -3,6 +3,7 @@
 #define FILERECORD_H
 
 #include <string>
+#include <vector>
 #include "DBConnector.h"
 
 #include "VersionRecord.h"
@@ -18,33 +19,30 @@ public:
 	bool CreateFile(std::string filename);
 	
 	VersionRecord GetVersion(unsigned int versionID);
+        
+        std::vector<VersionRecord> GetAllVersions();
 	
 	void PurgeOldVersions(int numberOfVersionsToKeep);
 
 	// Returns the number of versions this file has
 	int GetNumberOfVersions();
 
-
-	int GetCurrentVersionID();
+	unsigned int GetCurrentVersionID();
 
 	//Ensures there is a valid corresponding record in the database
 	bool IsValid();
 
-	bool GetVersionFileContents(int requestedVersionNumber, std::string fileOutPath);
+	bool GetVersionFileContents(int versionNumber, std::string fileOutPath);
 
 	// Gets the full file path
 	std::string GetFilename();
 
 	// Gets the length of a specific version of the file
-	int GetVersionLength(int requestedVersionNumber);
-
-	// Gets the primary id of the file
-	int GetFileID();
+	unsigned int GetVersionSize(int versionNumber);
 	
 	// Friendly function for adding a new file version
 	// Returns false if the version has not changed
 	bool AddNewVersion(std::string NewFileVersionPath);
-	bool AddNewVersion(int FileLength, const char* FileBuffer, int LastModifiedTime);
 
 	//returns true if the file on disk has been modified
 	//returns false if the file is the same

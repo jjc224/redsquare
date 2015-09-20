@@ -58,6 +58,11 @@ VersionRecord FileRecord::GetVersion(unsigned int versionID)
 	return VersionRecord();
 }
 
+vector<VersionRecord> FileRecord::GetAllVersions()
+{
+	return vector<VersionRecord>();
+}
+
 void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
 {
 	//TODO: add logic
@@ -66,11 +71,6 @@ void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
 int FileRecord::GetNumberOfVersions()
 {
     return NumberOfVersions;
-}
-
-int FileRecord::GetCurrentVersionID()
-{
-	return 0;
 }
 
 //Ensures there is a valid corresponding record in the database
@@ -94,16 +94,12 @@ std::string FileRecord::GetFilename()
 	return Filename;
 }
 
-int FileRecord::GetVersionLength(int RequestedVersionNumber)
+unsigned int FileRecord::GetVersionSize(int versionNumber)
 {
 	//TODO: Add logic
-	return RequestedVersionNumber;
+	return versionNumber;
 }
 
-int FileRecord::GetFileID()
-{
-	return FileID;
-}
 
 bool FileRecord::AddNewVersion(string NewFileVersionPath)
 {
@@ -120,26 +116,14 @@ bool FileRecord::AddNewVersion(string NewFileVersionPath)
 	
 	char* fileData = new char[fileLength];
 	
+	bool bSuccess = false;
 	//TODO: Get the last modified time of the file from the filesystem
-	bool bSuccess = AddNewVersion(fileLength, fileData, 0);
+	//bool bSuccess = AddNewVersion(fileLength, fileData, 0);
 	
 	delete [] fileData;
 	fileData = NULL;
 	
 	return bSuccess;
-}
-
-bool FileRecord::AddNewVersion(int FileLength, const char* FileBuffer, int LastModifiedTime)
-{
-	unsigned int newHash = GetHashOfFileBuffer(FileLength, FileBuffer);
-	if(newHash == CurrentVersionHash)
-	{
-		return false;
-	}
-	
-	//TODO:Add version logic
-	
-	return true;
 }
 
 bool FileRecord::IsChanged()
