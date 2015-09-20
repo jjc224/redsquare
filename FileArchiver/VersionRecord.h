@@ -42,7 +42,7 @@ protected:
 	//The version number of this version
 	unsigned int VersionNumber;
 	//the length of this version in bytes
-	unsigned int Length;
+	unsigned int Size;
 	//the has of the entire version of the file
 	unsigned int OverallHash;
 	
