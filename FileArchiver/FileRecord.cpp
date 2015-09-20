@@ -90,22 +90,7 @@ bool FileRecord::CreateFile(string filename)
 			bSuccess = IsValid();
 		}
 		
-		//Add new version
-		VersionRecord newVersion;
-		if(bSuccess)
-		{
-			VersionRecord newVersion;
-			bSuccess = newVersion.CreateVersion(Filename);
-		}
-		
-		//Update version details
-		if(bSuccess)
-		{
-			NumberOfVersions += 1;
-			CurrentVersion = newVersion.GetVersionNumber();
-			CurrentVersionHash = newVersion.GetHash();
-			bSuccess = UpdateRecordInDB();
-		}
+		bSuccess = AddNewVersion(Filename);
     }
     catch (sql::SQLException &e)
     {
@@ -164,7 +149,7 @@ bool FileRecord::UpdateRecordInDB()
 	return bSuccess;
 }
 
-VersionRecord FileRecord::GetVersion(unsigned int versionID)
+VersionRecord FileRecord::GetVersion(unsigned int versionNum)
 {
 	//TODO: add logic
 	return VersionRecord();
@@ -215,25 +200,22 @@ unsigned int FileRecord::GetVersionSize(int versionNumber)
 
 bool FileRecord::AddNewVersion(string NewFileVersionPath)
 {
-	ifstream ins(NewFileVersionPath.c_str());
-	
-	if(ins.is_open() == false)
+	bool bSuccess = true;
+	//Add new version
+	VersionRecord newVersion;
+	if(bSuccess)
 	{
-		//could not open the file
-		return false;
+		bSuccess = newVersion.CreateVersion(Filename);
 	}
-	
-	ins.seekg(0, ios::end);
-	int fileLength = ins.tellg();
-	
-	char* fileData = new char[fileLength];
-	
-	bool bSuccess = false;
-	//TODO: Get the last modified time of the file from the filesystem
-	//bool bSuccess = AddNewVersion(fileLength, fileData, 0);
-	
-	delete [] fileData;
-	fileData = NULL;
+
+	//Update version details
+	if(bSuccess)
+	{
+		NumberOfVersions += 1;
+		CurrentVersion = newVersion.GetVersionNumber();
+		CurrentVersionHash = newVersion.GetHash();
+		bSuccess = UpdateRecordInDB();
+	}
 	
 	return bSuccess;
 }
