@@ -70,11 +70,11 @@ bool FileRecord::CreateFile(string filename)
 			//filename
 			sqlstatement += "\"" + filename + "\"" + ", ";
 			//curhash
-			sqlstatement += boost::lexical_cast<string>(0) + ", ";
+			sqlstatement += boost::lexical_cast<string>(CurrentVersionHash) + ", ";
 			//curversion
-			sqlstatement += boost::lexical_cast<string>(0) + ", ";
+			sqlstatement += boost::lexical_cast<string>(CurrentVersion) + ", ";
 			//numversions
-			sqlstatement += boost::lexical_cast<string>(0);
+			sqlstatement += boost::lexical_cast<string>(NumberOfVersions);
 			//end of statement
 			sqlstatement += ");";
 			
@@ -90,7 +90,10 @@ bool FileRecord::CreateFile(string filename)
 			bSuccess = IsValid();
 		}
 		
-		bSuccess = AddNewVersion(Filename);
+		if(bSuccess)
+		{
+			bSuccess = AddNewVersion(Filename);
+		}
     }
     catch (sql::SQLException &e)
     {
@@ -201,11 +204,23 @@ unsigned int FileRecord::GetVersionSize(int versionNumber)
 bool FileRecord::AddNewVersion(string NewFileVersionPath)
 {
 	bool bSuccess = true;
+	
+	//get hash of file
+	unsigned int newHash;
+	MurmurHash3_x86_32_FromFile(NewFileVersionPath, MURMUR_SEED_1, &newHash);
+	
+	//fail if hash matches existing
+	if(NumberOfVersions > 0 && CurrentVersionHash == newHash)
+	{
+		log("New version hash is no different. File is unchanged");
+		bSuccess = false;
+	}
+	
 	//Add new version
 	VersionRecord newVersion;
 	if(bSuccess)
 	{
-		bSuccess = newVersion.CreateVersion(Filename);
+		bSuccess = newVersion.CreateVersion(Filename, CurrentVersion + 1, newHash);
 	}
 
 	//Update version details

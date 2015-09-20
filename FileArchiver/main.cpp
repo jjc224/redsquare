@@ -22,11 +22,20 @@ int main(int argc, char *argv[]) {
 	bool bSuccess = newFile.CreateFile("MurmurHash3.cpp");
 	
 	string logMessage = "The result was: ";
-	logMessage += bSuccess;
+	if(bSuccess)
+	{
+		logMessage += "Success!";
+	}
+	else
+	{
+		logMessage += "The nixon snake has failed";
+	}
 	
 	log(logMessage);
 
 	// create and show your widgets here
 
-	return app.exec();
+	//return app.exec();
+	
+	return 0;
 }
