@@ -31,6 +31,7 @@ void FileRecord::Init()
 	// Initialise protected members for return in case for some reason they weren't later on (see member functions).
 	Filename            = "";
 	CurrentVersionHash  = 0;
+	CurrentVersion = 0;
 	NumberOfVersions    = 0;
 	ModifiedTime        = 0;
 
@@ -80,18 +81,23 @@ bool FileRecord::CreateFile(string filename)
 			
 			log(sqlstatement);
 			
-			bSuccess = stmt->execute(sqlstatement);
+			bSuccess = stmt->executeUpdate(sqlstatement);
+			dbcon->commit();
 		}
+		
+		
 		
 		//retrieve record from DB
 		if(bSuccess)
 		{
+			log("Retrieving record from db");
 			RetrieveFileRecordFromDB(filename);
 			bSuccess = IsValid();
 		}
 		
 		if(bSuccess)
 		{
+			log("Adding new version");
 			bSuccess = AddNewVersion(Filename);
 		}
     }
@@ -137,7 +143,7 @@ bool FileRecord::UpdateRecordInDB()
 			
 			log(sqlstatement);
 			
-			bSuccess = stmt->execute(sqlstatement);
+			bSuccess = stmt->executeUpdate(sqlstatement);
 		}
     }
     catch (sql::SQLException &e)
