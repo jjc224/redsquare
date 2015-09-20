@@ -209,12 +209,16 @@ bool FileRecord::AddNewVersion(string NewFileVersionPath)
 	unsigned int newHash;
 	MurmurHash3_x86_32_FromFile(NewFileVersionPath, MURMUR_SEED_1, &newHash);
 	
+	log("Hash generated");
+	
 	//fail if hash matches existing
 	if(NumberOfVersions > 0 && CurrentVersionHash == newHash)
 	{
 		log("New version hash is no different. File is unchanged");
 		bSuccess = false;
 	}
+	
+	log("Adding new version");
 	
 	//Add new version
 	VersionRecord newVersion;
@@ -226,6 +230,7 @@ bool FileRecord::AddNewVersion(string NewFileVersionPath)
 	//Update version details
 	if(bSuccess)
 	{
+		log("New version added");
 		NumberOfVersions += 1;
 		CurrentVersion = newVersion.GetVersionNumber();
 		CurrentVersionHash = newVersion.GetHash();
