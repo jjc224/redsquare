@@ -48,10 +48,41 @@ unsigned int VersionRecord::GetHash()
 
 } 
 
-bool VersionRecord::CreateVersion(string pathFilename)
+bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersion, unsigned int newHash)
 {
-    // Checking for existing version has already occurred.
     
+    // Create a new version
+    try 
+    {
+        sql::Statement *stmt = dbcon->createStatement();
+        bool bNewVersionMade = stmt->executeQuery("insert into redsquare.Version(filename, version, hash) values (" + boost::lexical_cast<string>(pathFilename) + ", " + boost::lexical_cast<string>(currentVersion) + ", " + boost::lexical_cast<string>(newHash) + ")");
+        delete stmt;
+        if (bNewVersionMade == false)
+            return false;
+    }
+    catch (sql::SQLException &e)
+    {
+        cout << "ERROR: " << endl;
+        cout << e.what() << endl;
+        cout << e.getErrorCode() << endl;
+        cout << e.getSQLState() << endl;
+    } 
+    
+
+    
+//    id int(11) not null auto_increment,
+//    filename varchar(255),
+//    size int(11),
+//    time int(11),
+//    filemodtime int(11),
+//    //comment mediumtext,
+//    version int(11),
+//    hash int(11),
+//    
+ 
+            
+            
+            
     // Open File
     ifstream ins(pathFilename.c_str());
     
@@ -85,7 +116,7 @@ bool VersionRecord::CreateVersion(string pathFilename)
 
             // Run Query
             sql::Statement *stmt = dbcon->createStatement();
-            sql::ResultSet *rs = stmt->executeQuery("select id from Block where hash1 = " + boost::lexical_cast<string>(hash1));
+            sql::ResultSet *rs = stmt->executeQuery("select id from redsquare.Block where hash1 = " + boost::lexical_cast<string>(hash1));
 
             // Output Results
             while(rs->next())
@@ -102,7 +133,7 @@ bool VersionRecord::CreateVersion(string pathFilename)
                 
                 // Run Query
                 sql::Statement *stmt = dbcon->createStatement();
-                sql::ResultSet *rs = stmt->executeQuery("select id from Block where hash2 = " + boost::lexical_cast<string>(hash2) + " and id = " + boost::lexical_cast<string>(blockId));
+                sql::ResultSet *rs = stmt->executeQuery("select id from redsquare.Block where hash2 = " + boost::lexical_cast<string>(hash2) + " and id = " + boost::lexical_cast<string>(blockId));
 
                 // Output Results
                 while(rs->next())
@@ -116,19 +147,19 @@ bool VersionRecord::CreateVersion(string pathFilename)
                 {
                     // Use existing block
                     sql::Statement *stmt = dbcon->createStatement();
-                    bool bSuccess = stmt->executeQuery("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                    bool bSuccess = stmt->executeQuery("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                     delete stmt;
                 }
                 else
                 {
                     // Create a new block
                     sql::Statement *stmt = dbcon->createStatement();
-                    bool bSuccess = stmt->executeQuery("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
+                    bool bSuccess = stmt->executeQuery("insert into redsquare.Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
                     delete stmt;                  
                     
                     // Link block with VtoB
                     stmt = dbcon->createStatement();
-                    bSuccess = stmt->executeQuery("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                    bSuccess = stmt->executeQuery("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                     delete stmt;
                 }
             }
@@ -136,12 +167,12 @@ bool VersionRecord::CreateVersion(string pathFilename)
             {
                 // Create a new block
                 sql::Statement *stmt = dbcon->createStatement();
-                bool bSuccess = stmt->executeQuery("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
+                bool bSuccess = stmt->executeQuery("insert into redsquare.Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
                 delete stmt;                  
 
                 // Link block with VtoB
                 stmt = dbcon->createStatement();
-                bSuccess = stmt->executeQuery("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                bSuccess = stmt->executeQuery("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                 delete stmt;
             }
         }
@@ -153,6 +184,7 @@ bool VersionRecord::CreateVersion(string pathFilename)
         cout << e.getErrorCode() << endl;
         cout << e.getSQLState() << endl;
     }
+    
 }
 
 unsigned int VersionRecord::GetBlockHash()
