@@ -40,13 +40,15 @@ public:
 	 
 protected:
 	//The version identifier - generated primary key
-	unsigned int VersionIdentifier;
+	unsigned int VersionId;
 	//The version number of this version
 	unsigned int VersionNumber;
 	//the length of this version in bytes
 	unsigned int Size;
 	//the has of the entire version of the file
 	unsigned int OverallHash;
+	//database connection
+	sql::Connection* dbcon;
 	
 	// Returns 
 	unsigned int GetBlockHash();
