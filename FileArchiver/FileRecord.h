@@ -50,8 +50,12 @@ public:
 	bool IsChanged();
 
 protected:
+        //retrieves the record information from the database
 	bool RetrieveFileRecordFromDB(std::string inFilename);
+        //called by constructors to perform common functionality
 	void Init();
+        //updates the FileRecord in the database;
+        bool UpdateRecordInDB();
 
 	// The full path name of the file
 	std::string Filename;

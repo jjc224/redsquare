@@ -15,6 +15,8 @@
 #include "DBConnector.h"
 #include "ProjectConstants.h"
 
+#include <boost/lexical_cast.hpp>
+
 using namespace std;
 
 FileRecord::FileRecord()
@@ -48,8 +50,118 @@ FileRecord::FileRecord(std::string filename)
 
 bool FileRecord::CreateFile(string filename)
 {
-	//TODO: logic
-	return false;
+	sql::Statement *stmt = dbcon->createStatement();
+	bool bSuccess = true;
+	
+	if(stmt == NULL)
+	{
+		//failed to get a connection to the database
+		bSuccess = false;
+	}
+
+	bIsValid = false;
+    try
+    {   
+		//create file record
+		if(bSuccess)
+		{
+			//beginning of statement
+			string sqlstatement = "insert into redsquare.File(filename, curhash, curversion, numversions) values(";
+			//filename
+			sqlstatement += "\"" + filename + "\"" + ", ";
+			//curhash
+			sqlstatement += string(0) + ", ";
+			//curversion
+			sqlstatement += string(0) + ", ";
+			//numversions
+			sqlstatement += string(0);
+			//end of statement
+			sqlstatement += ");";
+			
+			log(sqlstatement);
+			
+			bSuccess = stmt->execute(sqlstatement);
+		}
+		
+		//retrieve record from DB
+		if(bSuccess)
+		{
+			RetrieveFileRecordFromDB(filename);
+			bSuccess = IsValid();
+		}
+		
+		//Add new version
+		VersionRecord newVersion;
+		if(bSuccess)
+		{
+			VersionRecord newVersion;
+			bSuccess = newVersion.CreateVersion(Filename);
+		}
+		
+		//Update version details
+		if(bSuccess)
+		{
+			NumberOfVersions += 1;
+			CurrentVersion = newVersion.GetVersionNumber();
+			CurrentVersionHash = newVersion.GetHash();
+			bSuccess = UpdateRecordInDB();
+		}
+    }
+    catch (sql::SQLException &e)
+    {
+        cout << "ERROR: " << endl;
+        cout << e.what() << endl;
+        cout << e.getErrorCode() << endl;
+        cout << e.getSQLState() << endl;
+    }
+	
+	delete stmt;
+	return bSuccess;
+}
+
+bool FileRecord::UpdateRecordInDB()
+{
+	sql::Statement *stmt = dbcon->createStatement();
+	bool bSuccess = true;
+	
+	if(stmt == NULL)
+	{
+		//failed to get a connection to the database
+		bSuccess = false;
+	}
+
+	bIsValid = false;
+    try
+    {   
+		//create file record
+		if(bSuccess)
+		{
+			//beginning of statement
+			string sqlstatement = "update redsquare.File set ";
+			//curhash
+			sqlstatement += "curhash = " + boost::lexical_cast<string>(CurrentVersionHash) + ", ";
+			//curversion
+			sqlstatement += "curversion = " + boost::lexical_cast<string>(CurrentVersion) + ", ";
+			//numversions
+			sqlstatement += "numversions = " + boost::lexical_cast<string>(NumberOfVersions);
+			//end of statement
+			sqlstatement += " where filename = \"" + Filename + "\";";
+			
+			log(sqlstatement);
+			
+			bSuccess = stmt->execute(sqlstatement);
+		}
+    }
+    catch (sql::SQLException &e)
+    {
+        cout << "ERROR: " << endl;
+        cout << e.what() << endl;
+        cout << e.getErrorCode() << endl;
+        cout << e.getSQLState() << endl;
+    }
+	
+	delete stmt;
+	return bSuccess;
 }
 
 VersionRecord FileRecord::GetVersion(unsigned int versionID)
