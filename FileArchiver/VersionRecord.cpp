@@ -92,9 +92,9 @@ bool VersionRecord::IsValid()
 
 bool VersionRecord::GetFileData(std::string fileOutPath)
 {
-	if(IsValid())
-	{
-		//TODO: do logic here
-	}
-	return false;
+    if(IsValid())
+    {
+        //TODO: do logic here
+    }
+    return false;
 }

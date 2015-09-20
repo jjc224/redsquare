@@ -12,6 +12,7 @@
 
 const int MURMUR_SEED_1 = 23455;
 const int MURMUR_SEED_2 = 2086235969;
+const int FILENAME_LENGTH(767);
 
 #endif	/* PROJECTCONSTANTS_H */
 
