@@ -8,7 +8,7 @@ create table File (
 
 create table Version (
 	id int(11) not null auto_increment,
-	filename varchar(255),
+	filename varchar(767),
 	size int(11),
 	time int(11),
 	filemodtime int(11),
