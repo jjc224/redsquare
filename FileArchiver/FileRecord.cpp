@@ -15,6 +15,8 @@
 #include "DBConnector.h"
 #include "ProjectConstants.h"
 
+#include <boost/lexical_cast.hpp>
+
 using namespace std;
 
 FileRecord::FileRecord()
@@ -48,14 +50,129 @@ FileRecord::FileRecord(std::string filename)
 
 bool FileRecord::CreateFile(string filename)
 {
-	//TODO: logic
-	return false;
+	sql::Statement *stmt = dbcon->createStatement();
+	bool bSuccess = true;
+	
+	if(stmt == NULL)
+	{
+		//failed to get a connection to the database
+		bSuccess = false;
+	}
+
+	bIsValid = false;
+    try
+    {   
+		//create file record
+		if(bSuccess)
+		{
+			//beginning of statement
+			string sqlstatement = "insert into redsquare.File(filename, curhash, curversion, numversions) values(";
+			//filename
+			sqlstatement += "\"" + filename + "\"" + ", ";
+			//curhash
+			sqlstatement += string(0) + ", ";
+			//curversion
+			sqlstatement += string(0) + ", ";
+			//numversions
+			sqlstatement += string(0);
+			//end of statement
+			sqlstatement += ");";
+			
+			log(sqlstatement);
+			
+			bSuccess = stmt->execute(sqlstatement);
+		}
+		
+		//retrieve record from DB
+		if(bSuccess)
+		{
+			RetrieveFileRecordFromDB(filename);
+			bSuccess = IsValid();
+		}
+		
+		//Add new version
+		VersionRecord newVersion;
+		if(bSuccess)
+		{
+			VersionRecord newVersion;
+			bSuccess = newVersion.CreateVersion(Filename);
+		}
+		
+		//Update version details
+		if(bSuccess)
+		{
+			NumberOfVersions += 1;
+			CurrentVersion = newVersion.GetVersionNumber();
+			CurrentVersionHash = newVersion.GetHash();
+			bSuccess = UpdateRecordInDB();
+		}
+    }
+    catch (sql::SQLException &e)
+    {
+        cout << "ERROR: " << endl;
+        cout << e.what() << endl;
+        cout << e.getErrorCode() << endl;
+        cout << e.getSQLState() << endl;
+    }
+	
+	delete stmt;
+	return bSuccess;
+}
+
+bool FileRecord::UpdateRecordInDB()
+{
+	sql::Statement *stmt = dbcon->createStatement();
+	bool bSuccess = true;
+	
+	if(stmt == NULL)
+	{
+		//failed to get a connection to the database
+		bSuccess = false;
+	}
+
+	bIsValid = false;
+    try
+    {   
+		//create file record
+		if(bSuccess)
+		{
+			//beginning of statement
+			string sqlstatement = "update redsquare.File set ";
+			//curhash
+			sqlstatement += "curhash = " + boost::lexical_cast<string>(CurrentVersionHash) + ", ";
+			//curversion
+			sqlstatement += "curversion = " + boost::lexical_cast<string>(CurrentVersion) + ", ";
+			//numversions
+			sqlstatement += "numversions = " + boost::lexical_cast<string>(NumberOfVersions);
+			//end of statement
+			sqlstatement += " where filename = \"" + Filename + "\";";
+			
+			log(sqlstatement);
+			
+			bSuccess = stmt->execute(sqlstatement);
+		}
+    }
+    catch (sql::SQLException &e)
+    {
+        cout << "ERROR: " << endl;
+        cout << e.what() << endl;
+        cout << e.getErrorCode() << endl;
+        cout << e.getSQLState() << endl;
+    }
+	
+	delete stmt;
+	return bSuccess;
 }
 
 VersionRecord FileRecord::GetVersion(unsigned int versionID)
 {
 	//TODO: add logic
 	return VersionRecord();
+}
+
+vector<VersionRecord> FileRecord::GetAllVersions()
+{
+	return vector<VersionRecord>();
 }
 
 void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
@@ -66,11 +183,6 @@ void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
 int FileRecord::GetNumberOfVersions()
 {
     return NumberOfVersions;
-}
-
-int FileRecord::GetCurrentVersionID()
-{
-	return 0;
 }
 
 //Ensures there is a valid corresponding record in the database
@@ -94,16 +206,12 @@ std::string FileRecord::GetFilename()
 	return Filename;
 }
 
-int FileRecord::GetVersionLength(int RequestedVersionNumber)
+unsigned int FileRecord::GetVersionSize(int versionNumber)
 {
 	//TODO: Add logic
-	return RequestedVersionNumber;
+	return versionNumber;
 }
 
-int FileRecord::GetFileID()
-{
-	return FileID;
-}
 
 bool FileRecord::AddNewVersion(string NewFileVersionPath)
 {
@@ -120,26 +228,14 @@ bool FileRecord::AddNewVersion(string NewFileVersionPath)
 	
 	char* fileData = new char[fileLength];
 	
+	bool bSuccess = false;
 	//TODO: Get the last modified time of the file from the filesystem
-	bool bSuccess = AddNewVersion(fileLength, fileData, 0);
+	//bool bSuccess = AddNewVersion(fileLength, fileData, 0);
 	
 	delete [] fileData;
 	fileData = NULL;
 	
 	return bSuccess;
-}
-
-bool FileRecord::AddNewVersion(int FileLength, const char* FileBuffer, int LastModifiedTime)
-{
-	unsigned int newHash = GetHashOfFileBuffer(FileLength, FileBuffer);
-	if(newHash == CurrentVersionHash)
-	{
-		return false;
-	}
-	
-	//TODO:Add version logic
-	
-	return true;
 }
 
 bool FileRecord::IsChanged()

@@ -12,9 +12,6 @@ public:
 	// Destructor
 	~VersionRecord();
 	
-	//public accessor and mutator (get/set) functions for the most of private data members
-	void SetVersionId();
-	
 	// Returns the id of a version
 	unsigned int GetVersionId(); 
 
