@@ -29,10 +29,7 @@ void FileRecord::Init()
 	// Initialise protected members for return in case for some reason they weren't later on (see member functions).
 	Filename            = "";
 	CurrentVersionHash  = 0;
-	OriginalVersionHash = 0;
-	CurrentRevision     = 0;
-	OriginalLength      = 0;
-	CurrentLength       = 0;
+	NumberOfVersions    = 0;
 	ModifiedTime        = 0;
 
 	bIsValid = false;
@@ -66,15 +63,9 @@ void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
 	//TODO: add logic
 }
 
-char* FileRecord::GetVersionData(unsigned int versionID)
-{
-	//TODO: add logic
-	return NULL;
-}
-
 int FileRecord::GetNumberOfVersions()
 {
-	return 0;
+    return NumberOfVersions;
 }
 
 int FileRecord::GetCurrentVersionID()
@@ -88,24 +79,19 @@ bool FileRecord::IsValid()
 	return bIsValid;
 }
 
-bool FileRecord::GetVersionFileContents(int RequestedVersionNumber, char* OutFileBuffer, int BufferLength)
+bool FileRecord::GetVersionFileContents(int requestedVersionNumber, string fileOutPath)
 {
-	return false;
-}
-
-bool FileRecord::GetVersionFileContents(int RequestedVersionNumber, char* OutFileBuffer, int BufferLength, int& OutVersionLength)
-{
+	VersionRecord requestedVersion = GetVersion(requestedVersionNumber);
+	if(requestedVersion.IsValid())
+	{
+		return requestedVersion.GetFileData(fileOutPath);
+	}
 	return false;
 }
 
 std::string FileRecord::GetFilename()
 {
 	return Filename;
-}
-
-int FileRecord::GetCurrentLength()
-{
-	return CurrentLength;
 }
 
 int FileRecord::GetVersionLength(int RequestedVersionNumber)
@@ -185,8 +171,35 @@ unsigned int FileRecord::GetHashOfFileBuffer(int FileLength, const char* FileBuf
 	return out;
 }
 
-bool FileRecord::RetrieveFileRecordFromDB(string filename)
+bool FileRecord::RetrieveFileRecordFromDB(string inFilename)
 {
-	//TODO: Add code to retrieve record from DB
+	bIsValid = false;
+    try
+    {
+        // Run Query
+        sql::Statement *stmt = dbcon->createStatement();
+        sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.File where filename = '" + inFilename + "'");
+
+        // Output Results
+        while(rs->next())
+		{
+			//count = rs->getInt(1);
+			Filename = rs->getString("filename");
+			CurrentVersionHash = rs->getInt("curhash");
+			CurrentVersion = rs->getInt("curversion");
+			NumberOfVersions = rs->getInt("numversions");
+			bIsValid = true;
+		}
+
+        delete rs;
+        delete stmt;
+    }
+    catch (sql::SQLException &e)
+    {
+        cout << "ERROR: " << endl;
+        cout << e.what() << endl;
+        cout << e.getErrorCode() << endl;
+        cout << e.getSQLState() << endl;
+    }
 	return bIsValid;
 }

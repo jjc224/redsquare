@@ -35,6 +35,8 @@ public:
 	
 	// Returns true if the data in Version is usable
 	bool IsValid();
+        
+        bool GetFileData(std::string fileOutPath);
 	 
 protected:
 	//The version identifier - generated primary key

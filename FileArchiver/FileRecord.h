@@ -21,9 +21,6 @@ public:
 	
 	void PurgeOldVersions(int numberOfVersionsToKeep);
 
-	//caller is responsible for releasing memory
-	char* GetVersionData(unsigned int versionID);
-
 	// Returns the number of versions this file has
 	int GetNumberOfVersions();
 
@@ -33,23 +30,13 @@ public:
 	//Ensures there is a valid corresponding record in the database
 	bool IsValid();
 
-	// Gets the contents of a requested version number
-	// Outputs the data into a supplied file buffer
-	// Will not succeed if the buffer length is not large enough
-	// Returns the success or failure of the retrieval
-	bool GetVersionFileContents(int RequestedVersionNumber, char* OutFileBuffer, int BufferLength);
+	bool GetVersionFileContents(int requestedVersionNumber, std::string fileOutPath);
 
-	// Same as previous definition, also outputs the length of the requested version in bytes to the supplied integer
-	bool GetVersionFileContents(int RequestedVersionNumber, char* OutFileBuffer, int BufferLength, int& OutVersionLength);
-	
 	// Gets the full file path
 	std::string GetFilename();
 
-	// Returns the length in bytes of the current file version
-	int GetCurrentLength();
-
 	// Gets the length of a specific version of the file
-	int GetVersionLength(int RequestedVersionNumber);
+	int GetVersionLength(int requestedVersionNumber);
 
 	// Gets the primary id of the file
 	int GetFileID();
@@ -65,7 +52,7 @@ public:
 	bool IsChanged();
 
 protected:
-	bool RetrieveFileRecordFromDB(std::string filename);
+	bool RetrieveFileRecordFromDB(std::string inFilename);
 	void Init();
 
 	// The full path name of the file
@@ -74,17 +61,11 @@ protected:
 	// The hash of the current version of the file
 	unsigned int CurrentVersionHash;
 
-	// The hash of the original version of the file
-	unsigned int OriginalVersionHash;
-
 	// The current revision number
-	unsigned int CurrentRevision;
-
-	// The length of the original version of the file in bytes
-	unsigned int OriginalLength;
-
-	// The length of the current version of the file in bytes
-	unsigned int CurrentLength;
+	unsigned int CurrentVersion;
+        
+        // the number of versions this file has had
+        unsigned int NumberOfVersions;
 
 	// The last modified time of the file
 	int ModifiedTime;
