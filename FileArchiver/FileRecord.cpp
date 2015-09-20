@@ -70,11 +70,11 @@ bool FileRecord::CreateFile(string filename)
 			//filename
 			sqlstatement += "\"" + filename + "\"" + ", ";
 			//curhash
-			sqlstatement += string(0) + ", ";
+			sqlstatement += boost::lexical_cast<string>(0) + ", ";
 			//curversion
-			sqlstatement += string(0) + ", ";
+			sqlstatement += boost::lexical_cast<string>(0) + ", ";
 			//numversions
-			sqlstatement += string(0);
+			sqlstatement += boost::lexical_cast<string>(0);
 			//end of statement
 			sqlstatement += ");";
 			
