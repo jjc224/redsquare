@@ -10,6 +10,9 @@
 #include "FileRecord.h"
 
 #include <string>
+
+#include "TestUtilities.h"
+
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -18,20 +21,7 @@ int main(int argc, char *argv[]) {
 
 	QApplication app(argc, argv);
 	
-	FileRecord newFile;
-	bool bSuccess = newFile.CreateFile("MurmurHash3.cpp");
-	
-	string logMessage = "The result was: ";
-	if(bSuccess)
-	{
-		logMessage += "Success!";
-	}
-	else
-	{
-		logMessage += "The nixon snake has failed";
-	}
-	
-	log(logMessage);
+	RunTestCommitFileOneVersion();
 
 	// create and show your widgets here
 
