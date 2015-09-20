@@ -18,7 +18,7 @@ public:
 	//Creates the file record on the data 
 	bool CreateFile(std::string filename);
 	
-	VersionRecord GetVersion(unsigned int versionID);
+	VersionRecord GetVersion(unsigned int versionNum);
         
         std::vector<VersionRecord> GetAllVersions();
 	
