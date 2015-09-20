@@ -210,18 +210,26 @@ unsigned int FileRecord::GetVersionSize(int versionNumber)
 bool FileRecord::AddNewVersion(string NewFileVersionPath)
 {
 	bool bSuccess = true;
-	
-	//get hash of file
 	unsigned int newHash;
-	MurmurHash3_x86_32_FromFile(NewFileVersionPath, MURMUR_SEED_1, &newHash);
 	
-	log("Hash generated");
-	
-	//fail if hash matches existing
-	if(NumberOfVersions > 0 && CurrentVersionHash == newHash)
+	if(boost::filesystem::exists(Filename) == false)
 	{
-		log("New version hash is no different. File is unchanged");
+		log("ERROR: File does not exist");
 		bSuccess = false;
+	}
+	
+	if(bSuccess)
+	{
+		MurmurHash3_x86_32_FromFile(NewFileVersionPath, MURMUR_SEED_1, &newHash);
+		
+		log("Hash generated");
+	
+		//fail if hash matches existing
+		if(NumberOfVersions > 0 && CurrentVersionHash == newHash)
+		{
+			log("New version hash is no different. File is unchanged");
+			bSuccess = false;
+		}
 	}
 	
 	log("Adding new version");
