@@ -24,7 +24,9 @@ using namespace std;
 string decrypt(string s)
 {
 	for (unsigned int i = 0; i < s.size(); i++)
+	{
 		s[i] = s[i] - 1 - i%2;
+	}
 
 	return s;
 }
@@ -60,22 +62,23 @@ sql::Connection* DBConnector::GetConnection()
 	user = decrypt(user);
 	pw = decrypt(pw);
 
-        cout << "host: " << host << endl;
-        cout << "user: " << user << endl;
-        cout << "pw: " << pw << endl;
-        
+	cout << "host: " << host << endl;
+	cout << "user: " << user << endl;
+	cout << "pw: " << pw << endl;
+		
 	// Connect to database
 	try
 	{
-            driver = get_driver_instance();
-            dbcon = driver->connect(host, user, pw); 
+		driver = get_driver_instance();
+		dbcon = driver->connect(host, user, pw); 
+		dbcon->setSchema("redsquare");
 	}
 	catch (sql::SQLException&	e)
 	{
-            cout << "DBConnector Failed To Connect: " << endl;
-            cout << e.what() << endl;
-            cout << e.getErrorCode() << endl;
-            cout << e.getSQLState() << endl;
+		cout << "DBConnector Failed To Connect: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
 	}
 	
 	return dbcon;

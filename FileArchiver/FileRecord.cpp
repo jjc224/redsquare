@@ -61,13 +61,13 @@ bool FileRecord::CreateFile(string filename)
 	}
 
 	bIsValid = false;
-    try
-    {   
+	try
+	{   
 		//create file record
 		if(bSuccess)
 		{
 			//beginning of statement
-			string sqlstatement = "insert into redsquare.File(filename, curhash, curversion, numversions) values(";
+			string sqlstatement = "insert into File(filename, curhash, curversion, numversions) values(";
 			//filename
 			sqlstatement += "\"" + filename + "\"" + ", ";
 			//curhash
@@ -100,14 +100,14 @@ bool FileRecord::CreateFile(string filename)
 			log("Adding new version");
 			bSuccess = AddNewVersion(Filename);
 		}
-    }
-    catch (sql::SQLException &e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }
+	}
+	catch (sql::SQLException &e)
+	{
+		cout << "ERROR: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
+	}
 	
 	delete stmt;
 	return bSuccess;
@@ -124,14 +124,18 @@ bool FileRecord::UpdateRecordInDB()
 		bSuccess = false;
 	}
 
-	bIsValid = false;
-    try
-    {   
+	if(IsValid() == false)
+	{
+		bSuccess = false;
+	}
+		
+	try
+	{   
 		//create file record
 		if(bSuccess)
 		{
 			//beginning of statement
-			string sqlstatement = "update redsquare.File set ";
+			string sqlstatement = "update File set ";
 			//curhash
 			sqlstatement += "curhash = " + boost::lexical_cast<string>(CurrentVersionHash) + ", ";
 			//curversion
@@ -145,14 +149,14 @@ bool FileRecord::UpdateRecordInDB()
 			
 			bSuccess = stmt->executeUpdate(sqlstatement);
 		}
-    }
-    catch (sql::SQLException &e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }
+	}
+	catch (sql::SQLException &e)
+	{
+		cout << "ERROR: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
+	}
 	
 	delete stmt;
 	return bSuccess;
@@ -176,7 +180,7 @@ void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
 
 int FileRecord::GetNumberOfVersions()
 {
-    return NumberOfVersions;
+	return NumberOfVersions;
 }
 
 //Ensures there is a valid corresponding record in the database
@@ -286,14 +290,14 @@ unsigned int FileRecord::GetHashOfFileBuffer(int FileLength, const char* FileBuf
 bool FileRecord::RetrieveFileRecordFromDB(string inFilename)
 {
 	bIsValid = false;
-    try
-    {
-        // Run Query
-        sql::Statement *stmt = dbcon->createStatement();
-        sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.File where filename = '" + inFilename + "'");
+	try
+	{
+		// Run Query
+		sql::Statement *stmt = dbcon->createStatement();
+		sql::ResultSet *rs = stmt->executeQuery("select * from File where filename = '" + inFilename + "'");
 
-        // Output Results
-        while(rs->next())
+		// Output Results
+		while(rs->next())
 		{
 			//count = rs->getInt(1);
 			Filename = rs->getString("filename");
@@ -303,15 +307,15 @@ bool FileRecord::RetrieveFileRecordFromDB(string inFilename)
 			bIsValid = true;
 		}
 
-        delete rs;
-        delete stmt;
-    }
-    catch (sql::SQLException &e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }
+		delete rs;
+		delete stmt;
+	}
+	catch (sql::SQLException &e)
+	{
+		cout << "ERROR: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
+	}
 	return bIsValid;
 }

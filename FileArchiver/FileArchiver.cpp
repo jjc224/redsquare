@@ -26,74 +26,74 @@ using namespace std;
 // Constructor
 FileArchiver::FileArchiver()
 {
-    
+	
 }
 
 // Destructor
 FileArchiver::~FileArchiver()
 {
-    
+	
 }
 
 // Checks if a file exists already
 bool FileArchiver::Exists(std::string filename)
 {
-    FileRecord myFile(filename);
-    return myFile.IsValid();
+	FileRecord myFile(filename);
+	return myFile.IsValid();
 }
 
 // Gets a file record for a filename
 FileRecord FileArchiver::GetFile(std::string filename)
 {
-    
+	
 }
 
 // Returns the number of versions on a file
 int FileArchiver::GetNumVersions(std::string filename)
 {
-    
+	
 }
 
 // Adds a new file to the database
 bool FileArchiver::AddFile(std::string filename)
 {
-    
+	
 }
 
 // Adds a new version to a file in the database
 bool FileArchiver::AddVersion(std::string filename)
 {
-    
+	
 }
 
 // Returns all the files in the database as a vector
 vector<FileRecord> FileArchiver::GetFiles()
 {
-    
+	
 }
 
 // Returns all the filename stored in the database
 vector<std::string> FileArchiver::GetFileNames()
 {
-    
+	
 }
 
 // Detect all file changes and return the ones that have changed
 vector<FileRecord> FileArchiver::DetectChangedRecords()
 {
-    vector<FileRecord> records = GetFiles();
-    vector<FileRecord> changed;
+	vector<FileRecord> records = GetFiles();
+	vector<FileRecord> changed;
 
-    for(unsigned int i = 0; i < records.size(); i++)
-    {
-        FileRecord& myFile = records[i];
-        if(myFile.IsValid() && myFile.IsChanged())
-        {
-            changed.push_back(myFile);
-        }
-    }
+	for(unsigned int i = 0; i < records.size(); i++)
+	{
+		FileRecord& myFile = records[i];
+		if(myFile.IsValid() && myFile.IsChanged())
+		{
+			changed.push_back(myFile);
+		}
+	}
 
-    return changed;
+	return changed;
 }
 
 
