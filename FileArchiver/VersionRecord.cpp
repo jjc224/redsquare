@@ -18,7 +18,20 @@
 #include "MurmurHash3.h"
 #include "boost/lexical_cast.hpp"
 
+#include <streambuf>
+#include <istream>
+
 using namespace std;
+
+//this struct is copied from this forum post:
+// http://stackoverflow.com/a/7782037
+struct membuf : std::streambuf
+{
+	membuf(char* begin, char* end)
+	{
+		this->setg(begin, begin, end);
+	}
+};
 
 VersionRecord::VersionRecord()
 {
@@ -278,7 +291,11 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 						sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into Block(hash1, hash2, data) values (?,?,?)");
 						pstmt->setInt(1,hash1);
 						pstmt->setInt(2,hash2);
-						pstmt->setString(3,block);
+						//pstmt->setString(3,block);
+						
+						membuf sbuf(block, block + 8000);
+						istream in(&sbuf);
+						pstmt->setBlob(3, &in);
 						//sql::Statement *stmt = dbcon->createStatement();
 						//bool bSuccess = stmt->executeUpdate("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
 						delete pstmt;
@@ -336,7 +353,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 						string sqlstatement = "insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")";
 						log(sqlstatement);
 						bSuccess = stmt->executeUpdate(sqlstatement);
-						bSuccess = stmt->executeUpdate("commit");
+						stmt->executeUpdate("commit");
 						dbcon->commit();
 					}
 

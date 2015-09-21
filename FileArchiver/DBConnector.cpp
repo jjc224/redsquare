@@ -81,6 +81,6 @@ sql::Connection* DBConnector::GetConnection()
 		cout << e.getSQLState() << endl;
 	}
 	
-	dbcon->setTransactionIsolation(sql::TRANSACTION_READ_UNCOMMITTED);
+	//dbcon->setTransactionIsolation(sql::TRANSACTION_READ_UNCOMMITTED);
 	return dbcon;
 }
