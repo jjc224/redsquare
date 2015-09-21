@@ -101,3 +101,12 @@ void RunTestCommitFileOneVersion()
 	CreateTables();
 	CommitFileWithOneVersion("MurmurHash3.cpp");
 }
+
+void RunTestCommitFileOneVersionRetrieve()
+{
+	DropTables();
+	CreateTables();
+	CommitFileWithOneVersion("MurmurHash3.cpp");
+	VersionRecord newRec("MurmurHash3.cpp", 1);
+	newRec.GetFileData("MurmurHash3.cpp.out");
+}

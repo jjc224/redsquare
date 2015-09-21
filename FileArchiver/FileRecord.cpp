@@ -309,7 +309,9 @@ bool FileRecord::RetrieveFileRecordFromDB(string inFilename)
 		}
 
 		delete rs;
+		rs = NULL;
 		delete stmt;
+		stmt = NULL;
 	}
 	catch (sql::SQLException &e)
 	{

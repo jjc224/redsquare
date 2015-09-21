@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 
 	QApplication app(argc, argv);
 	
-	RunTestCommitFileOneVersion();
+	RunTestCommitFileOneVersionRetrieve();
 
 	// create and show your widgets here
 

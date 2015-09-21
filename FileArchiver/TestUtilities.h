@@ -22,6 +22,7 @@ bool ExecuteUpdateStatement(sql::Connection* dbcon, std::string sqlstatement);
 void CommitFileWithOneVersion(std::string path);
 
 void RunTestCommitFileOneVersion();
+void RunTestCommitFileOneVersionRetrieve();
 
 #endif	/* TESTUTILITIES_H */
 

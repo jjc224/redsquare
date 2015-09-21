@@ -411,6 +411,8 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 unsigned int VersionRecord::GetBlockHash()
 {
 	//TODO: add logic
+	
+	//TODO: is this even needed?
 	return 0;
 }
 
@@ -426,10 +428,57 @@ bool VersionRecord::IsValid()
 
 bool VersionRecord::GetFileData(std::string fileOutPath)
 {
-	if(IsValid())
+	bool bSuccess = IsValid();
+	sql::Statement *stmt = dbcon->createStatement();
+	
+	if(stmt == NULL)
 	{
-		//TODO: do logic here
-		fileOutPath.size();
+		//failed to get a connection to the database
+		bSuccess = false;
 	}
-	return false;
+	
+	try
+	{   
+		//create file record
+		if(bSuccess)
+		{
+			string sqlstatement = "select blockid from VtoB where versionid = " + boost::lexical_cast<string>(VersionID) + " order by versionindex ASC";
+			
+			log(sqlstatement);
+			
+			sql::ResultSet *rs = stmt->executeQuery(sqlstatement);
+			
+			int blocksRetrieved = 0;
+			while(rs->next())
+			{
+				blocksRetrieved++;
+				log("retrieved block");
+				
+				//for all block records, fetch block, write to disk
+			}
+			
+			if(blocksRetrieved == 0)
+			{
+				bSuccess = false;
+			}
+			
+			delete rs;
+			rs = NULL;
+		}
+		
+		
+	}
+	catch (sql::SQLException &e)
+	{
+		cout << "ERROR: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
+		bSuccess = false;
+	}
+	
+	
+	delete stmt;
+	stmt = NULL;
+	return bSuccess;
 }
