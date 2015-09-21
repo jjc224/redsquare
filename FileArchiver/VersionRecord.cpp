@@ -437,6 +437,14 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 		bSuccess = false;
 	}
 	
+	ofstream outFile(fileOutPath.c_str());
+	
+	if(outFile.is_open() == false)
+	{
+		log("Unable to open file to write on disk");
+		bSuccess = false;
+	}
+	
 	try
 	{   
 		//create file record
@@ -449,12 +457,29 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 			sql::ResultSet *rs = stmt->executeQuery(sqlstatement);
 			
 			int blocksRetrieved = 0;
-			while(rs->next())
+			while(rs->next() && bSuccess)
 			{
 				blocksRetrieved++;
 				log("retrieved block");
 				
+				int blockid = rs->getInt("blockid");
+				
 				//for all block records, fetch block, write to disk
+				string blockretsql = "select data from Block where id = " + boost::lexical_cast<string>(blockid);
+				sql::ResultSet *rs2 = stmt->executeQuery(blockretsql);
+				
+				if(rs2->next())
+				{
+					istream data = rs2->getBlob("data");
+					//TODO: transfer from data istream to outFile ofstream
+				}
+				else
+				{
+					bSuccess = false;
+				}
+				
+				delete rs2;
+				rs2 = NULL;
 			}
 			
 			if(blocksRetrieved == 0)
