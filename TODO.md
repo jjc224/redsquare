@@ -19,3 +19,4 @@
 * add unit testing for adding second version
 * add unit testing for generating random files and committing
 * Check support for adding a second version works
+* Check that added version matches extracted version (retrieve and then hash it)
