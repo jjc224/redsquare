@@ -67,7 +67,7 @@ bool FileRecord::CreateFile(string filename)
 		if(bSuccess)
 		{
 			//beginning of statement
-			string sqlstatement = "insert into redsquare.File(filename, curhash, curversion, numversions) values(";
+			string sqlstatement = "insert into File(filename, curhash, curversion, numversions) values(";
 			//filename
 			sqlstatement += "\"" + filename + "\"" + ", ";
 			//curhash
@@ -135,7 +135,7 @@ bool FileRecord::UpdateRecordInDB()
 		if(bSuccess)
 		{
 			//beginning of statement
-			string sqlstatement = "update redsquare.File set ";
+			string sqlstatement = "update File set ";
 			//curhash
 			sqlstatement += "curhash = " + boost::lexical_cast<string>(CurrentVersionHash) + ", ";
 			//curversion
@@ -294,7 +294,7 @@ bool FileRecord::RetrieveFileRecordFromDB(string inFilename)
     {
         // Run Query
         sql::Statement *stmt = dbcon->createStatement();
-        sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.File where filename = '" + inFilename + "'");
+        sql::ResultSet *rs = stmt->executeQuery("select * from File where filename = '" + inFilename + "'");
 
         // Output Results
         while(rs->next())

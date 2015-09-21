@@ -14,25 +14,28 @@ using namespace std;
 
 void DropTables()
 {
-	ExecuteSQLFile("sql\\DropTables.sql");
+	ExecuteSQLFile("sql/DropTables.sql");
 }
 void CreateTables()
 {
-	ExecuteSQLFile("sql\\CreateTables.sql");
+	ExecuteSQLFile("sql/CreateTables.sql");
 }
 
 void ExecuteSQLFile(string path)
 {
 	sql::Connection* dbcon = DBConnector::GetConnection();
+	dbcon->setSchema("redsquare");
 	
 	if(dbcon == NULL)
 	{
+		log("Failed to open database connection");
 		return;
 	}
 	
 	ifstream inFile(path.c_str());
 	if(!inFile.is_open())
 	{
+		log("Failed to open sql file");
 		delete dbcon;
 		dbcon = NULL;
 		return;
@@ -42,7 +45,11 @@ void ExecuteSQLFile(string path)
 	{
 		string statementstring;
 		getline(inFile,statementstring);
-		ExecuteUpdateStatement(dbcon, statementstring);
+		if(statementstring.empty() == false)
+		{
+			log(statementstring);
+			ExecuteUpdateStatement(dbcon, statementstring);
+		}
 	}
 	
 	inFile.close();
@@ -53,8 +60,19 @@ void ExecuteSQLFile(string path)
 bool ExecuteUpdateStatement(sql::Connection* dbcon, std::string sqlstatement)
 {
 	sql::Statement* stmt = dbcon->createStatement();
-	bool bSuccess = stmt->executeUpdate(sqlstatement);
-	dbcon->commit();
+	bool bSuccess = false;
+	try
+    {
+		bSuccess = stmt->executeUpdate(sqlstatement);
+		dbcon->commit();
+	}
+	catch (sql::SQLException &e)
+    {
+        cout << "ERROR: " << endl;
+        cout << e.what() << endl;
+        cout << e.getErrorCode() << endl;
+        cout << e.getSQLState() << endl;
+    }
 	delete stmt;
 	return bSuccess;
 }

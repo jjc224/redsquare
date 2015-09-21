@@ -49,7 +49,7 @@ bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned
     {
         // Run Query
         sql::Statement *stmt = dbcon->createStatement();
-        sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.Version where filename = '" + inFilename + "' and version=" + boost::lexical_cast<string>(versionNumber) + ";");
+        sql::ResultSet *rs = stmt->executeQuery("select * from Version where filename = '" + inFilename + "' and version=" + boost::lexical_cast<string>(versionNumber) + ";");
 
         // Output Results
         while(rs->next())
@@ -102,7 +102,7 @@ bool VersionRecord::UpdateRecordInDB()
 		if(bSuccess)
 		{
 			//beginning of statement
-			string sqlstatement = "update redsquare.Version set ";
+			string sqlstatement = "update Version set ";
 			//curhash
 			sqlstatement += "filename = \"" + Filename + "\", ";
 			sqlstatement += "size = " + boost::lexical_cast<string>(Size) + ", ";
@@ -158,13 +158,13 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
     sql::Statement *stmt = dbcon->createStatement();
     try 
     {
-        bool bNewVersionMade = stmt->executeUpdate("insert into redsquare.Version(filename, version, hash) values ('" + boost::lexical_cast<string>(pathFilename) + "', " + boost::lexical_cast<string>(currentVersion) + ", " + boost::lexical_cast<string>(newHash) + ")");
+        bool bNewVersionMade = stmt->executeUpdate("insert into Version(filename, version, hash) values ('" + boost::lexical_cast<string>(pathFilename) + "', " + boost::lexical_cast<string>(currentVersion) + ", " + boost::lexical_cast<string>(newHash) + ")");
         if (bNewVersionMade == false)
             return false;
         
         // Run Query
         sql::Statement *stmt = dbcon->createStatement();
-        sql::ResultSet *rs = stmt->executeQuery("select id from redsquare.Version where hash = " + boost::lexical_cast<string>(newHash));
+        sql::ResultSet *rs = stmt->executeQuery("select id from Version where hash = " + boost::lexical_cast<string>(newHash));
 
         // Output Results
         while(rs->next())
@@ -230,7 +230,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 
             // Run Query
             sql::Statement *stmt = dbcon->createStatement();
-            sql::ResultSet *rs = stmt->executeQuery("select id from redsquare.Block where hash1 = " + boost::lexical_cast<string>(hash1));
+            sql::ResultSet *rs = stmt->executeQuery("select id from Block where hash1 = " + boost::lexical_cast<string>(hash1));
 
             // Output Results
             while(rs->next())
@@ -248,7 +248,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
                 
                 // Run Query
                 sql::Statement *stmt = dbcon->createStatement();
-                sql::ResultSet *rs = stmt->executeQuery("select id from redsquare.Block where hash2 = " + boost::lexical_cast<string>(hash2) + " and id = " + boost::lexical_cast<string>(blockId));
+                sql::ResultSet *rs = stmt->executeQuery("select id from Block where hash2 = " + boost::lexical_cast<string>(hash2) + " and id = " + boost::lexical_cast<string>(blockId));
 
                 // Output Results
                 while(rs->next())
@@ -262,23 +262,23 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
                 {
                     // Use existing block
                     sql::Statement *stmt = dbcon->createStatement();
-                    bool bSuccess = stmt->executeUpdate("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                    bool bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                     delete stmt;
                 }
                 else
                 {
                     // Create a new block
-                    sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into redsquare.Block(hash1, hash2, data) values (?,?,?)");
+                    sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into Block(hash1, hash2, data) values (?,?,?)");
                     pstmt->setInt(1,hash1);
                     pstmt->setInt(2,hash2);
                     pstmt->setString(3,block);
                     //sql::Statement *stmt = dbcon->createStatement();
-                    //bool bSuccess = stmt->executeUpdate("insert into redsquare.Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
+                    //bool bSuccess = stmt->executeUpdate("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
                     delete pstmt;                  
                     
                     // Link block with VtoB
                     sql::Statement *stmt = dbcon->createStatement();
-                    bool bSuccess = stmt->executeUpdate("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                    bool bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                     bSuccess = stmt->executeUpdate("commit");
                     delete stmt;
                 }
@@ -287,7 +287,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
             {
                 cout << "Hash equals zero " << endl;
                 // Create a new block
-                sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into redsquare.Block(hash1, hash2, data) values (?,?,?)");
+                sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into Block(hash1, hash2, data) values (?,?,?)");
                 pstmt->setInt(1,hash1);
                 pstmt->setInt(2,hash2);
                 pstmt->setString(3,block);
@@ -297,7 +297,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
                 // Run Query
                 sql::Statement *stmt1 = dbcon->createStatement();
                 stmt1->executeQuery("commit");
-                sql::ResultSet *rs1 = stmt1->executeQuery("select id from redsquare.Block where hash1 = " + boost::lexical_cast<string>(hash1));
+                sql::ResultSet *rs1 = stmt1->executeQuery("select id from Block where hash1 = " + boost::lexical_cast<string>(hash1));
 
                 // Output Results
                 while(rs1->next())
@@ -310,8 +310,8 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
                 
                 // Link block with VtoB
                 sql::Statement *stmt = dbcon->createStatement();
-                cout << "insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")" << endl;
-                bool bSuccess = stmt->executeUpdate("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                cout << "insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")" << endl;
+                bool bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                 bSuccess = stmt->executeUpdate("commit");
                 delete stmt;
                 

@@ -60,15 +60,16 @@ sql::Connection* DBConnector::GetConnection()
 	user = decrypt(user);
 	pw = decrypt(pw);
 
-        cout << "host: " << host << endl;
-        cout << "user: " << user << endl;
-        cout << "pw: " << pw << endl;
+    cout << "host: " << host << endl;
+    cout << "user: " << user << endl;
+    cout << "pw: " << pw << endl;
         
 	// Connect to database
 	try
 	{
             driver = get_driver_instance();
             dbcon = driver->connect(host, user, pw); 
+			dbcon->setSchema("redsquare");
 	}
 	catch (sql::SQLException&	e)
 	{
