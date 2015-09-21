@@ -68,7 +68,9 @@ bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned
 	{
 		// Run Query
 		sql::Statement *stmt = dbcon->createStatement();
-		sql::ResultSet *rs = stmt->executeQuery("select * from Version where filename = '" + inFilename + "' and version=" + boost::lexical_cast<string>(versionNumber) + ";");
+		string sqlstatement = "select * from Version where filename = '" + inFilename + "' and version=" + boost::lexical_cast<string>(versionNumber) + ";";
+		sql::ResultSet *rs = stmt->executeQuery(sqlstatement);
+		log(sqlstatement);
 
 		// Output Results
 		while(rs->next())
@@ -129,7 +131,7 @@ bool VersionRecord::UpdateRecordInDB()
 			sqlstatement += "filemodtime = " + boost::lexical_cast<string>(FileModificationTime) + ", ";
 			sqlstatement += "comment = \"" + Comment + "\", ";
 			sqlstatement += "version = " + boost::lexical_cast<string>(VersionNumber) + ", ";
-			sqlstatement += "hash = " + boost::lexical_cast<string>(Hash) + ", ";
+			sqlstatement += "hash = " + boost::lexical_cast<string>(Hash);
 			//end of statement
 			sqlstatement += " where id = " + boost::lexical_cast<string>(VersionID) + ";";
 			
@@ -233,6 +235,8 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 	}
 	
 	int bytesRemaining = fileSize;
+	//store the length of this file in the version record itself
+	Size = fileSize;
 	
 	if(bSuccess)
 	{
@@ -389,6 +393,11 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 			cout << e.getSQLState() << endl;
 			bSuccess = false;
 		}
+	}
+	
+	if(bSuccess)
+	{
+		UpdateRecordInDB();
 	}
 	
 	ins.close();
