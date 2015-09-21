@@ -57,11 +57,12 @@ string FileLib::Normalize(string path)
 
 string FileLib::GetPath(string path)
 {
+	path = Normalize(path);
 	size_t lastSlashIndex = path.find_last_of("/");
 
 	if(lastSlashIndex != string::npos)
 	{
-		path = Normalize(path).substr(0, lastSlashIndex);    // Whatever is up to the final slash must be the path.
+		path = path.substr(0, lastSlashIndex);    // Whatever is up to the final slash must be the path.
 	}
 
 	return path;
@@ -69,7 +70,7 @@ string FileLib::GetPath(string path)
 
 string FileLib::GetFilename(string path)
 {
-	return string(SplitPath(path).back());    // vector::back() returns a reference, so have to construct a new string to return a copy.
+	return SplitPath(path).back();
 }
 
 time_t FileLib::GetModifiedDate(string path)
