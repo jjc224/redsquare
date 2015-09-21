@@ -60,18 +60,22 @@ sql::Connection* DBConnector::GetConnection()
 	user = decrypt(user);
 	pw = decrypt(pw);
 
+        cout << "host: " << host << endl;
+        cout << "user: " << user << endl;
+        cout << "pw: " << pw << endl;
+        
 	// Connect to database
 	try
-	{	
-			driver = get_driver_instance();
-			dbcon = driver->connect(host, user, pw); 
+	{
+            driver = get_driver_instance();
+            dbcon = driver->connect(host, user, pw); 
 	}
 	catch (sql::SQLException&	e)
 	{
-			cout << "Initial Conection Failed: " << endl;
-			cout << e.what() << endl;
-			cout << e.getErrorCode() << endl;
-			cout << e.getSQLState() << endl;
+            cout << "DBConnector Failed To Connect: " << endl;
+            cout << e.what() << endl;
+            cout << e.getErrorCode() << endl;
+            cout << e.getSQLState() << endl;
 	}
 	
 	return dbcon;

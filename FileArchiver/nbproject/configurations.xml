@@ -8,6 +8,8 @@
       <itemPath>FileArchiver.h</itemPath>
       <itemPath>FileRecord.h</itemPath>
       <itemPath>MurmurHash3.h</itemPath>
+      <itemPath>ProjectConstants.h</itemPath>
+      <itemPath>TestUtilities.h</itemPath>
       <itemPath>VersionRecord.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -23,6 +25,8 @@
       <itemPath>FileRecord.cpp</itemPath>
       <itemPath>Makefile</itemPath>
       <itemPath>MurmurHash3.cpp</itemPath>
+      <itemPath>TestUtilities.cpp</itemPath>
+      <itemPath>Utilities.cpp</itemPath>
       <itemPath>VersionRecord.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
@@ -37,6 +41,8 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>sql/CreateTables.sql</itemPath>
+    <itemPath>sql/DropTables.sql</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -53,6 +59,8 @@
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -74,11 +82,23 @@
       </item>
       <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="ProjectConstants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestUtilities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TestUtilities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utilities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="VersionRecord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sql/CreateTables.sql" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sql/DropTables.sql" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="4">
@@ -125,11 +145,23 @@
       </item>
       <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="ProjectConstants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestUtilities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TestUtilities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utilities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="VersionRecord.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sql/CreateTables.sql" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sql/DropTables.sql" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
