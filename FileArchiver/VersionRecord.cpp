@@ -224,28 +224,49 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 		bSuccess = false;
 	}
 	
+	int fileSize = 0;
+	if(bSuccess)
+	{
+		ins.seekg (0, ios::end);
+		fileSize = ins.tellg();
+		ins.seekg (0, ios::beg);
+	}
+	
+	int bytesRemaining = fileSize;
+	
 	if(bSuccess)
 	{
 		try
 		{
 			unsigned int versionIndex = 0;
 			char block[8000];
-			while (ins.good())
+			while (!ins.eof() && bytesRemaining > 0)
 			{
 				// Get Block
-				ins.read((char*)block, 8000);
-				if (!ins.good())
+				int blockSize = 0;
+				if(bytesRemaining > 8000)
+				{
+					blockSize = 8000;
+				}
+				else
+				{
+					blockSize = bytesRemaining;
+				}
+				bytesRemaining -= blockSize;
+				ins.read((char*)block, blockSize);
+				log("block size is " + boost::lexical_cast<string>(blockSize));
+				if (blockSize == 0)
 				{
 					break;
 				}
 
 				// Hash 1
 				unsigned int hash1 = 0;
-				MurmurHash3_x86_32(block, 8000, MURMUR_SEED_1 , &hash1);
+				MurmurHash3_x86_32(block, blockSize, MURMUR_SEED_1 , &hash1);
 
 				// Hash 2
 				unsigned int hash2 = 0;
-				MurmurHash3_x86_32(block, 8000, MURMUR_SEED_2 , &hash2);
+				MurmurHash3_x86_32(block, blockSize, MURMUR_SEED_2 , &hash2);
 
 				// Query DB Hash 1 in table Blocks
 				unsigned int blockId = 0;
@@ -289,13 +310,12 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 					{
 						// Create a new block
 						sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into Block(hash1, hash2, data) values (?,?,?)");
-						pstmt->setInt(1,hash1);
-						pstmt->setInt(2,hash2);
-						//pstmt->setString(3,block);
-						
-						membuf sbuf(block, block + 8000);
+						pstmt->setUInt(1,hash1);
+						pstmt->setUInt(2,hash2);
+						membuf sbuf(block, block + blockSize);
 						istream in(&sbuf);
 						pstmt->setBlob(3, &in);
+						bSuccess = pstmt->executeUpdate();
 						//sql::Statement *stmt = dbcon->createStatement();
 						//bool bSuccess = stmt->executeUpdate("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
 						delete pstmt;
@@ -311,9 +331,11 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 					cout << "Hash equals zero " << endl;
 					// Create a new block
 					sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into Block(hash1, hash2, data) values (?,?,?)");
-					pstmt->setUInt(1, hash1);
-					pstmt->setUInt(2, hash2);
-					pstmt->setString(3,block);
+					pstmt->setUInt(1,hash1);
+					pstmt->setUInt(2,hash2);
+					membuf sbuf(block, block + blockSize);
+					istream in(&sbuf);
+					pstmt->setBlob(3, &in);
 					bSuccess = pstmt->executeUpdate();
 					delete pstmt;                  
 
@@ -326,7 +348,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 					{
 						i++;
 						//TODO: Should this not check for hash2 as well?
-						string sqlstatement = "select id from Block where hash1 = " + boost::lexical_cast<string>(hash1);
+						string sqlstatement = "select id from Block where hash1 = " + boost::lexical_cast<string>(hash1) + " and hash2 = " + boost::lexical_cast<string>(hash2);
 						log(sqlstatement);
 						sql::ResultSet *rs1 = stmt->executeQuery(sqlstatement);
 
@@ -356,9 +378,6 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 						stmt->executeUpdate("commit");
 						dbcon->commit();
 					}
-
-
-
 				}
 			}
 		}
@@ -370,7 +389,6 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 			cout << e.getSQLState() << endl;
 			bSuccess = false;
 		}
-		
 	}
 	
 	ins.close();

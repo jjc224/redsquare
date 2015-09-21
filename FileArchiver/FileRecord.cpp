@@ -227,7 +227,7 @@ bool FileRecord::AddNewVersion(string NewFileVersionPath)
 	{
 		MurmurHash3_x86_32_FromFile(NewFileVersionPath, MURMUR_SEED_1, &newHash);
 		
-		log("Hash generated");
+		log("Hash generated for new version = " + boost::lexical_cast<string>(newHash));
 	
 		//fail if hash matches existing
 		if(NumberOfVersions > 0 && CurrentVersionHash == newHash)
