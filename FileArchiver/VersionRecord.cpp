@@ -39,11 +39,96 @@ VersionRecord::VersionRecord(std::string filename, unsigned int versionNumber)
 void VersionRecord::Init()
 {
 	dbcon = DBConnector::GetConnection();
+	bIsValid = false;
 }
 
 bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned int versionNumber)
 {
-	//TODO: retrieve record from DB and mark record as valid on success
+	bIsValid = false;
+    try
+    {
+        // Run Query
+        sql::Statement *stmt = dbcon->createStatement();
+        sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.Version where filename = '" + inFilename + "' and version=" + boost::lexical_cast<string>(versionNumber) + ";");
+
+        // Output Results
+        while(rs->next())
+		{
+			//count = rs->getInt(1);
+			VersionID = rs->getInt("id");
+			Filename = rs->getString("filename");
+			VersionNumber = rs->getInt("version");
+			//TODO: change to getInt64?
+			Size = rs->getInt("size");
+			Time = rs->getInt("time");
+			FileModificationTime = rs->getInt("filemodtime");
+			Comment = rs->getString("comment");
+			Hash = rs->getInt("hash");
+			bIsValid = true;
+		}
+
+        delete rs;
+        delete stmt;
+    }
+    catch (sql::SQLException &e)
+    {
+        cout << "ERROR: " << endl;
+        cout << e.what() << endl;
+        cout << e.getErrorCode() << endl;
+        cout << e.getSQLState() << endl;
+    }
+	return bIsValid;
+}
+
+bool VersionRecord::UpdateRecordInDB()
+{
+	sql::Statement *stmt = dbcon->createStatement();
+	bool bSuccess = true;
+	
+	if(stmt == NULL)
+	{
+		//failed to get a connection to the database
+		bSuccess = false;
+	}
+
+	if(IsValid() == false)
+	{
+		bSuccess = false;
+	}
+		
+    try
+    {   
+		//create file record
+		if(bSuccess)
+		{
+			//beginning of statement
+			string sqlstatement = "update redsquare.Version set ";
+			//curhash
+			sqlstatement += "filename = \"" + Filename + "\", ";
+			sqlstatement += "size = " + boost::lexical_cast<string>(Size) + ", ";
+			sqlstatement += "time = " + boost::lexical_cast<string>(Time) + ", ";
+			sqlstatement += "filemodtime = " + boost::lexical_cast<string>(FileModificationTime) + ", ";
+			sqlstatement += "comment = \"" + Comment + "\", ";
+			sqlstatement += "version = " + boost::lexical_cast<string>(VersionNumber) + ", ";
+			sqlstatement += "hash = " + boost::lexical_cast<string>(Hash) + ", ";
+			//end of statement
+			sqlstatement += " where filename = \"" + Filename + "\";";
+			
+			log(sqlstatement);
+			
+			bSuccess = stmt->executeUpdate(sqlstatement);
+		}
+    }
+    catch (sql::SQLException &e)
+    {
+        cout << "ERROR: " << endl;
+        cout << e.what() << endl;
+        cout << e.getErrorCode() << endl;
+        cout << e.getSQLState() << endl;
+    }
+	
+	delete stmt;
+	return bSuccess;
 }
 
 unsigned int VersionRecord::GetVersionId()
@@ -83,7 +168,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 
         // Output Results
         while(rs->next())
-            this->VersionId = rs->getInt(1);
+            this->VersionID = rs->getInt(1);
         
         delete rs;
         delete stmt;
@@ -177,7 +262,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
                 {
                     // Use existing block
                     sql::Statement *stmt = dbcon->createStatement();
-                    bool bSuccess = stmt->executeUpdate("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                    bool bSuccess = stmt->executeUpdate("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                     delete stmt;
                 }
                 else
@@ -193,7 +278,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
                     
                     // Link block with VtoB
                     sql::Statement *stmt = dbcon->createStatement();
-                    bool bSuccess = stmt->executeUpdate("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                    bool bSuccess = stmt->executeUpdate("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                     bSuccess = stmt->executeUpdate("commit");
                     delete stmt;
                 }
@@ -225,8 +310,8 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
                 
                 // Link block with VtoB
                 sql::Statement *stmt = dbcon->createStatement();
-                cout << "insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")" << endl;
-                bool bSuccess = stmt->executeUpdate("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionId) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+                cout << "insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")" << endl;
+                bool bSuccess = stmt->executeUpdate("insert into redsquare.VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
                 bSuccess = stmt->executeUpdate("commit");
                 delete stmt;
                 
@@ -256,7 +341,7 @@ std::string VersionRecord::GetComment()
 
 bool VersionRecord::IsValid()
 {
-    
+    return bIsValid;
 }
 
 bool VersionRecord::GetFileData(std::string fileOutPath)

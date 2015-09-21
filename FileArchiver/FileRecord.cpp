@@ -124,7 +124,11 @@ bool FileRecord::UpdateRecordInDB()
 		bSuccess = false;
 	}
 
-	bIsValid = false;
+	if(IsValid() == false)
+	{
+		bSuccess = false;
+	}
+		
     try
     {   
 		//create file record
