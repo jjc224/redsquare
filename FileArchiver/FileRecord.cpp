@@ -107,6 +107,7 @@ bool FileRecord::CreateFile(string filename)
 		cout << e.what() << endl;
 		cout << e.getErrorCode() << endl;
 		cout << e.getSQLState() << endl;
+		bSuccess = false;
 	}
 	
 	delete stmt;

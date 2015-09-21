@@ -22,8 +22,8 @@ create table Version (
 
 create table Block (
 	id int(11) not null auto_increment,
-	hash1 int(11),
-	hash2 int(11),
+	hash1 int(11) unsigned,
+	hash2 int(11) unsigned,
 	data mediumblob,
 	primary key (id),
 	index(hash1),

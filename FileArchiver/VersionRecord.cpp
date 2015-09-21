@@ -45,7 +45,6 @@ void VersionRecord::Init()
 	Time = 0;
 	FileModificationTime = 0;
 	Hash = 0;
-	
 	bIsValid = false;
 }
 
@@ -119,7 +118,7 @@ bool VersionRecord::UpdateRecordInDB()
 			sqlstatement += "version = " + boost::lexical_cast<string>(VersionNumber) + ", ";
 			sqlstatement += "hash = " + boost::lexical_cast<string>(Hash) + ", ";
 			//end of statement
-			sqlstatement += " where filename = \"" + Filename + "\";";
+			sqlstatement += " where id = " + boost::lexical_cast<string>(VersionID) + ";";
 			
 			log(sqlstatement);
 			
@@ -140,26 +139,27 @@ bool VersionRecord::UpdateRecordInDB()
 
 unsigned int VersionRecord::GetVersionId()
 {
-
+	return VersionID;
 }
 
 unsigned int VersionRecord::GetVersionNumber()
 {
-
+	return VersionNumber;
 }
 
 unsigned int VersionRecord::GetSize()
 {
-
+	return Size;
 } 
 
 unsigned int VersionRecord::GetHash()
 {
-
+	return Hash;
 } 
 
 bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersion, unsigned int newHash)
 {
+	bool bSuccess = true;
 	
 	// Create a new version
 	sql::Statement *stmt = dbcon->createStatement();
@@ -172,7 +172,6 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 		}
 		
 		// Run Query
-		sql::Statement *stmt = dbcon->createStatement();
 		sql::ResultSet *rs = stmt->executeQuery("select id from Version where hash = " + boost::lexical_cast<string>(newHash));
 
 		// Output Results
@@ -182,7 +181,6 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 		}
 		
 		delete rs;
-		delete stmt;
 	}
 	catch (sql::SQLException &e)
 	{
@@ -190,158 +188,191 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 		cout << e.what() << endl;
 		cout << e.getErrorCode() << endl;
 		cout << e.getSQLState() << endl;
-		return false;
-	} 
-	delete stmt;
+		log("Failed to create version in table Version");
+		bSuccess = false;
+	}
+	
+	if(bSuccess)
+	{
+		RetrieveVersionRecordFromDB(pathFilename, currentVersion);
+		if(!IsValid())
+		{
+			log("Failed to retrieve version record from database. This version was not created correctly");
+			bSuccess = false;
+		}
+	}
  
 	// Open File
 	ifstream ins(pathFilename.c_str());
 	
 	if (!ins.good())
 	{
-		return false;
+		log("Failed to open file. Cannot create version");
+		bSuccess = false;
 	}
 	
-	try
+	if(bSuccess)
 	{
-		unsigned int versionIndex = 0;
-		char block[8000];
-		while (ins.good())
+		try
 		{
-			
-			// Get Block
-			ins.read((char*)block, 8000);
-			if (!ins.good())
+			unsigned int versionIndex = 0;
+			char block[8000];
+			while (ins.good())
 			{
-				break;
-			}
-			
-			// Hash 1
-			unsigned int hash1 = 0;
-			MurmurHash3_x86_32(block, 8000, MURMUR_SEED_1 , &hash1);
+				// Get Block
+				ins.read((char*)block, 8000);
+				if (!ins.good())
+				{
+					break;
+				}
 
-			// Hash 2
-			unsigned int hash2 = 0;
-			MurmurHash3_x86_32(block, 8000, MURMUR_SEED_2 , &hash2);
+				// Hash 1
+				unsigned int hash1 = 0;
+				MurmurHash3_x86_32(block, 8000, MURMUR_SEED_1 , &hash1);
 
-			// Query DB Hash 1 in table Blocks
-			unsigned int blockId = 0;
+				// Hash 2
+				unsigned int hash2 = 0;
+				MurmurHash3_x86_32(block, 8000, MURMUR_SEED_2 , &hash2);
 
-			// Run Query
-			sql::Statement *stmt = dbcon->createStatement();
-			sql::ResultSet *rs = stmt->executeQuery("select id from Block where hash1 = " + boost::lexical_cast<string>(hash1));
+				// Query DB Hash 1 in table Blocks
+				unsigned int blockId = 0;
 
-			// Output Results
-			while(rs->next())
-			{
-				blockId = rs->getInt(1);
-			}
-
-			delete rs;
-			delete stmt;
-
-			// If hash 1 already exists
-			if (blockId != 0)
-			{
-				cout << "Hash is not equal to zero" << endl;
-				// Query DB Hash 2 in table Blocks
-				unsigned int result;
-				
 				// Run Query
-				sql::Statement *stmt = dbcon->createStatement();
-				sql::ResultSet *rs = stmt->executeQuery("select id from Block where hash2 = " + boost::lexical_cast<string>(hash2) + " and id = " + boost::lexical_cast<string>(blockId));
+				sql::ResultSet *rs = stmt->executeQuery("select id from Block where hash1 = " + boost::lexical_cast<string>(hash1));
 
 				// Output Results
 				while(rs->next())
 				{
-					result = rs->getInt(1);
+					blockId = rs->getInt(1);
 				}
 
 				delete rs;
-				delete stmt;
 
-				// If hash 2 matches the same id as 
-				if (result != 0)
+				// If hash 1 already exists
+				if (blockId != 0)
 				{
-					// Use existing block
-					sql::Statement *stmt = dbcon->createStatement();
-					bool bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
-					delete stmt;
+					cout << "Hash is not equal to zero" << endl;
+					// Query DB Hash 2 in table Blocks
+					unsigned int result;
+
+					// Run Query
+					sql::ResultSet *rs = stmt->executeQuery("select id from Block where hash2 = " + boost::lexical_cast<string>(hash2) + " and id = " + boost::lexical_cast<string>(blockId));
+
+					// Output Results
+					while(rs->next())
+					{
+						result = rs->getInt(1);
+					}
+
+					delete rs;
+
+					// If hash 2 matches the same id as 
+					if (result != 0)
+					{
+						// Use existing block
+						bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+					}
+					else
+					{
+						// Create a new block
+						sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into Block(hash1, hash2, data) values (?,?,?)");
+						pstmt->setInt(1,hash1);
+						pstmt->setInt(2,hash2);
+						pstmt->setString(3,block);
+						//sql::Statement *stmt = dbcon->createStatement();
+						//bool bSuccess = stmt->executeUpdate("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
+						delete pstmt;
+						bSuccess = stmt->executeUpdate("commit");
+
+						// Link block with VtoB
+						bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+						dbcon->commit();
+					}
 				}
-				else
+				else 
 				{
+					cout << "Hash equals zero " << endl;
 					// Create a new block
 					sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into Block(hash1, hash2, data) values (?,?,?)");
-					pstmt->setInt(1,hash1);
-					pstmt->setInt(2,hash2);
+					pstmt->setUInt(1, hash1);
+					pstmt->setUInt(2, hash2);
 					pstmt->setString(3,block);
-					//sql::Statement *stmt = dbcon->createStatement();
-					//bool bSuccess = stmt->executeUpdate("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
+					bSuccess = pstmt->executeUpdate();
 					delete pstmt;                  
-					
-					// Link block with VtoB
-					sql::Statement *stmt = dbcon->createStatement();
-					bool bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+
+					// Run Query
+					dbcon->commit();
 					bSuccess = stmt->executeUpdate("commit");
-					delete stmt;
+					int i = 0;
+					bool bFound = false;
+					while (bFound == false && i < 100)
+					{
+						i++;
+						//TODO: Should this not check for hash2 as well?
+						string sqlstatement = "select id from Block where hash1 = " + boost::lexical_cast<string>(hash1);
+						log(sqlstatement);
+						sql::ResultSet *rs1 = stmt->executeQuery(sqlstatement);
+
+						if(rs1->next() == false)
+						{
+							log("Failed to find block that was just committed");
+							bSuccess = false;
+						}
+						else
+						{
+							bSuccess = true;
+							bFound = true;
+							blockId = rs1->getInt(1);
+						}
+						delete rs1;
+					}
+					
+					if(bSuccess)
+					{
+						cout << "blockId = " << blockId << endl;
+
+
+						// Link block with VtoB
+						string sqlstatement = "insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")";
+						log(sqlstatement);
+						bSuccess = stmt->executeUpdate(sqlstatement);
+						bSuccess = stmt->executeUpdate("commit");
+						dbcon->commit();
+					}
+
+
+
 				}
-			}
-			else 
-			{
-				cout << "Hash equals zero " << endl;
-				// Create a new block
-				sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into Block(hash1, hash2, data) values (?,?,?)");
-				pstmt->setInt(1,hash1);
-				pstmt->setInt(2,hash2);
-				pstmt->setString(3,block);
-				pstmt->execute();
-				delete pstmt;                  
-
-				// Run Query
-				sql::Statement *stmt1 = dbcon->createStatement();
-				stmt1->executeQuery("commit");
-				sql::ResultSet *rs1 = stmt1->executeQuery("select id from Block where hash1 = " + boost::lexical_cast<string>(hash1));
-
-				// Output Results
-				while(rs1->next())
-				{
-					blockId = rs1->getInt(1);
-				}
-
-				cout << "blockId = " << blockId << endl;
-				delete rs1;
-				delete stmt1;
-				
-				
-				// Link block with VtoB
-				sql::Statement *stmt = dbcon->createStatement();
-				cout << "insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")" << endl;
-				bool bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
-				bSuccess = stmt->executeUpdate("commit");
-				delete stmt;
-				
-				
-				
 			}
 		}
-	}
-	catch (sql::SQLException &e)
-	{
-		cout << "ERROR: " << endl;
-		cout << e.what() << endl;
-		cout << e.getErrorCode() << endl;
-		cout << e.getSQLState() << endl;
+		catch (sql::SQLException &e)
+		{
+			cout << "ERROR: " << endl;
+			cout << e.what() << endl;
+			cout << e.getErrorCode() << endl;
+			cout << e.getSQLState() << endl;
+			bSuccess = false;
+		}
+		
 	}
 	
+	ins.close();
+	
+	delete stmt;
+	stmt = NULL;
+	
+	return bSuccess;
 }
 
 unsigned int VersionRecord::GetBlockHash()
 {
-	
+	//TODO: add logic
+	return 0;
 }
+
 std::string VersionRecord::GetComment()
 {
-
+	return Comment;
 }
 
 bool VersionRecord::IsValid()
@@ -354,6 +385,7 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 	if(IsValid())
 	{
 		//TODO: do logic here
+		fileOutPath.size();
 	}
 	return false;
 }
