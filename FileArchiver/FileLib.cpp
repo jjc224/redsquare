@@ -8,7 +8,7 @@
 
 using namespace std;
 
-static vector<string> FileLib::SplitPath(string path)
+vector<string> FileLib::SplitPath(string path)
 {
 	vector<string> splittedPath;
 
@@ -19,7 +19,7 @@ static vector<string> FileLib::SplitPath(string path)
 }
 
 // Replaces backslash, double backslash, and double forward slashes in a path with a single forward slash.
-static string FileLib::Normalize(string path)
+string FileLib::Normalize(string path)
 {
     size_t index = 0;
 
@@ -55,9 +55,9 @@ static string FileLib::Normalize(string path)
     return path;
 }
 
-static string FileLib::GetPath(string path)
+string FileLib::GetPath(string path)
 {
-	int lastSlashIndex = path.find_last_of("/");
+	size_t lastSlashIndex = path.find_last_of("/");
 
 	if(lastSlashIndex != string::npos)
 	{
@@ -67,12 +67,12 @@ static string FileLib::GetPath(string path)
 	return path;
 }
 
-static string FileLib::GetFilename(string path)
+string FileLib::GetFilename(string path)
 {
 	return string(SplitPath(path).back());    // vector::back() returns a reference, so have to construct a new string to return a copy.
 }
 
-static time_t FileLib::GetModifiedDate(string path)
+time_t FileLib::GetModifiedDate(string path)
 {
 	time_t modificationTime;
 	
@@ -90,12 +90,12 @@ static time_t FileLib::GetModifiedDate(string path)
 	return modificationTime;
 }
 
-static void FileLib::AppendPath(string &path1, string path2)
+void FileLib::AppendPath(string &path1, string path2)
 {
 	path1.append(path2);
 }
 
-static unsigned int FileLib::GetHash(string path)
+unsigned int FileLib::GetHash(string path)
 {
 	unsigned int hash;
 
