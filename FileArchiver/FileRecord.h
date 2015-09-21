@@ -19,8 +19,8 @@ public:
 	bool CreateFile(std::string filename);
 	
 	VersionRecord GetVersion(unsigned int versionNum);
-        
-        std::vector<VersionRecord> GetAllVersions();
+	
+	std::vector<VersionRecord> GetAllVersions();
 	
 	void PurgeOldVersions(int numberOfVersionsToKeep);
 
@@ -50,12 +50,12 @@ public:
 	bool IsChanged();
 
 protected:
-        //retrieves the record information from the database
+	//retrieves the record information from the database
 	bool RetrieveFileRecordFromDB(std::string inFilename);
-        //called by constructors to perform common functionality
+	//called by constructors to perform common functionality
 	void Init();
-        //updates the FileRecord in the database;
-        bool UpdateRecordInDB();
+	//updates the FileRecord in the database;
+	bool UpdateRecordInDB();
 
 	// The full path name of the file
 	std::string Filename;
@@ -65,9 +65,9 @@ protected:
 
 	// The current revision number
 	unsigned int CurrentVersion;
-        
-        // the number of versions this file has had
-        unsigned int NumberOfVersions;
+	
+	// the number of versions this file has had
+	unsigned int NumberOfVersions;
 
 	// The last modified time of the file
 	int ModifiedTime;

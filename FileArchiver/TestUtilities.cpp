@@ -62,17 +62,17 @@ bool ExecuteUpdateStatement(sql::Connection* dbcon, std::string sqlstatement)
 	sql::Statement* stmt = dbcon->createStatement();
 	bool bSuccess = false;
 	try
-    {
+	{
 		bSuccess = stmt->executeUpdate(sqlstatement);
 		dbcon->commit();
 	}
 	catch (sql::SQLException &e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }
+	{
+		cout << "ERROR: " << endl;
+		cout << e.what() << endl;
+		cout << e.getErrorCode() << endl;
+		cout << e.getSQLState() << endl;
+	}
 	delete stmt;
 	return bSuccess;
 }
