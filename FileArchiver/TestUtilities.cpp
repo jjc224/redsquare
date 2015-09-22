@@ -4,6 +4,7 @@
 #include "ProjectConstants.h"
 #include <fstream>
 #include "FileRecord.h"
+#include "MurmurHash3.h"
 
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
@@ -109,4 +110,18 @@ void RunTestCommitFileOneVersionRetrieve()
 	CommitFileWithOneVersion("MurmurHash3.cpp");
 	VersionRecord newRec("MurmurHash3.cpp", 1);
 	newRec.GetFileData("MurmurHash3.cpp.out");
+	
+	unsigned int hash1 = 0;
+	unsigned int hash2 = 0;
+	MurmurHash3_x86_32_FromFile("MurmurHash3.cpp", MURMUR_SEED_1, &hash1);
+	MurmurHash3_x86_32_FromFile("MurmurHash3.cpp.out", MURMUR_SEED_1, &hash2);
+	
+	if(hash1 == hash2)
+	{
+		log("Hashes match. File successfully retrieved");
+	}
+	else
+	{
+		log("Error. Hashes do not match. File not retrieved correctly");
+	}
 }

@@ -470,7 +470,10 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 				
 				if(rs2->next())
 				{
-					istream data = rs2->getBlob("data");
+					istream* data = rs2->getBlob("data");
+					char outbuf[9000];
+					int blobsize = data->readsome(outbuf, 9000);
+					outFile.write(outbuf, blobsize);
 					//TODO: transfer from data istream to outFile ofstream
 				}
 				else
@@ -502,6 +505,7 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 		bSuccess = false;
 	}
 	
+	outFile.close();
 	
 	delete stmt;
 	stmt = NULL;
