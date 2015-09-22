@@ -103,10 +103,10 @@ bool FileRecord::CreateFile(string filename)
 	}
 	catch (sql::SQLException &e)
 	{
-		cout << "ERROR: " << endl;
-		cout << e.what() << endl;
-		cout << e.getErrorCode() << endl;
-		cout << e.getSQLState() << endl;
+		log("ERROR: ");
+		log(e.what());
+		log(e.getErrorCode());
+		log(e.getSQLState());
 		bSuccess = false;
 	}
 	
@@ -153,10 +153,11 @@ bool FileRecord::UpdateRecordInDB()
 	}
 	catch (sql::SQLException &e)
 	{
-		cout << "ERROR: " << endl;
-		cout << e.what() << endl;
-		cout << e.getErrorCode() << endl;
-		cout << e.getSQLState() << endl;
+		log("ERROR: ");
+		log(e.what());
+		log(e.getErrorCode());
+		log(e.getSQLState());
+		bSuccess = false;
 	}
 	
 	delete stmt;
@@ -315,10 +316,10 @@ bool FileRecord::RetrieveFileRecordFromDB(string inFilename)
 	}
 	catch (sql::SQLException &e)
 	{
-		cout << "ERROR: " << endl;
-		cout << e.what() << endl;
-		cout << e.getErrorCode() << endl;
-		cout << e.getSQLState() << endl;
+		log("ERROR: ");
+		log(e.what());
+		log(e.getErrorCode());
+		log(e.getSQLState());
 	}
 	return bIsValid;
 }
