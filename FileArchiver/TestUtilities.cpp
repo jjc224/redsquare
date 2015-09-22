@@ -105,16 +105,26 @@ void RunTestCommitFileOneVersion()
 
 void RunTestCommitFileOneVersionRetrieve()
 {
-	DropTables();
-	CreateTables();
-	CommitFileWithOneVersion("MurmurHash3.cpp");
-	VersionRecord newRec("MurmurHash3.cpp", 1);
-	newRec.GetFileData("MurmurHash3.cpp.out");
+	//DropTables();
+	//CreateTables();
+	
+	/*
+	string fileinpath = "MurmurHash3.cpp";
+	string fileoutpath = "MurmurHash3.cpp.ret";
+	/*/
+	string fileinpath = "nixonout2.jpg";
+	string fileoutpath = "nixonout3.jpg";
+	//*/
+	
+	CommitFileWithOneVersion(fileinpath);
+	VersionRecord newRec(fileinpath, 1);
+	newRec.GetFileData(fileoutpath);
+	
 	
 	unsigned int hash1 = 0;
 	unsigned int hash2 = 0;
-	MurmurHash3_x86_32_FromFile("MurmurHash3.cpp", MURMUR_SEED_1, &hash1);
-	MurmurHash3_x86_32_FromFile("MurmurHash3.cpp.out", MURMUR_SEED_1, &hash2);
+	MurmurHash3_x86_32_FromFile(fileinpath, MURMUR_SEED_1, &hash1);
+	MurmurHash3_x86_32_FromFile(fileoutpath, MURMUR_SEED_1, &hash2);
 	
 	if(hash1 == hash2)
 	{

@@ -93,10 +93,10 @@ bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned
 	}
 	catch (sql::SQLException &e)
 	{
-		cout << "ERROR: " << endl;
-		cout << e.what() << endl;
-		cout << e.getErrorCode() << endl;
-		cout << e.getSQLState() << endl;
+		log("ERROR: ");
+		log(e.what());
+		log(e.getErrorCode());
+		log(e.getSQLState());
 	}
 	return bIsValid;
 }
@@ -142,10 +142,10 @@ bool VersionRecord::UpdateRecordInDB()
 	}
 	catch (sql::SQLException &e)
 	{
-		cout << "ERROR: " << endl;
-		cout << e.what() << endl;
-		cout << e.getErrorCode() << endl;
-		cout << e.getSQLState() << endl;
+		log("ERROR: ");
+		log(e.what());
+		log(e.getErrorCode());
+		log(e.getSQLState());
 	}
 	
 	delete stmt;
@@ -199,10 +199,10 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 	}
 	catch (sql::SQLException &e)
 	{
-		cout << "ERROR: " << endl;
-		cout << e.what() << endl;
-		cout << e.getErrorCode() << endl;
-		cout << e.getSQLState() << endl;
+		log("ERROR: ");
+		log(e.what());
+		log(e.getErrorCode());
+		log(e.getSQLState());
 		log("Failed to create version in table Version");
 		bSuccess = false;
 	}
@@ -289,7 +289,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 				// If hash 1 already exists
 				if (blockId != 0)
 				{
-					cout << "Hash is not equal to zero" << endl;
+					log("Hash is not equal to zero");
 					// Query DB Hash 2 in table Blocks
 					unsigned int result;
 
@@ -332,7 +332,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 				}
 				else 
 				{
-					cout << "Hash equals zero " << endl;
+					log("Hash equals zero ");
 					// Create a new block
 					sql::PreparedStatement *pstmt = dbcon->prepareStatement("insert into Block(hash1, hash2, data) values (?,?,?)");
 					pstmt->setUInt(1,hash1);
@@ -345,7 +345,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 
 					// Run Query
 					dbcon->commit();
-					bSuccess = stmt->executeUpdate("commit");
+					//bSuccess = stmt->executeUpdate("commit");
 					int i = 0;
 					bool bFound = false;
 					while (bFound == false && i < 100)
@@ -372,7 +372,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 					
 					if(bSuccess)
 					{
-						cout << "blockId = " << blockId << endl;
+						log("blockId = " + boost::lexical_cast<string>(blockId));
 
 
 						// Link block with VtoB
@@ -380,17 +380,17 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 						log(sqlstatement);
 						bSuccess = stmt->executeUpdate(sqlstatement);
 						stmt->executeUpdate("commit");
-						dbcon->commit();
+						//dbcon->commit();
 					}
 				}
 			}
 		}
 		catch (sql::SQLException &e)
 		{
-			cout << "ERROR: " << endl;
-			cout << e.what() << endl;
-			cout << e.getErrorCode() << endl;
-			cout << e.getSQLState() << endl;
+			log("ERROR: ");
+			log(e.what());
+			log(e.getErrorCode());
+			log(e.getSQLState());
 			bSuccess = false;
 		}
 	}
@@ -498,10 +498,10 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 	}
 	catch (sql::SQLException &e)
 	{
-		cout << "ERROR: " << endl;
-		cout << e.what() << endl;
-		cout << e.getErrorCode() << endl;
-		cout << e.getSQLState() << endl;
+		log("ERROR: ");
+		log(e.what());
+		log(e.getErrorCode());
+		log(e.getSQLState());
 		bSuccess = false;
 	}
 	
