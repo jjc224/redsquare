@@ -8,7 +8,7 @@
 * Add version comment support
 
 # Retrieval
-* _Retrieve file from DB_ - **DONE**
+** _Retrieve file from DB_ - **DONE**
 
 # Improvements
 * add logic for retrieving file modification time
