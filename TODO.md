@@ -20,3 +20,5 @@
 * add unit testing for generating random files and committing
 * Check support for adding a second version works
 * Check that added version matches extracted version (retrieve and then hash it)
+* add a function that can generate a file of specified size, with a specified seed for repeatable testing.
+* add a delete file statement into the first retrieval test case
