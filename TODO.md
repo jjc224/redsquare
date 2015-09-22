@@ -2,7 +2,7 @@
 * convert DB to use uints and bigints where appropriate
 * Add purge old version logic
 * Compress data stream
-* * Add support for different block sizes
+* Add support for different block sizes
 
 # Versioning
 * Add version comment support
