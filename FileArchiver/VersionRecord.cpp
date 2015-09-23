@@ -75,16 +75,16 @@ bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned
 		// Output Results
 		while(rs->next())
 		{
-			//count = rs->getInt(1);
-			VersionID = rs->getInt("id");
+			//count = rs->getUInt(1);
+			VersionID = rs->getUInt("id");
 			Filename = rs->getString("filename");
-			VersionNumber = rs->getInt("version");
+			VersionNumber = rs->getUInt("version");
 			//TODO: change to getInt64?
-			Size = rs->getInt("size");
-			Time = rs->getInt("time");
-			FileModificationTime = rs->getInt("filemodtime");
+			Size = rs->getUInt("size");
+			Time = rs->getUInt("time");
+			FileModificationTime = rs->getUInt("filemodtime");
 			Comment = rs->getString("comment");
-			Hash = rs->getInt("hash");
+			Hash = rs->getUInt("hash");
 			bIsValid = true;
 		}
 
@@ -192,7 +192,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 		// Output Results
 		while(rs->next())
 		{
-			this->VersionID = rs->getInt(1);
+			this->VersionID = rs->getUInt(1);
 		}
 		
 		delete rs;
@@ -281,7 +281,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 				// Output Results
 				while(rs->next())
 				{
-					blockId = rs->getInt(1);
+					blockId = rs->getUInt(1);
 				}
 
 				delete rs;
@@ -299,7 +299,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 					// Output Results
 					while(rs->next())
 					{
-						result = rs->getInt(1);
+						result = rs->getUInt(1);
 					}
 
 					delete rs;
@@ -365,7 +365,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 						{
 							bSuccess = true;
 							bFound = true;
-							blockId = rs1->getInt(1);
+							blockId = rs1->getUInt(1);
 						}
 						delete rs1;
 					}
@@ -462,7 +462,7 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 				blocksRetrieved++;
 				log("retrieved block");
 				
-				int blockid = rs->getInt("blockid");
+				unsigned int blockid = rs->getUInt("blockid");
 				
 				//for all block records, fetch block, write to disk
 				string blockretsql = "select data from Block where id = " + boost::lexical_cast<string>(blockid);

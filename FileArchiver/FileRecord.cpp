@@ -301,11 +301,11 @@ bool FileRecord::RetrieveFileRecordFromDB(string inFilename)
 		// Output Results
 		while(rs->next())
 		{
-			//count = rs->getInt(1);
+			//count = rs->getUInt(1);
 			Filename = rs->getString("filename");
-			CurrentVersionHash = rs->getInt("curhash");
-			CurrentVersion = rs->getInt("curversion");
-			NumberOfVersions = rs->getInt("numversions");
+			CurrentVersionHash = rs->getUInt("curhash");
+			CurrentVersion = rs->getUInt("curversion");
+			NumberOfVersions = rs->getUInt("numversions");
 			bIsValid = true;
 		}
 

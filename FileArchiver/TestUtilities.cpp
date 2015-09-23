@@ -11,7 +11,43 @@
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
 
+#include <cstdlib>
+
 using namespace std;
+
+void createFile(int seed, string filename, int length)
+{
+	srand(seed);
+	
+	ofstream outFile(filename.c_str());
+	
+	if(outFile.is_open())
+	{
+		while(length > 0)
+		{
+			length--;
+			char num = rand() % 256;
+			outFile.put(num);
+		}
+	}
+}
+
+void appendFile(int seed, string filename, int length)
+{
+	srand(seed);
+	
+	ofstream outFile(filename.c_str(), ios::app);
+	
+	if(outFile.is_open())
+	{
+		while(length > 0)
+		{
+			length--;
+			char num = rand() % 256;
+			outFile.put(num);
+		}
+	}
+}
 
 void DropTables()
 {
@@ -96,6 +132,40 @@ void CommitFileWithOneVersion(string path)
 	log(logMessage);
 }
 
+void CommitFileWithTwoVersions()
+{
+	FileRecord newFile;
+	string path = "testData/testFile.dat";
+	createFile(25, path, 20000);
+	bool bSuccess = newFile.CreateFile(path);
+	
+	//check that we can't add the same version
+	if(bSuccess)
+	{
+		bSuccess = !newFile.AddNewVersion(path);
+	}
+	
+	//check that adding a new version works
+	if(bSuccess)
+	{
+		appendFile(25, path, 200);
+		bSuccess = newFile.AddNewVersion(path);
+	}
+	
+	string logMessage = "The result was: ";
+	if(bSuccess)
+	{
+		logMessage += "Success!";
+	}
+	else
+	{
+		logMessage += "The nixon snake has failed";
+	}
+	
+	log(logMessage);
+}
+
+
 void RunTestCommitFileOneVersion()
 {
 	DropTables();
@@ -103,17 +173,57 @@ void RunTestCommitFileOneVersion()
 	CommitFileWithOneVersion("MurmurHash3.cpp");
 }
 
+void RunTestCommitFileWithTwoVersionsRetrieveBoth()
+{
+	DropTables();
+	CreateTables();
+
+	string path = "testData/testFile.dat";
+	string original = "testData/testFile.dat.orig";
+	string retrievedLatest = "testData/retrievedLatest.dat";
+	string retrievedOriginal = "testData/retrievedOriginal.dat";
+	
+	CommitFileWithTwoVersions();
+
+	createFile(25, path + ".orig", 20000);
+
+	VersionRecord originalVersion(path, 1);
+	originalVersion.GetFileData(retrievedOriginal);
+	
+	VersionRecord latestVersion(path, 2);
+	latestVersion.GetFileData(retrievedLatest);
+
+
+	unsigned int hash1 = 0;
+	unsigned int hash2 = 0;
+	unsigned int hash3 = 0;
+	unsigned int hash4 = 0;
+	MurmurHash3_x86_32_FromFile(path, MURMUR_SEED_1, &hash1);
+	MurmurHash3_x86_32_FromFile(original, MURMUR_SEED_1, &hash2);
+	MurmurHash3_x86_32_FromFile(retrievedLatest, MURMUR_SEED_1, &hash3);
+	MurmurHash3_x86_32_FromFile(retrievedOriginal, MURMUR_SEED_1, &hash4);
+	
+	if(hash1 == hash3 && hash2 == hash4)
+	{
+		log("Hashes match. File successfully retrieved");
+	}
+	else
+	{
+		log("Error. Hashes do not match. File not retrieved correctly");
+	}
+}
+
 void RunTestCommitFileOneVersionRetrieve()
 {
-	//DropTables();
-	//CreateTables();
+	DropTables();
+	CreateTables();
 	
 	/*
 	string fileinpath = "MurmurHash3.cpp";
 	string fileoutpath = "MurmurHash3.cpp.ret";
 	/*/
-	string fileinpath = "nixonout2.jpg";
-	string fileoutpath = "nixonout3.jpg";
+	string fileinpath = "testData/nixon.jpg";
+	string fileoutpath = "testData/nixonout.jpg";
 	//*/
 	
 	CommitFileWithOneVersion(fileinpath);
@@ -135,3 +245,4 @@ void RunTestCommitFileOneVersionRetrieve()
 		log("Error. Hashes do not match. File not retrieved correctly");
 	}
 }
+
