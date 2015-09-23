@@ -174,15 +174,15 @@ void CommitFileWithTwoVersions()
 
 void RunTestCommitFileOneVersion()
 {
-	DropTables();
-	CreateTables();
+	//DropTables();
+	//CreateTables();
 	CommitFileWithOneVersion("MurmurHash3.cpp");
 }
 
 void RunTestCommitFileWithTwoVersionsRetrieveBoth()
 {
-	DropTables();
-	CreateTables();
+	//DropTables();
+	//CreateTables();
 
 	string path = "testData/testFile.dat";
 	string original = "testData/testFile.dat.orig";
@@ -221,10 +221,10 @@ void RunTestCommitFileWithTwoVersionsRetrieveBoth()
 
 void RunTestCommitFileOneVersionRetrieve()
 {
-	DropTables();
-	CreateTables();
+	//DropTables();
+	//CreateTables();
 	
-	/*
+	//*
 	string fileinpath = "MurmurHash3.cpp";
 	string fileoutpath = "MurmurHash3.cpp.ret";
 	/*/

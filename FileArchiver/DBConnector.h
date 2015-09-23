@@ -14,12 +14,11 @@
 class DBConnector
 {
 public:
-	DBConnector();
-	virtual ~DBConnector();
-	
-	static sql::Connection* GetConnection();
+    DBConnector();
+    virtual ~DBConnector();
+    static sql::Connection* GetConnection();
 private:
-
+    
 };
 
 #endif	/* DBCONNECTOR_H */

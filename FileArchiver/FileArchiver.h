@@ -19,9 +19,8 @@ class FileArchiver
 {
 
 protected:
-		
+	sql::Connection* dbcon;	
 public:
-	
 	// Constructor
 	FileArchiver();
 
@@ -38,10 +37,10 @@ public:
 	int GetNumVersions(std::string filename);
 	
 	// Adds a new file to the database
-	bool AddFile(std::string filename);
+	bool AddFile(std::string filename, std::string comment);
 	
 	// Adds a new version to a file in the database
-	bool AddVersion(std::string filename);
+	bool AddVersion(std::string filename, std::string comment);
 	
 	// Returns all the files in the database as a vector
 	std::vector<FileRecord> GetFiles();
@@ -51,15 +50,6 @@ public:
 	
 	// Detect all file changes and return the ones that have changed
 	std::vector<FileRecord> DetectChangedRecords();
-	
-//		void Close();		
-//		bool Compare(std::string pathFilename);
-//		bool Insert(std::string filename, std::string comment);
-//		VersionRecord GetVersionInfo(std::string filename);
-//		bool Update(std::string filename);
-//		VersionRecord GetLastVersionInfo(std::string filename);
-//		bool RetrieveVersion(int versionnum, std::string filebname, std::string retrievedname);
-//              char* GetDataFromFile(std::string filename, int &length);
 };
 
 #endif

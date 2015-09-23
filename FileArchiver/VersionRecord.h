@@ -65,9 +65,6 @@ protected:
 	unsigned int Hash;
 	//database connection
 	sql::Connection* dbcon;
-	
-	// Returns 
-	unsigned int GetBlockHash();
 		
 	bool bIsValid;
 	

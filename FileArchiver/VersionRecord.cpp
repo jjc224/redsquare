@@ -39,7 +39,9 @@ VersionRecord::VersionRecord()
 }
 VersionRecord::~VersionRecord()
 {
-	dbcon->close();
+	//dbcon->close();
+	//delete dbcon;
+	dbcon = NULL;
 }
 
 // Constructor
@@ -351,7 +353,6 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 					while (bFound == false && i < 100)
 					{
 						i++;
-						//TODO: Should this not check for hash2 as well?
 						string sqlstatement = "select id from Block where hash1 = " + boost::lexical_cast<string>(hash1) + " and hash2 = " + boost::lexical_cast<string>(hash2);
 						log(sqlstatement);
 						sql::ResultSet *rs1 = stmt->executeQuery(sqlstatement);
@@ -407,14 +408,6 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 	stmt = NULL;
 	
 	return bSuccess;
-}
-
-unsigned int VersionRecord::GetBlockHash()
-{
-	//TODO: add logic
-	
-	//TODO: is this even needed?
-	return 0;
 }
 
 std::string VersionRecord::GetComment()
@@ -475,7 +468,6 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 					char outbuf[9000];
 					int blobsize = data->readsome(outbuf, 9000);
 					outFile.write(outbuf, blobsize);
-					//TODO: transfer from data istream to outFile ofstream
 				}
 				else
 				{
@@ -515,5 +507,9 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 
 void VersionRecord::PurgeVersion()
 {
-	
+	//TODO: sql
+	//TODO: delete all VtoB records associated with this version
+	//TODO: delete all orphan datablocks
+	//TODO: delete this version record from the DB
+	bIsValid = false;
 }

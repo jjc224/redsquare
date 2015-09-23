@@ -40,7 +40,12 @@ void FileRecord::Init()
 
 FileRecord::~FileRecord()
 {
-	dbcon->close();
+	if(dbcon != NULL)
+	{
+		//dbcon->close();
+	}
+	//delete dbcon;
+	dbcon = NULL;
 }
 
 FileRecord::FileRecord(std::string filename)
@@ -112,6 +117,11 @@ bool FileRecord::CreateFile(string filename, string newComment)
 	
 	delete stmt;
 	return bSuccess;
+}
+
+unsigned int FileRecord::GetCurrentVersionNumber()
+{
+	return CurrentVersion;
 }
 
 bool FileRecord::UpdateRecordInDB()

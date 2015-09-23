@@ -24,6 +24,10 @@
 
 using namespace std;
 
+static sql::Connection* dbcon = NULL;
+static sql::Driver* driver = NULL;
+static bool bInitialised = false;
+
 string decrypt(string s)
 {
 	for (unsigned int i = 0; i < s.size(); i++)
@@ -44,8 +48,12 @@ DBConnector::~DBConnector()
 
 sql::Connection* DBConnector::GetConnection()
 {
-	sql::Connection* dbcon = NULL;
-	sql::Driver* driver = NULL;
+	//sql::Connection* dbcon = NULL;
+	//sql::Driver* driver = NULL;
+	if(bInitialised != false && dbcon != NULL)
+	{
+		return dbcon;
+	}
 	
 	// Get data for connection from file
 	string host;

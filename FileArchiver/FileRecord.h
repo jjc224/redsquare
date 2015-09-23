@@ -27,7 +27,7 @@ public:
 	// Returns the number of versions this file has
 	int GetNumberOfVersions();
 
-	unsigned int GetCurrentVersionID();
+	unsigned int GetCurrentVersionNumber();
 
 	//Ensures there is a valid corresponding record in the database
 	bool IsValid();
