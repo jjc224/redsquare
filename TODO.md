@@ -5,7 +5,7 @@
 * Add support for different block sizes
 
 # Versioning
-* Add version comment support
+** _Add version comment support_ - *DONE*
 
 # Retrieval
 ** _Retrieve file from DB_ - **DONE**
