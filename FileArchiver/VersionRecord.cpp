@@ -172,7 +172,7 @@ unsigned int VersionRecord::GetHash()
 	return Hash;
 } 
 
-bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersion, unsigned int newHash)
+bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
 {
 	bool bSuccess = true;
 	
@@ -397,6 +397,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 	
 	if(bSuccess)
 	{
+		Comment = newComment;
 		UpdateRecordInDB();
 	}
 	

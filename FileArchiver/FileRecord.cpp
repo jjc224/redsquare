@@ -49,7 +49,7 @@ FileRecord::FileRecord(std::string filename)
 	RetrieveFileRecordFromDB(filename);
 }
 
-bool FileRecord::CreateFile(string filename)
+bool FileRecord::CreateFile(string filename, string newComment)
 {
 	sql::Statement *stmt = dbcon->createStatement();
 	bool bSuccess = true;
@@ -98,7 +98,7 @@ bool FileRecord::CreateFile(string filename)
 		if(bSuccess)
 		{
 			log("Adding new version");
-			bSuccess = AddNewVersion(Filename);
+			bSuccess = AddNewVersion(Filename, newComment);
 		}
 	}
 	catch (sql::SQLException &e)
@@ -213,7 +213,7 @@ unsigned int FileRecord::GetVersionSize(int versionNumber)
 }
 
 
-bool FileRecord::AddNewVersion(string NewFileVersionPath)
+bool FileRecord::AddNewVersion(string NewFileVersionPath, string newComment)
 {
 	bool bSuccess = true;
 	unsigned int newHash;
@@ -238,13 +238,12 @@ bool FileRecord::AddNewVersion(string NewFileVersionPath)
 		}
 	}
 	
-	log("Adding new version");
-	
 	//Add new version
 	VersionRecord newVersion;
 	if(bSuccess)
 	{
-		bSuccess = newVersion.CreateVersion(Filename, CurrentVersion + 1, newHash);
+		log("Adding new version");
+		bSuccess = newVersion.CreateVersion(Filename, CurrentVersion + 1, newHash, newComment);
 	}
 
 	//Update version details

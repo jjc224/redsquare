@@ -117,7 +117,7 @@ bool ExecuteUpdateStatement(sql::Connection* dbcon, std::string sqlstatement)
 void CommitFileWithOneVersion(string path)
 {
 	FileRecord newFile;
-	bool bSuccess = newFile.CreateFile(path);
+	bool bSuccess = newFile.CreateFile(path, "initial version");
 	
 	string logMessage = "The result was: ";
 	if(bSuccess)
@@ -136,20 +136,26 @@ void CommitFileWithTwoVersions()
 {
 	FileRecord newFile;
 	string path = "testData/testFile.dat";
-	createFile(25, path, 20000);
-	bool bSuccess = newFile.CreateFile(path);
+	createFile(25, path, 200000);
+	bool bSuccess = newFile.CreateFile(path, "initial version");
 	
 	//check that we can't add the same version
 	if(bSuccess)
 	{
-		bSuccess = !newFile.AddNewVersion(path);
+		log("Trying to add same version");
+		bSuccess = !newFile.AddNewVersion(path, "same version");
+		if(bSuccess == false)
+		{
+			log("ERROR: was able to add the same version");
+		}
 	}
 	
 	//check that adding a new version works
 	if(bSuccess)
 	{
+		log("Trying to commit a new version");
 		appendFile(25, path, 200);
-		bSuccess = newFile.AddNewVersion(path);
+		bSuccess = newFile.AddNewVersion(path, "Version 2");
 	}
 	
 	string logMessage = "The result was: ";
@@ -185,7 +191,7 @@ void RunTestCommitFileWithTwoVersionsRetrieveBoth()
 	
 	CommitFileWithTwoVersions();
 
-	createFile(25, path + ".orig", 20000);
+	createFile(25, path + ".orig", 200000);
 
 	VersionRecord originalVersion(path, 1);
 	originalVersion.GetFileData(retrievedOriginal);

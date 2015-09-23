@@ -16,7 +16,7 @@ public:
 	FileRecord(std::string filename);
 
 	//Creates the file record on the data 
-	bool CreateFile(std::string filename);
+	bool CreateFile(std::string filename, std::string newComment);
 	
 	VersionRecord GetVersion(unsigned int versionNum);
 	
@@ -42,7 +42,7 @@ public:
 	
 	// Friendly function for adding a new file version
 	// Returns false if the version has not changed
-	bool AddNewVersion(std::string NewFileVersionPath);
+	bool AddNewVersion(std::string NewFileVersionPath, std::string newComment);
 
 	//returns true if the file on disk has been modified
 	//returns false if the file is the same
