@@ -166,18 +166,37 @@ bool FileRecord::UpdateRecordInDB()
 
 VersionRecord FileRecord::GetVersion(unsigned int versionNum)
 {
-	//TODO: add logic
-	return VersionRecord();
+	VersionRecord newVersion(Filename, versionNum);
+	return newVersion;
 }
 
 vector<VersionRecord> FileRecord::GetAllVersions()
 {
-	return vector<VersionRecord>();
+	vector<VersionRecord> allVersions;
+	
+	for(unsigned int i = 0; i < NumberOfVersions; i++)
+	{
+		VersionRecord newVersion = GetVersion(i);
+		if(newVersion.IsValid())
+		{
+			allVersions.push_back(newVersion);
+		}
+	}
+	
+	return allVersions;
 }
 
 void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
 {
-	//TODO: add logic
+	for(unsigned int i = 0; i < NumberOfVersions - numberOfVersionsToKeep; i++)
+	{
+		VersionRecord purgeVersion = GetVersion(i);
+		if(purgeVersion.IsValid())
+		{
+			purgeVersion.PurgeVersion();
+			
+		}
+	}
 }
 
 int FileRecord::GetNumberOfVersions()
@@ -191,7 +210,7 @@ bool FileRecord::IsValid()
 	return bIsValid;
 }
 
-bool FileRecord::GetVersionFileContents(int requestedVersionNumber, string fileOutPath)
+bool FileRecord::GetVersionFileContents(unsigned int requestedVersionNumber, string fileOutPath)
 {
 	VersionRecord requestedVersion = GetVersion(requestedVersionNumber);
 	if(requestedVersion.IsValid())
@@ -206,10 +225,18 @@ std::string FileRecord::GetFilename()
 	return Filename;
 }
 
-unsigned int FileRecord::GetVersionSize(int versionNumber)
+unsigned int FileRecord::GetVersionSize(unsigned int versionNumber)
 {
-	//TODO: Add logic
-	return versionNumber;
+	VersionRecord version = GetVersion(versionNumber);
+	if(version.IsValid())
+	{
+		return version.GetSize();
+	}
+	else
+	{
+		log("Invalid version, cannot retrieve version size");
+		return 0;
+	}
 }
 
 

@@ -32,13 +32,13 @@ public:
 	//Ensures there is a valid corresponding record in the database
 	bool IsValid();
 
-	bool GetVersionFileContents(int versionNumber, std::string fileOutPath);
+	bool GetVersionFileContents(unsigned int versionNumber, std::string fileOutPath);
 
 	// Gets the full file path
 	std::string GetFilename();
 
 	// Gets the length of a specific version of the file
-	unsigned int GetVersionSize(int versionNumber);
+	unsigned int GetVersionSize(unsigned int versionNumber);
 	
 	// Friendly function for adding a new file version
 	// Returns false if the version has not changed

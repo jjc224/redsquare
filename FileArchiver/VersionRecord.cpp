@@ -512,3 +512,8 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 	stmt = NULL;
 	return bSuccess;
 }
+
+void VersionRecord::PurgeVersion()
+{
+	
+}

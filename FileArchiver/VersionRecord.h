@@ -37,6 +37,8 @@ public:
 	bool IsValid();
 		
 	bool GetFileData(std::string fileOutPath);
+        
+        void PurgeVersion();
 	 
 protected:
 	//retrieves the record information from the database
