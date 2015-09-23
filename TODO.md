@@ -1,11 +1,11 @@
 # Core Changes
-** _convert DB to use uints and bigints where appropriate_ - *DONE*
+** _convert DB to use uints and bigints where appropriate_ - **DONE**
 * Add purge old version logic
 * Compress data stream
 * Add support for different block sizes
 
 # Versioning
-** _Add version comment support_ - *DONE*
+** _Add version comment support_ - **DONE**
 
 # Retrieval
 ** _Retrieve file from DB_ - **DONE**
@@ -17,10 +17,10 @@
 # Unit testing
 ** _add a function that can generate a file of specified size, with a specified seed for repeatable testing._ - *DONE*
 
-** _add unit testing for retrieving versions_ - *DONE*
+** _add unit testing for retrieving versions_ - **DONE**
 
-** _add unit testing for adding second version_ - *DONE*
+** _add unit testing for adding second version_ - **DONE**
 
-** _add unit testing for generating random files and committing_ - *DONE*
+** _add unit testing for generating random files and committing_ - **DONE**
 
 * add a delete file statement into the first retrieval test case
