@@ -15,7 +15,7 @@
 * Possibly add another check in chunk creation logic to compare actual blobs in the event of a collision, and allow duplicate hash values. This could allow the speed of hash checking for the most part, but not corrupt data when a collision occurs. This will work as we have a dedicated PK column.
 
 # Unit testing
-** _add a function that can generate a file of specified size, with a specified seed for repeatable testing._ - *DONE*
+** _add a function that can generate a file of specified size, with a specified seed for repeatable testing._ - **DONE**
 
 ** _add unit testing for retrieving versions_ - **DONE**
 
