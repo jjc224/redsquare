@@ -16,9 +16,7 @@
 
 # Unit testing
 ** _add a function that can generate a file of specified size, with a specified seed for repeatable testing._ - *DONE*
-* add unit testing for retrieving versions
-* add unit testing for adding second version
-* add unit testing for generating random files and committing
-* Check support for adding a second version works
-* Check that added version matches extracted version (retrieve and then hash it)
+** _add unit testing for retrieving versions_ - *DONE*
+** _add unit testing for adding second version_ - *DONE*
+** _add unit testing for generating random files and committing_ - *DONE*
 * add a delete file statement into the first retrieval test case
