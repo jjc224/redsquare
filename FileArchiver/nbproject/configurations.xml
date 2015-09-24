@@ -7,14 +7,20 @@
       <itemPath>DBConnector.h</itemPath>
       <itemPath>FileArchiver.h</itemPath>
       <itemPath>FileRecord.h</itemPath>
+      <itemPath>GetCommentForm.h</itemPath>
       <itemPath>MurmurHash3.h</itemPath>
+      <itemPath>MyWindow.h</itemPath>
       <itemPath>ProjectConstants.h</itemPath>
+      <itemPath>RetrieveForm.h</itemPath>
       <itemPath>TestUtilities.h</itemPath>
       <itemPath>VersionRecord.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>GetCommentForm.ui</itemPath>
+      <itemPath>MyWindow.ui</itemPath>
+      <itemPath>RetrieveForm.ui</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -23,8 +29,11 @@
       <itemPath>DBConnector.cpp</itemPath>
       <itemPath>FileArchiver.cpp</itemPath>
       <itemPath>FileRecord.cpp</itemPath>
+      <itemPath>GetCommentForm.cpp</itemPath>
       <itemPath>Makefile</itemPath>
       <itemPath>MurmurHash3.cpp</itemPath>
+      <itemPath>MyWindow.cpp</itemPath>
+      <itemPath>RetrieveForm.cpp</itemPath>
       <itemPath>TestUtilities.cpp</itemPath>
       <itemPath>Utilities.cpp</itemPath>
       <itemPath>VersionRecord.cpp</itemPath>
@@ -76,13 +85,31 @@
       </item>
       <item path="FileRecord.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="GetCommentForm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GetCommentForm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GetCommentForm.ui" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Makefile" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MurmurHash3.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="MyWindow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MyWindow.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MyWindow.ui" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ProjectConstants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RetrieveForm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RetrieveForm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RetrieveForm.ui" ex="false" tool="3" flavor2="0">
       </item>
       <item path="TestUtilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -139,13 +166,31 @@
       </item>
       <item path="FileRecord.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="GetCommentForm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GetCommentForm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GetCommentForm.ui" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Makefile" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MurmurHash3.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="MurmurHash3.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="MyWindow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MyWindow.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MyWindow.ui" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ProjectConstants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RetrieveForm.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RetrieveForm.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RetrieveForm.ui" ex="false" tool="3" flavor2="0">
       </item>
       <item path="TestUtilities.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -15,6 +15,9 @@
 #include "FileArchiver.h"
 #include "boost/lexical_cast.hpp"
 
+//main window header
+#include "MyWindow.h"
+
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -38,8 +41,9 @@ int main(int argc, char *argv[]) {
 	}
 
 	// create and show your widgets here
-
-	//return app.exec();
+        MyWindow win;
+        win.show();
+	return app.exec();
 	
-	return 0;
+	//return 0;
 }
