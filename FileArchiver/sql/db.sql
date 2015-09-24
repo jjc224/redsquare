@@ -1,80 +1,60 @@
-
-create table filerec (
-	filename varchar(255),
-	curhash int(11),
-	ovhash int(11),
-	currentversion int(11),
-	versions int(11),
-	length int(11),
-	mtnsec int(11),
-	mtsec int(11),
-	tempname varchar(45),
-	blobtable_tempname varchar(45),
-
+create table File (
+	filename varchar(767) not null,
+	curhash int(11) unsigned,
+	curversion int(11) unsigned,
+	numversions int(11) unsigned,
 	primary key (filename)
 );
 
-
-create table comments (
-	idcomments int(11),
-	filerec varchar(255),
-	commentnum int(11),
-	commenttext mediumtext,
-	primary key (idcomments),
-	foreign key (filerec) references filerec(filename)
-);
-
-create table fileblkhashes (
-	id int(11),
-	filerec varchar(255),
-	blknum int(11),
-	hashval int(11),
-
+create table Version (
+	id int(11) unsigned not null auto_increment,
+	filename varchar(767),
+	size int(11) unsigned,
+	time int(11) unsigned,
+	filemodtime int(11) unsigned,
+	comment mediumtext,
+	version int(11) unsigned,
+	hash int(11) unsigned,
 	primary key (id),
-	foreign key (filerec) references filerec(filename)
+	foreign key (filename) references File(filename)
 );
 
 
-
-create table filerecblobtable (
-	filerec varchar(255),
-	tempname varchar(45),
-	primary key (filerec, tempname),
-	foreign key (filerec) references filerec(filename),
-	foreign key (tempname) references blobtable(tempname)
-);
-
-create table blobtable (
-	tempname varchar(45),
-	filedata mediumblob,
-
-	primary key (tempname),
-	foreign key (filedata) references filerec(blobtable_tempname)
-);
-
-create table versionrec (
-	id int(11),
-	filerec varchar(255),
-	versionnum int(11),
-	length int(11),
-	mtsec int(11),
-	mtnsec int(11),
-	ovhash int(11),
-
-	primary key (id),
-	foreign key (filerec) references filerec(filename)
-);
-
-create table blk (
-	id int(11),
-	version int(11),
-	length int(11),
-	blknum int(11),
-	hash int(11),
+create table Block (
+	id int(11) unsigned not null auto_increment,
+	hash1 int(11) unsigned,
+	hash2 int(11) unsigned,
 	data mediumblob,
-
 	primary key (id),
-	foreign key (version) references versionrec(id)
+	index(hash1),
+	index(hash2)
 );
+
+
+create table VtoB (
+	id int(11) not null auto_increment,
+	versionid int(11) unsigned,
+	blockid int(11) unsigned,
+	versionindex int(11) unsigned,
+	primary key (id),
+	foreign key (versionid) references Version(id),
+	foreign key (blockid) references Block(id)
+);
+
+alter table Version auto_increment = 1;
+alter table Block auto_increment = 1;
+alter table VtoB auto_increment = 1;
+
+
+delete from VtoB;
+delete from Block;
+delete from Version;
+delete from File;
+
+
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
 
 

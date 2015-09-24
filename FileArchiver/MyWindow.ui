@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MyWindow</class>
+ <widget class="QMainWindow" name="MyWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>765</width>
+    <height>595</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MyWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="labelFile">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>51</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="selectFileBttn">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>20</y>
+      <width>98</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select File</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelVersionData">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>114</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="sizeIncrement">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>Version Data</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>130</y>
+      <width>551</width>
+      <height>391</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="saveCurrentBttn">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>130</y>
+      <width>151</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save Current</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="retrieveVersionBttn">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>170</y>
+      <width>151</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Retrieve Version</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="setReferenceBttn">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>210</y>
+      <width>151</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Set as reference</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="showCommentBttn">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>250</y>
+      <width>151</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Show comment</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="selectFilePath">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>20</y>
+      <width>581</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
+   <zorder>labelFile</zorder>
+   <zorder>selectFilePath</zorder>
+   <zorder>selectFilePath</zorder>
+   <zorder>selectFileBttn</zorder>
+   <zorder>labelVersionData</zorder>
+   <zorder>tableView</zorder>
+   <zorder>saveCurrentBttn</zorder>
+   <zorder>retrieveVersionBttn</zorder>
+   <zorder>setReferenceBttn</zorder>
+   <zorder>showCommentBttn</zorder>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

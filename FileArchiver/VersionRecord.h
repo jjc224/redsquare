@@ -5,35 +5,69 @@
 class VersionRecord
 {
 public:
-	VersionRecord();
-	~VersionRecord();
-	//public accessor and mutator (get/set) functions for the most of private data memebers
-	void setVersionIdentifier();
-	unsigned int getVersionIdentifier(); 
-
-	void setVersionNumber();
-	unsigned int getVersionNumber();
-
-	void setLength();
-	unsigned int getLength(); 
-
-	void setHash();
-	unsigned int getHash(); 
-	//public members for transfer of record to/from persistent storage - the function signatures will depend on the persistance mechanism that is chosen
 	
+	// Constructor
+	VersionRecord();
+		
+		// Constructor
+	VersionRecord(std::string filename, unsigned int versionNumber);
+	
+	// Destructor
+	~VersionRecord();
+	
+	// Returns the id of a version
+	unsigned int GetVersionId(); 
+
+	// Returns the version number
+	unsigned int GetVersionNumber();
+
+	// Returns the size 
+	unsigned int GetSize(); 
+
+	// Returns the hash of the 
+	unsigned int GetHash(); 
+	
+	//public members for transfer of record to/from persistent storage - the function signatures will depend on the persistance mechanism that is chosen
+	bool CreateVersion(std::string pathFilename, unsigned int currentVersion, unsigned int newHash, std::string newComment);
+	
+	// Returns the comment on the version
+	std::string GetComment();
+	
+	// Returns true if the data in Version is usable
+	bool IsValid();
+		
+	bool GetFileData(std::string fileOutPath);
+        
+        void PurgeVersion();
+	 
 protected:
-	//The version indentifier - generated primary key
-	unsigned int VersionIdentifier;
+	//retrieves the record information from the database
+	bool RetrieveVersionRecordFromDB(std::string inFilename, unsigned int versionNumber);
+	//updates the FileRecord in the database;
+	bool UpdateRecordInDB();
+	void Init();
+
+	//The version identifier - generated primary key
+	unsigned int VersionID;
+		
+	std::string Filename;
+		
 	//The version number of this version
 	unsigned int VersionNumber;
 	//the length of this version in bytes
-	unsigned int Length;
+	unsigned int Size;
+		
+	unsigned int Time;
+	unsigned int FileModificationTime;
+	std::string Comment;
+		
 	//the has of the entire version of the file
-	unsigned int OverallHash;
-	//collection of records for the blocks that characterize how this version differs from the last saved version;
-	//each record will have a block number, a hash, a length, and a byte array (the compressed data for the file block);
-	//these data may be "simple" elements in seperate collections, or may be defined as a struct type in a collection of structs
-	//--->missing that variable 
+	unsigned int Hash;
+	//database connection
+	sql::Connection* dbcon;
+		
+	bool bIsValid;
+	
 private:
 
 };

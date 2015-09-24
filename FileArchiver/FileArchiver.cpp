@@ -15,241 +15,137 @@
 #include <fstream>
 #include "FileArchiver.h"
 #include "DBConnector.h"
+#include "FileRecord.h"
 #include "VersionRecord.h"
+#include "ProjectConstants.h"
+#include "boost/lexical_cast.hpp"
 
 #include "MurmurHash3.h"
 
 using namespace std;
 
-// Prepares connection
+// Constructor
 FileArchiver::FileArchiver()
 {
-    dbcon = DBConnector::GetConnection();
+	dbcon = DBConnector::GetConnection();
 }
 
-// Closes database
+// Destructor
 FileArchiver::~FileArchiver()
 {
-    Close();
+	//dbcon->close();
+	//delete dbcon;
+	dbcon = NULL;
 }
 
-// Checks the existence of a record 
+// Checks if a file exists already
 bool FileArchiver::Exists(std::string filename)
 {
-    int count = 0;
-    try
-    {
-        // Run Query
-        sql::Statement *stmt = dbcon->createStatement();;
-        sql::ResultSet *rs = stmt->executeQuery("select count(*) from redsquare.filerec where filename = '" + filename + "'");
-
-        // Output Results
-        while(rs->next())
-            count = rs->getInt(1);
-
-        delete rs;
-        delete stmt;
-    }
-    catch (sql::SQLException &e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }
-
-    return count;
+	FileRecord myFile(filename);
+	return myFile.IsValid();
 }
 
-// Compares a file with one in the database. Hashes file and then compares db hash.
-bool FileArchiver::Compare(std::string filename)
-{    
-    // Get data from file
-    int length = 0;
-    char* data = GetDataFromFile(filename, length);
-
-    // Hash the file data
-    unsigned int newHash = 0;
-    MurmurHash3_x86_32(data, length, 46, &newHash);
-    
-    // Delete data created
-    delete data;
-
-    // get hash from db of file
-    unsigned int cmpHash = 0;
-    try
-    {
-        // Run Query
-        sql::Statement *stmt = dbcon->createStatement();;
-        sql::ResultSet *rs = stmt->executeQuery("select curhash from redsquare.filerec where filename = '" + filename + "'");
-
-        // Output Results
-        while(rs->next())
-            cmpHash = rs->getInt(1);
-
-        delete rs;
-        delete stmt;
-    }
-    catch (sql::SQLException &e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }
-       
-    // compare the hashes
-    return (newHash == cmpHash);;
-}
-
-bool FileArchiver::Insert(std::string filename, std::string comment)
+// Gets a file record for a filename
+FileRecord FileArchiver::GetFile(std::string filename)
 {
-    // Get data from file
-    int length = 0;
-    char* data = GetDataFromFile(filename, length);
-
-    // Hash the file data
-    unsigned int newHash = 0;
-    MurmurHash3_x86_32(data, length, 46, &newHash);
-    
-    try
-    {
-        // Run Query
-        sql::Statement *stmt = dbcon->createStatement();;
-        //sql::ResultSet *rs = stmt->executeQuery("insert into redsquare.filerec(filename, curhash) values('" + filename + "'," + newHash + ")");
-
-        // Check record was inserted, somehow
-        //while(rs->next())
-        //    cmpHash = rs->getInt(1);
-
-        //delete rs;
-        delete stmt;
-    }
-    catch (sql::SQLException &e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }  
-    
-    // Delete data created
-    delete data;
-       
-    return false;
+	FileRecord myFile(filename);
+	return myFile;
 }
 
-VersionRecord FileArchiver::GetVersionInfo(std::string filename)
+// Returns the number of versions on a file
+int FileArchiver::GetNumVersions(std::string filename)
 {
-    try
-    {
-        // Run Query
-        sql::Statement *stmt = dbcon->createStatement();;
-        sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.comments");
-
-        // Output Results
-        while(rs->next())
-            cout << rs->getString(1) << endl;
-
-        delete rs;
-        delete stmt;
-    }
-    catch (sql::SQLException &	e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }
-    
-    
+	FileRecord myFile(filename);
+	return myFile.GetNumberOfVersions();
 }
 
-bool FileArchiver::Update(std::string filename)
+// Adds a new file to the database
+bool FileArchiver::AddFile(string filename, string comment)
 {
-    //TODO: add logic here
-    return false;
+	FileRecord myFile;
+	return myFile.CreateFile(filename, comment);
 }
 
-VersionRecord FileArchiver::GetLastVersionInfo(std::string filename)
+// Adds a new version to a file in the database
+bool FileArchiver::AddVersion(string filename, string comment)
 {
-    try
-    {
-        // Run Query
-        sql::Statement *stmt = dbcon->createStatement();;
-        sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.comments");
-
-        // Output Results
-        while(rs->next())
-            cout << rs->getString(1) << endl;
-
-        delete rs;
-        delete stmt;
-    }
-    catch (sql::SQLException &	e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }
+	FileRecord myFile(filename);
+	if(myFile.IsValid())
+	{
+		return myFile.AddNewVersion(filename, comment);
+	}
+	
+	return false; 
 }
 
-bool FileArchiver::RetrieveVersion(int versionnum, std::string filebname, std::string retrievedname)
+// Returns all the files in the database as a vector
+vector<FileRecord> FileArchiver::GetFiles()
 {
-    try
-    {
-        // Run Query
-        sql::Statement *stmt = dbcon->createStatement();;
-        sql::ResultSet *rs = stmt->executeQuery("select * from redsquare.comments");
-
-        // Output Results
-        while(rs->next())
-            cout << rs->getString(1) << endl;
-
-        delete rs;
-        delete stmt;
-    }
-    catch (sql::SQLException &	e)
-    {
-        cout << "ERROR: " << endl;
-        cout << e.what() << endl;
-        cout << e.getErrorCode() << endl;
-        cout << e.getSQLState() << endl;
-    }
+	vector<string> filenames = GetFileNames();
+	vector<FileRecord> files;
+	
+	for(unsigned int i = 0; i < filenames.size(); i++)
+	{
+		FileRecord myRec(filenames[i]);
+		if(myRec.IsValid())
+		{
+			files.push_back(myRec);
+		}
+	}
+	
+	return files;
 }
 
-void FileArchiver::Close()
+// Returns all the filename stored in the database
+vector<string> FileArchiver::GetFileNames()
 {
-    dbcon->close();
-    delete dbcon;
+	vector<string> filenames;
+	string sqlstatement = "select filename from File";
+	
+	try
+	{
+		// Run Query
+		sql::Statement *stmt = dbcon->createStatement();
+		sql::ResultSet *rs = stmt->executeQuery(sqlstatement);
+
+		// Output Results
+		while(rs->next())
+		{
+			string filename = rs->getString("filename");
+			filenames.push_back(filename);
+		}
+
+		delete rs;
+		rs = NULL;
+		delete stmt;
+		stmt = NULL;
+	}
+	catch (sql::SQLException &e)
+	{
+		log("ERROR: ");
+		log(e.what());
+		log(boost::lexical_cast<string>(e.getErrorCode()));
+		log(e.getSQLState());
+	}
+	
+	return filenames;
 }
 
-char* FileArchiver::GetDataFromFile(string filename, int &length)
+// Detect all file changes and return the ones that have changed
+vector<FileRecord> FileArchiver::DetectChangedRecords()
 {
-    // Prepare variables
-    char* data = 0;
-    length = 0;
-    
-    // read file in
-    ifstream ins(filename.c_str());
-    
-    // Catch problem with file
-    if (!ins.good())
-    {
-        cout << "file is not good." << endl;
-        return NULL;
-    }
-    
-    // Find length of data
-    ins.seekg(0,ios::end);
-    length = ins.tellg();
-    ins.seekg(0,ios::beg);
+	vector<FileRecord> records = GetFiles();
+	vector<FileRecord> changed;
 
-    // Store file in data
-    data = new char[length+1];
-    ins.read(data, length);
-    ins.close();
-    
-    return data;
+	for(unsigned int i = 0; i < records.size(); i++)
+	{
+		FileRecord& myFile = records[i];
+		if(myFile.IsValid() && myFile.IsChanged())
+		{
+			changed.push_back(myFile);
+		}
+	}
+
+	return changed;
 }
+

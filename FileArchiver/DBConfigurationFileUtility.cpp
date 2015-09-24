@@ -22,7 +22,30 @@ string encrypt(string s)
 	return s;
 }
 
-int main(int argc, char* argv[])
+void unEncryptFile()
+{
+	string dbname;
+	string user;
+	string pw;
+	string host;
+
+	ifstream ins("db.txt");
+	getline(ins, dbname);
+	getline(ins, user);
+	getline(ins, pw);
+	getline(ins, host);
+	
+	ofstream out("db-unencrypted.txt");
+	out << decrypt(dbname) << endl;
+	out << decrypt(user) << endl;
+	out << decrypt(pw) << endl;
+	out << decrypt(host) << endl;
+
+	out.close();
+	ins.close();
+}
+
+void encryptFile()
 {
 	string dbname;
 	string user;
@@ -43,5 +66,11 @@ int main(int argc, char* argv[])
 	
 	out.close();
 	ins.close();
+}
+
+int main(int argc, char* argv[])
+{
+	encryptFile();
+	return 0;
 }
 

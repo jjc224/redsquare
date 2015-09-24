@@ -16,15 +16,24 @@
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
 
+#include "boost/lexical_cast.hpp"
+
 #include "DBConnector.h"
+#include "ProjectConstants.h"
 
 
 using namespace std;
 
+static sql::Connection* dbcon = NULL;
+static sql::Driver* driver = NULL;
+static bool bInitialised = false;
+
 string decrypt(string s)
 {
 	for (unsigned int i = 0; i < s.size(); i++)
+	{
 		s[i] = s[i] - 1 - i%2;
+	}
 
 	return s;
 }
@@ -39,8 +48,12 @@ DBConnector::~DBConnector()
 
 sql::Connection* DBConnector::GetConnection()
 {
-	sql::Connection* dbcon = NULL;
-	sql::Driver* driver = NULL;
+	//sql::Connection* dbcon = NULL;
+	//sql::Driver* driver = NULL;
+	if(bInitialised != false && dbcon != NULL)
+	{
+		return dbcon;
+	}
 	
 	// Get data for connection from file
 	string host;
@@ -60,19 +73,25 @@ sql::Connection* DBConnector::GetConnection()
 	user = decrypt(user);
 	pw = decrypt(pw);
 
+	log("host: " + host);
+	log("user: " + user);
+	log("pw: " + pw);
+		
 	// Connect to database
 	try
-	{	
-			driver = get_driver_instance();
-			dbcon = driver->connect(host, user, pw); 
+	{
+		driver = get_driver_instance();
+		dbcon = driver->connect(host, user, pw); 
+		dbcon->setSchema(dbname);
 	}
 	catch (sql::SQLException&	e)
 	{
-			cout << "Initial Conection Failed: " << endl;
-			cout << e.what() << endl;
-			cout << e.getErrorCode() << endl;
-			cout << e.getSQLState() << endl;
+		log("ERROR: ");
+		log(e.what());
+		log(boost::lexical_cast<string>(e.getErrorCode()));
+		log(e.getSQLState());
 	}
 	
+	//dbcon->setTransactionIsolation(sql::TRANSACTION_READ_UNCOMMITTED);
 	return dbcon;
 }
