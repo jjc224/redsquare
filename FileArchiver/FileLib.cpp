@@ -11,8 +11,6 @@
 
 using namespace std;
 
-// Remember to link boost_regex.
-
 vector<string> FileLib::SplitPath(string path)
 {
 	vector<string> splittedPath;
@@ -20,6 +18,11 @@ vector<string> FileLib::SplitPath(string path)
 	path = Normalize(path);
 	boost::split(splittedPath, path, boost::is_any_of("/"), boost::token_compress_on);    // Split path by forward slash ("/") into vector.
 
+        // There will be a null-byte in the last string if the path ends in the delimiter.
+        // So, remove it.
+        if(splittedPath.back().empty())
+            splittedPath.pop_back();
+        
 	return splittedPath;
 }
 
@@ -27,7 +30,7 @@ vector<string> FileLib::SplitPath(string path)
 string FileLib::Normalize(string path)
 {
 	boost::regex re("\\\\+|//+");
-	path = boost::regex_replace(path, re, "/");
+	path = boost::regex_replace(path, re, "/", boost::match_default | boost::format_all);
 
 	return path;
 }
@@ -71,7 +74,9 @@ time_t FileLib::GetModifiedDate(string path)
 
 string FileLib::AppendPath(string &path1, string path2)
 {
-	path1.append(Normalize(path2));
+	path1.append(path2);
+        path1 = Normalize(path1);
+        
         return path1;
 }
 
@@ -82,4 +87,3 @@ unsigned int FileLib::GetHash(string path)
 	MurmurHash3_x86_32_FromFile(path, MURMUR_SEED_1, &hash);
 	return hash;
 }
-

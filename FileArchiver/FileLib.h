@@ -1,5 +1,8 @@
 // Author: Joshua Coleman (jjc224).
 
+#ifndef FILELIB_H
+#define	FILELIB_H
+
 #include <vector>
 #include <string>
 
@@ -15,3 +18,6 @@ class FileLib
 		static unsigned int GetHash(std::string path);
 };
 
+
+
+#endif	/* FILELIB_H */
