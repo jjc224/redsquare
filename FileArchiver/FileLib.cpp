@@ -50,7 +50,7 @@ string FileLib::GetPath(string path)
 
 string FileLib::GetFilename(string path)
 {
-	return SplitPath(Normalize(path)).back();
+	return SplitPath(path).back();
 }
 
 time_t FileLib::GetModifiedDate(string path)
