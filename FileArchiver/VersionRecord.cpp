@@ -507,9 +507,35 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 
 void VersionRecord::PurgeVersion()
 {
-	//TODO: sql
-	//TODO: delete all VtoB records associated with this version
-	//TODO: delete all orphan datablocks
-	//TODO: delete this version record from the DB
-	bIsValid = false;
+    // Catch invalid version
+    if (!bIsValid)
+        return;
+ 
+    sql::Statement *stmt = dbcon->createStatement();
+   
+    try
+    {
+        // Delete records from VtoB
+        stmt->executeUpdate("delete from VtoB where versionid = " + VersionID);
+        
+        // Clean data Blocks up
+        // This will show which blocks need to be deleted "select id from Block where id not in (select b.id from Block b join VtoB v on b.id = v.blockid);"
+        stmt->executeUpdate("delete b from Block b left join VtoB v on v.blockid = b.id where v.blockid is null");
+    
+        // Remove the version record
+        stmt->executeUpdate("delete from Version where id = " + VersionID);
+        
+    }
+    catch (sql::SQLException e)
+    {
+        log("ERROR: ");
+        log(e.what());
+        log(e.getErrorCode());
+        log(e.getSQLState());     
+    }
+    
+    delete stmt;
+    
+    // Record no longer exists, it becomes invalid
+    bIsValid = false;
 }

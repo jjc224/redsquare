@@ -1,6 +1,6 @@
 # Core Changes
 ** _convert DB to use uints and bigints where appropriate_ - **DONE**
-* Add purge old version logic
+* Add purge old version logic **DONE**
 * Compress data stream
 * Add support for different block sizes
 
