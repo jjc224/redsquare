@@ -29,8 +29,10 @@ int main(int argc, char *argv[]) {
 	DropTables();
 	CreateTables();
 	
-	RunTestCommitFileOneVersionRetrieve();
-	RunTestCommitFileWithTwoVersionsRetrieveBoth();
+	GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/testDataagain.dat", 2000,20);
+	
+	//RunTestCommitFileOneVersionRetrieve();
+	//RunTestCommitFileWithTwoVersionsRetrieveBoth();
 	
 	FileArchiver test;
 	vector<FileRecord> files = test.GetFiles();
@@ -40,7 +42,7 @@ int main(int argc, char *argv[]) {
 		log(files[i].GetFilename() + " " + boost::lexical_cast<string>(files[i].GetCurrentVersionNumber()));
 	}
 
-    RunTestPurge();
+    //RunTestPurge();
         
 	// create and show your widgets here
         MyWindow win;

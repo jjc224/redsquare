@@ -40,10 +40,12 @@ string decrypt(string s)
 
 DBConnector::DBConnector()
 {
+	
 }
 
 DBConnector::~DBConnector()
 {
+	
 }
 
 sql::Connection* DBConnector::GetConnection()
@@ -83,6 +85,7 @@ sql::Connection* DBConnector::GetConnection()
 		driver = get_driver_instance();
 		dbcon = driver->connect(host, user, pw); 
 		dbcon->setSchema(dbname);
+		bInitialised = true;
 	}
 	catch (sql::SQLException&	e)
 	{

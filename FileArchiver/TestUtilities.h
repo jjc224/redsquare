@@ -12,7 +12,7 @@
 #include <mysql_connection.h>
 #include <mysql_driver.h>
 
-void createFile(int seed, std::string filename, int length);
+void createFile(unsigned int seed, std::string filename, int length);
 void appendFile(int seed, std::string filename, int length);
 
 void DropTables();
@@ -24,6 +24,8 @@ bool ExecuteUpdateStatement(sql::Connection* dbcon, std::string sqlstatement);
 
 void CommitFileWithOneVersion(std::string path);
 void CommitFileWithTwoVersions();
+
+bool GenerateFilesAndCommitVersionsAndVerifyRetrieval(std::string path, unsigned int size, unsigned int numVersions);
 
 void RunTestCommitFileOneVersion();
 void RunTestCommitFileOneVersionRetrieve();

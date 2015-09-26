@@ -10,12 +10,13 @@
 #include <cppconn/exception.h>
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
+#include "boost/lexical_cast.hpp"
 
 #include <cstdlib>
 
 using namespace std;
 
-void createFile(int seed, string filename, int length)
+void createFile(unsigned int seed, string filename, int length)
 {
 	srand(seed);
 	
@@ -30,6 +31,7 @@ void createFile(int seed, string filename, int length)
 			outFile.put(num);
 		}
 	}
+	outFile.close();
 }
 
 void appendFile(int seed, string filename, int length)
@@ -89,8 +91,8 @@ void ExecuteSQLFile(string path)
 		}
 	}
 	
-	inFile.close();
-	delete dbcon;
+	//inFile.close();
+	//delete dbcon;
 	dbcon = NULL;
 }
 
@@ -171,6 +173,44 @@ void CommitFileWithTwoVersions()
 	log(logMessage);
 }
 
+bool GenerateFilesAndCommitVersionsAndVerifyRetrieval(std::string path, unsigned int size, unsigned int numVersions)
+{
+	FileRecord myRecord;
+	bool bSuccess = true;
+	
+	for(unsigned int i = 0; i < numVersions; i++)
+	{
+		if(bSuccess == false)
+		{
+			break;
+		}
+		string currentpath = path + "." + boost::lexical_cast<string>(i);
+		createFile(i * 200, currentpath, size);
+		if(i == 0)
+		{
+			bSuccess = myRecord.CreateFile(currentpath, "initial version");
+			if(bSuccess == false)
+			{
+				log("ERROR: Failed to create new file: " + currentpath);
+			}
+		}
+		else
+		{
+			log("Trying to add new version");
+			if(myRecord.IsValid())
+			{
+				bSuccess = myRecord.AddNewVersion(currentpath, "Version: " + boost::lexical_cast<string>(i) );
+				if(bSuccess == false)
+				{
+					log("ERROR: Failed to create new version: " + currentpath);
+				}
+			}
+		}
+		
+	}
+	
+	return bSuccess;
+}
 
 void RunTestCommitFileOneVersion()
 {

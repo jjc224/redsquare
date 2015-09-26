@@ -176,7 +176,7 @@ unsigned int VersionRecord::GetHash()
 	return Hash;
 } 
 
-bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
+bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
 {
 	bool bSuccess = true;
 	
@@ -184,7 +184,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 	sql::Statement *stmt = dbcon->createStatement();
 	try 
 	{
-		bool bNewVersionMade = stmt->executeUpdate("insert into Version(filename, version, hash) values ('" + boost::lexical_cast<string>(pathFilename) + "', " + boost::lexical_cast<string>(currentVersion) + ", " + boost::lexical_cast<string>(newHash) + ")");
+		bool bNewVersionMade = stmt->executeUpdate("insert into Version(filename, version, hash) values ('" + boost::lexical_cast<string>(keyFilename) + "', " + boost::lexical_cast<string>(currentVersion) + ", " + boost::lexical_cast<string>(newHash) + ")");
 		if (bNewVersionMade == false)
 		{
 			return false;
@@ -213,7 +213,7 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 	
 	if(bSuccess)
 	{
-		RetrieveVersionRecordFromDB(pathFilename, currentVersion);
+		RetrieveVersionRecordFromDB(keyFilename, currentVersion);
 		if(!IsValid())
 		{
 			log("Failed to retrieve version record from database. This version was not created correctly");
