@@ -2,7 +2,9 @@
 ** _convert DB to use uints and bigints where appropriate_ - **DONE**
 
 ** _Add purge old version logic_ - **DONE**
+
 ** _Compress data stream_ - **DONE**
+
 ** _Add support for different block sizes_ - **DONE**
 
 # Versioning
