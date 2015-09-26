@@ -25,6 +25,8 @@ bool ExecuteUpdateStatement(sql::Connection* dbcon, std::string sqlstatement);
 void CommitFileWithOneVersion(std::string path);
 void CommitFileWithTwoVersions();
 
+bool GenerateFilesAndCommitVersionsAndVerifyRetrieval(std::string path, unsigned int size, unsigned int numVersions);
+
 void RunTestCommitFileOneVersion();
 void RunTestCommitFileOneVersionRetrieve();
 void RunTestCommitFileWithTwoVersionsRetrieveBoth();

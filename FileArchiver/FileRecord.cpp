@@ -204,7 +204,6 @@ void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
 		if(purgeVersion.IsValid())
 		{
 			purgeVersion.PurgeVersion();
-			
 		}
 	}
 }
