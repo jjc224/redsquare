@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include "ProjectConstants.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ using namespace std;
 void zipCompress(string path)
 {
 	string command = "zip ";
-	command.append(ZIP_WORK_PATH);
+	command.append(COMPRESSION_WORK_PATH);
 	command.append("temp.zip ");
 	command.append(path);
 	system(command.c_str());
@@ -23,9 +24,9 @@ void zipCompress(string path)
 void zipTempCompress()
 {
 	string command = "zip ";
-	command.append(ZIP_WORK_PATH);
+	command.append(COMPRESSION_WORK_PATH);
 	command.append("temp.zip ");
-	command.append(ZIP_WORK_PATH);
+	command.append(COMPRESSION_WORK_PATH);
 	command.append("* -j");
 	system(command.c_str());
 }
@@ -34,9 +35,9 @@ void zipTempCompress()
 void zipUncompress()
 {
 	string command = "unzip -o ";
-	command.append(ZIP_WORK_PATH);
+	command.append(COMPRESSION_WORK_PATH);
 	command.append("temp.zip -d ");
-	command.append(ZIP_WORK_PATH);
+	command.append(COMPRESSION_WORK_PATH);
 	system(command.c_str());	
 }
 
@@ -44,7 +45,7 @@ void zipUncompress()
 void zipRemoveContents()
 {
 	string command = "rm ";
-	command.append(ZIP_WORK_PATH);
+	command.append(COMPRESSION_WORK_PATH);
 	command.append("*");
 	system(command.c_str());
 }
@@ -55,7 +56,7 @@ void zipCopyContents(string path)
 	string command = "cp ";
 	command.append(path);
 	command.append(" ");
-	command.append(ZIP_WORK_PATH);
+	command.append(COMPRESSION_WORK_PATH);
 	system(command.c_str());
 	cout << command << endl;
 }
@@ -64,6 +65,6 @@ void zipCopyContents(string path)
 void zipRemoveZips()
 {
 	string command = "rm ";
-	command.append(ZIP_WORK_PATH);
+	command.append(COMPRESSION_WORK_PATH);
 	command.append("*.zip");
 }

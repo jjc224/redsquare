@@ -24,6 +24,8 @@ const int FILENAME_LENGTH(767);
 void logToFile(std::string message);
 void log(std::string message);
 
+const std::string COMPRESSION_WORK_PATH = "./temp/";
+
 #endif	/* PROJECTCONSTANTS_H */
 
 

@@ -10,7 +10,7 @@
 
 #include <string>
 
-const std::string ZIP_WORK_PATH = "./temp/";
+
 
 // Compresses a file given a path to a file
 void zipCompress(std::string path);

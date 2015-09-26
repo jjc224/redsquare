@@ -21,6 +21,8 @@
 #include <streambuf>
 #include <istream>
 
+#include "CompressUtils.h"
+
 using namespace std;
 
 //this struct is copied from this forum post:
@@ -219,8 +221,20 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 		}
 	}
  
+	// Clean temp folder just incase
+	zipRemoveContents();
+	
+	// Copy file to temp folder
+	zipCopyContents(pathFilename);
+	
+	// Compress file in temp folder
+	zipTempCompress();
+	
+	// Create Zip path
+	string zipPath = "./temp/temp.zip";
+	
 	// Open File
-	ifstream ins(pathFilename.c_str());
+	ifstream ins(zipPath.c_str());
 	
 	if (!ins.good())
 	{
@@ -406,6 +420,9 @@ bool VersionRecord::CreateVersion(string pathFilename, unsigned int currentVersi
 	
 	delete stmt;
 	stmt = NULL;
+	
+	// Clean up temp folder
+	zipRemoveContents();
 	
 	return bSuccess;
 }
