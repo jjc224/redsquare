@@ -198,11 +198,12 @@ vector<VersionRecord> FileRecord::GetAllVersions()
 
 void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
 {
-	for(unsigned int i = 0; i < NumberOfVersions - numberOfVersionsToKeep; i++)
+	for(unsigned int i = 0; i <= NumberOfVersions - numberOfVersionsToKeep; i++)
 	{
 		VersionRecord purgeVersion = GetVersion(i);
 		if(purgeVersion.IsValid())
 		{
+            log("Actual Purge Record No: " + boost::lexical_cast<string>(i));
 			purgeVersion.PurgeVersion();
 		}
 	}

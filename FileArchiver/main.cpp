@@ -40,6 +40,8 @@ int main(int argc, char *argv[]) {
 		log(files[i].GetFilename() + " " + boost::lexical_cast<string>(files[i].GetCurrentVersionNumber()));
 	}
 
+    RunTestPurge();
+        
 	// create and show your widgets here
         MyWindow win;
         win.show();
