@@ -222,16 +222,16 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 	}
  
 	// Clean temp folder just incase
-	zipRemoveContents();
+	zipRemoveZip();
 	
 	// Copy file to temp folder
 	zipCopyContents(pathFilename);
 	
 	// Compress file in temp folder
-	zipTempCompress();
+	zipCompress();
 	
 	// Create Zip path
-	string zipPath = "./temp/temp.zip";
+	string zipPath = "./temp/data.gz";
 	
 	// Open File
 	ifstream ins(zipPath.c_str());
@@ -422,7 +422,7 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 	stmt = NULL;
 	
 	// Clean up temp folder
-	zipRemoveContents();
+	zipRemoveZip();
 	
 	return bSuccess;
 }
@@ -448,7 +448,7 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 		bSuccess = false;
 	}
 	
-	ofstream outFile(fileOutPath.c_str());
+	ofstream outFile("./temp/data.gz");
 	
 	if(outFile.is_open() == false)
 	{
@@ -516,6 +516,8 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 	}
 	
 	outFile.close();
+	
+	zipUncompressTo(fileOutPath);
 	
 	delete stmt;
 	stmt = NULL;

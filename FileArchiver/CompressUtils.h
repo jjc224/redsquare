@@ -11,24 +11,18 @@
 #include <string>
 
 
-
-// Compresses a file given a path to a file
-void zipCompress(std::string path);
-
-// Uncompresses a zip where it is
-void zipUncompress();
-
-// Removes all files from temp folder
-void zipRemoveContents();
-
 // Creates a copy of a file to the temp folder
 void zipCopyContents(std::string path);
 
-// Compresses a file to 
-void zipTempCompress();
+// Compresses a file given a path to a file
+void zipCompress();
+
+// Uncompresses a zip to the specified location path
+void zipUncompressTo(std::string path);
 
 // Removes all zips from the temp folder
-void zipRemoveZips();
+void zipRemoveZip();
+
 
 
 #endif	/* COMPRESSUTILS_H */
