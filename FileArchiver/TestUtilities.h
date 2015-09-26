@@ -29,5 +29,7 @@ void RunTestCommitFileOneVersion();
 void RunTestCommitFileOneVersionRetrieve();
 void RunTestCommitFileWithTwoVersionsRetrieveBoth();
 
+void RunTestPurge();
+
 #endif	/* TESTUTILITIES_H */
 

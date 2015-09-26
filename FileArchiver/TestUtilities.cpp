@@ -252,3 +252,19 @@ void RunTestCommitFileOneVersionRetrieve()
 	}
 }
 
+void RunTestPurge()
+{
+    string path = "testData/testFile.dat";
+    FileRecord existingFile(path);
+    
+    if (!existingFile.IsValid())
+    {
+        log("FileRecord is not valid.");
+        return;
+    }
+    
+    log("Purging file.");
+    existingFile.PurgeOldVersions(0);
+    
+    return;
+}

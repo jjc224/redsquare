@@ -516,14 +516,14 @@ void VersionRecord::PurgeVersion()
     try
     {
         // Delete records from VtoB
-        stmt->executeUpdate("delete from VtoB where versionid = " + VersionID);
+        stmt->executeUpdate("delete from VtoB where versionid = " + boost::lexical_cast<string>(VersionID));
         
         // Clean data Blocks up
         // This will show which blocks need to be deleted "select id from Block where id not in (select b.id from Block b join VtoB v on b.id = v.blockid);"
         stmt->executeUpdate("delete b from Block b left join VtoB v on v.blockid = b.id where v.blockid is null");
     
         // Remove the version record
-        stmt->executeUpdate("delete from Version where id = " + VersionID);
+        stmt->executeUpdate("delete from Version where id = " + boost::lexical_cast<string>(VersionID));
         
     }
     catch (sql::SQLException e)
