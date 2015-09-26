@@ -2,8 +2,8 @@
 ** _convert DB to use uints and bigints where appropriate_ - **DONE**
 
 ** _Add purge old version logic_ - **DONE**
-* Compress data stream
-* Add support for different block sizes
+** _Compress data stream_ - **DONE**
+** _Add support for different block sizes_ - **DONE**
 
 # Versioning
 ** _Add version comment support_ - **DONE**
