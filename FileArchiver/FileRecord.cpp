@@ -253,9 +253,11 @@ unsigned int FileRecord::GetVersionSize(unsigned int versionNumber)
 bool FileRecord::AddNewVersion(string NewFileVersionPath, string newComment)
 {
 	bool bSuccess = true;
-	unsigned int newHash;
+	unsigned int newHash = 0;
 	
-	if(boost::filesystem::exists(Filename) == false)
+	log("Attempting to add new version from file: " + NewFileVersionPath);
+	
+	if(boost::filesystem::exists(NewFileVersionPath) == false)
 	{
 		log("ERROR: File does not exist");
 		bSuccess = false;
@@ -280,7 +282,7 @@ bool FileRecord::AddNewVersion(string NewFileVersionPath, string newComment)
 	if(bSuccess)
 	{
 		log("Adding new version");
-		bSuccess = newVersion.CreateVersion(Filename, CurrentVersion + 1, newHash, newComment);
+		bSuccess = newVersion.CreateVersion(Filename, NewFileVersionPath, CurrentVersion + 1, newHash, newComment);
 	}
 
 	//Update version details

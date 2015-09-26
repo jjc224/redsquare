@@ -181,7 +181,9 @@ void MurmurHash3_x86_32_FromFile( string filepath, uint32_t seed, void * out )
 	for(int i = -nblocks; i; i++)
 	{
 		uint32_t k1;
-		ins >> k1;
+		//ins >> k1;
+		ins.get((char*)&k1, 4);
+		//ins.read(&k1, 4);
 
 		k1 *= c1;
 		k1 = ROTL32(k1,15);

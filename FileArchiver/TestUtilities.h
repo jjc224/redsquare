@@ -12,7 +12,7 @@
 #include <mysql_connection.h>
 #include <mysql_driver.h>
 
-void createFile(int seed, std::string filename, int length);
+void createFile(unsigned int seed, std::string filename, int length);
 void appendFile(int seed, std::string filename, int length);
 
 void DropTables();

@@ -16,7 +16,7 @@
 
 using namespace std;
 
-void createFile(int seed, string filename, int length)
+void createFile(unsigned int seed, string filename, int length)
 {
 	srand(seed);
 	
@@ -31,6 +31,7 @@ void createFile(int seed, string filename, int length)
 			outFile.put(num);
 		}
 	}
+	outFile.close();
 }
 
 void appendFile(int seed, string filename, int length)
@@ -90,8 +91,8 @@ void ExecuteSQLFile(string path)
 		}
 	}
 	
-	inFile.close();
-	delete dbcon;
+	//inFile.close();
+	//delete dbcon;
 	dbcon = NULL;
 }
 
@@ -176,14 +177,15 @@ bool GenerateFilesAndCommitVersionsAndVerifyRetrieval(std::string path, unsigned
 {
 	FileRecord myRecord;
 	bool bSuccess = true;
+	
 	for(unsigned int i = 0; i < numVersions; i++)
 	{
 		if(bSuccess == false)
 		{
 			break;
 		}
-		string currentpath = path + boost::lexical_cast<string>(i);
-		createFile(25 + i, currentpath, size);
+		string currentpath = path + "." + boost::lexical_cast<string>(i);
+		createFile(i * 200, currentpath, size);
 		if(i == 0)
 		{
 			bSuccess = myRecord.CreateFile(currentpath, "initial version");
@@ -194,6 +196,7 @@ bool GenerateFilesAndCommitVersionsAndVerifyRetrieval(std::string path, unsigned
 		}
 		else
 		{
+			log("Trying to add new version");
 			if(myRecord.IsValid())
 			{
 				bSuccess = myRecord.AddNewVersion(currentpath, "Version: " + boost::lexical_cast<string>(i) );
