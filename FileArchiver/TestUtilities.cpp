@@ -209,6 +209,37 @@ bool GenerateFilesAndCommitVersionsAndVerifyRetrieval(std::string path, unsigned
 		
 	}
 	
+	if(bSuccess)
+	{
+		string originalName = path + ".0";
+		for(unsigned int i = 0; i < numVersions; i++)
+		{
+			string currentpath = path + "." + boost::lexical_cast<string>(i);
+			VersionRecord currentRecord(originalName, i + 1);
+			unsigned int newHash = 0;
+			
+			if(currentRecord.IsValid())
+			{
+				MurmurHash3_x86_32_FromFile(currentpath, MURMUR_SEED_1, &newHash);
+				if(newHash != currentRecord.GetHash())
+				{
+					log("HASHES DID NOT MATCH! " + currentpath);
+					bSuccess = false;
+					break;
+				}
+				else
+				{
+					log("Hashes matched. Retrieval worked correctly");
+				}
+			}
+			else
+			{
+				bSuccess = false;
+				break;
+			}
+		}
+	}
+	
 	return bSuccess;
 }
 
