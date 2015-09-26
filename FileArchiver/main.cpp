@@ -31,15 +31,15 @@ int main(int argc, char *argv[]) {
 	
 	GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/testDataagain.dat", 2000,20);
 	
-	//RunTestCommitFileOneVersionRetrieve();
-	//RunTestCommitFileWithTwoVersionsRetrieveBoth();
+	RunTestCommitFileOneVersionRetrieve();
+	RunTestCommitFileWithTwoVersionsRetrieveBoth();
 	
 	FileArchiver test;
 	vector<FileRecord> files = test.GetFiles();
 	
 	for(unsigned int i = 0; i < files.size(); i++)
 	{
-		log(files[i].GetFilename() + " " + boost::lexical_cast<string>(files[i].GetCurrentVersionNumber()));
+		log("File found in database: " + files[i].GetFilename() + " " + boost::lexical_cast<string>(files[i].GetCurrentVersionNumber()));
 	}
 
     //RunTestPurge();
