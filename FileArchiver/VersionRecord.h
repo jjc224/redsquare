@@ -38,8 +38,10 @@ public:
 		
 	bool GetFileData(std::string fileOutPath);
         
-        void PurgeVersion();
-	 
+	void PurgeVersion();
+
+	unsigned int RetrieveSizeFromDisk(std::string path);
+	
 protected:
 	//retrieves the record information from the database
 	bool RetrieveVersionRecordFromDB(std::string inFilename, unsigned int versionNumber);

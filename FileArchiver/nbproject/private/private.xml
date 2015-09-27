@@ -6,6 +6,17 @@
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/main.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/ProjectConstants.h</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/CompressUtils.h</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/VersionRecord.h</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/FileRecord.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/TestUtilities.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/TestUtilities.h</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/CompressUtils.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/VersionRecord.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/FileArchiver.cpp</file>
+        </group>
     </open-files>
 </project-private>

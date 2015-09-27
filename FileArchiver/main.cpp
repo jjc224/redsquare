@@ -29,10 +29,10 @@ int main(int argc, char *argv[]) {
 	DropTables();
 	CreateTables();
 	
-	GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/testDataagain.dat", 2000,20);
+	GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/testDataagain.dat", 20000,20);
 	
 	RunTestCommitFileOneVersionRetrieve();
-	RunTestCommitFileWithTwoVersionsRetrieveBoth();
+	//RunTestCommitFileWithTwoVersionsRetrieveBoth();
 	
 	FileArchiver test;
 	vector<FileRecord> files = test.GetFiles();

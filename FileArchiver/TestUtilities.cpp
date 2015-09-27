@@ -296,7 +296,7 @@ void RunTestCommitFileOneVersionRetrieve()
 	//DropTables();
 	//CreateTables();
 	
-	//*
+	/*
 	string fileinpath = "MurmurHash3.cpp";
 	string fileoutpath = "MurmurHash3.cpp.ret";
 	/*/

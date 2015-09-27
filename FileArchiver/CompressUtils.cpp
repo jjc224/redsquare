@@ -14,7 +14,7 @@ using namespace std;
 // Compresses a file given a path to a file
 void zipCompress()
 {
-	string command = "gzip ";
+	string command = "gzip -9 ";
 	command.append(COMPRESSION_WORK_PATH);
 	command.append("data");
 	system(command.c_str());

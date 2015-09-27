@@ -221,6 +221,8 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 		}
 	}
  
+	Size = RetrieveSizeFromDisk(pathFilename);
+	
 	// Clean temp folder just incase
 	zipRemoveZip();
 	
@@ -251,22 +253,21 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 	}
 	
 	int bytesRemaining = fileSize;
-	//store the length of this file in the version record itself
-	Size = fileSize;
+	
 	
 	if(bSuccess)
 	{
 		try
 		{
 			unsigned int versionIndex = 0;
-			char block[8000];
+			char block[BLOCK_SIZE];
 			while (!ins.eof() && bytesRemaining > 0)
 			{
 				// Get Block
 				int blockSize = 0;
-				if(bytesRemaining > 8000)
+				if(bytesRemaining > BLOCK_SIZE)
 				{
-					blockSize = 8000;
+					blockSize = BLOCK_SIZE;
 				}
 				else
 				{
@@ -427,6 +428,29 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 	return bSuccess;
 }
 
+unsigned int VersionRecord::RetrieveSizeFromDisk(string path)
+{
+	bool bSuccess;
+	ifstream ins(path.c_str());
+	
+	if (!ins.good())
+	{
+		log("Failed to open file. Cannot get file size.");
+		bSuccess = false;
+	}
+	
+	int fileSize = 0;
+	if(bSuccess)
+	{
+		ins.seekg (0, ios::end);
+		fileSize = ins.tellg();
+		ins.seekg (0, ios::beg);
+		//store the length of this file in the version record itself
+	}
+	
+	return fileSize;
+}
+
 std::string VersionRecord::GetComment()
 {
 	return Comment;
@@ -482,8 +506,8 @@ bool VersionRecord::GetFileData(std::string fileOutPath)
 				if(rs2->next())
 				{
 					istream* data = rs2->getBlob("data");
-					char outbuf[9000];
-					int blobsize = data->readsome(outbuf, 9000);
+					char outbuf[BLOCK_SIZE];
+					int blobsize = data->readsome(outbuf, BLOCK_SIZE);
 					outFile.write(outbuf, blobsize);
 				}
 				else
