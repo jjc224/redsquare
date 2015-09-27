@@ -47,6 +47,6 @@ void zipRemoveZip()
 {
 	string command = "rm ";
 	command.append(COMPRESSION_WORK_PATH);
-	command.append("data.gz");
+	command.append("data.gz -f");
 	system(command.c_str());
 }
