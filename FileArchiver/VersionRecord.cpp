@@ -35,24 +35,26 @@ struct membuf : std::streambuf
 	}
 };
 
+// Constructor, prepares for use
 VersionRecord::VersionRecord()
 {
 	Init();
 }
+
+// Destructor, sets poit for connection to null
 VersionRecord::~VersionRecord()
 {
-	//dbcon->close();
-	//delete dbcon;
 	dbcon = NULL;
 }
 
-// Constructor
+// Constructor, tries to retrieve a record from the db  
 VersionRecord::VersionRecord(std::string filename, unsigned int versionNumber)
 {
 	Init();
 	RetrieveVersionRecordFromDB(filename, versionNumber);
 }
 
+// Sets class members to initial values
 void VersionRecord::Init()
 {
 	dbcon = DBConnector::GetConnection();
@@ -65,16 +67,23 @@ void VersionRecord::Init()
 	bIsValid = false;
 }
 
+// Tries to retrieve a version record from the database
 bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned int versionNumber)
 {
+	// Prepare for failure
 	bIsValid = false;
+	
+	// Setup statement
+	sql::PreparedStatement *pstmt = dbcon->prepareStatement("select * from Version where filename=? and version=?");
+	sql::ResultSet *rs;
+	
+	// Try to run Query
 	try
 	{
-		// Run Query
-		sql::Statement *stmt = dbcon->createStatement();
-		string sqlstatement = "select * from Version where filename = '" + inFilename + "' and version=" + boost::lexical_cast<string>(versionNumber) + ";";
-		sql::ResultSet *rs = stmt->executeQuery(sqlstatement);
-		log(sqlstatement);
+		//string sqlstatement = "select * from Version where filename = '" + inFilename + "' and version=" + boost::lexical_cast<string>(versionNumber) + ";";
+		pstmt->setString(1,inFilename);
+		pstmt->setInt(2,versionNumber);
+		rs = pstmt->executeQuery();
 
 		// Output Results
 		while(rs->next())
@@ -92,8 +101,7 @@ bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned
 			bIsValid = true;
 		}
 
-		delete rs;
-		delete stmt;
+
 	}
 	catch (sql::SQLException &e)
 	{
@@ -102,9 +110,18 @@ bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned
 		log(e.getErrorCode());
 		log(e.getSQLState());
 	}
+	
+	// Clean up
+	delete rs;
+	delete pstmt;
+	rs = NULL;
+	pstmt = NULL;
+	
+	// Return result
 	return bIsValid;
 }
 
+// Updates a version record in the db
 bool VersionRecord::UpdateRecordInDB()
 {
 	sql::Statement *stmt = dbcon->createStatement();
