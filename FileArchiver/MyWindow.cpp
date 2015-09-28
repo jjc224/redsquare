@@ -11,15 +11,19 @@
 
 #include "MyWindow.h"
 #include "FileArchiver.h"
+#include "FileRecord.h"
 
 MyWindow::MyWindow() {
     widget.setupUi(this);
     
     //connect SelectFile() to selectFileBttn
     connect(widget.selectFileBttn, SIGNAL(clicked()), this, SLOT(SelectFile()));
+    connect(widget.retrieveVersionBttn, SIGNAL(clicked()), this, SLOT(RetrieveVersion()));
 }
 
 MyWindow::~MyWindow() {
+    
+    delete getCommentWindow;
 }
 
 //file selection
@@ -72,19 +76,21 @@ void MyWindow::SelectFile() {
     //If a record already exists
     if(currentPath->Exists(stdFileName))
     {
+        //VersionRecord record;
+        //record = currentPath->GetFile(stdFileName).GetVersionFileContents()
         //Invoke this->retrieveVersionDataForFile() to get collection of VersionInfoRecords 
+
         //and enable Save
     }    
     else
     {
        // Invoke this->createFirstVersion() to create initial version of file in persistent storage
         //CreateFirstVersion(stdFileName);
-        
-    }
-     */
-    
 
         
+    }
+    */
+    
 }
 
 void MyWindow::SaveCurrent()
@@ -117,8 +123,9 @@ void MyWindow::SetReferenceVersion()
 void MyWindow::CreateFirstVersion(std::string fileName)
 {
     //Use GetCommentForm dialog to go with this initial version
-    getComment = new GetCommentForm(); // Be sure to destroy you window somewhere
-    getComment->show();
+    getCommentWindow = new GetCommentForm(); // Be sure to destroy you window somewhere
+    getCommentWindow->show();
+    
     //--->create function in GetCommentForm
         //QString comment = widget.textGetCommentForm->toPlainText();
     
@@ -158,6 +165,10 @@ void MyWindow::RetrieveVersion()
    Use RetrievForm dialog to get details of where retrieved file to be placed
    Invoke FileArchiver::retrieveVersion(version-number, filename, retrieved name) via 
           FileArchiver object*/
+    
+    retrieveWindow = new RetrieveForm;
+    
+    retrieveWindow->show();
 
 }
 

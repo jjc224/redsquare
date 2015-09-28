@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 	{
 		log("File found in database: " + files[i].GetFilename() + " " + boost::lexical_cast<string>(files[i].GetCurrentVersionNumber()));
 	}
-
+        
     //RunTestPurge();
         
 	// create and show your widgets here

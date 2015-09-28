@@ -15,6 +15,10 @@ class GetCommentForm : public QDialog {
 public:
     GetCommentForm();
     virtual ~GetCommentForm();
+public slots:
+    void SetComment();
+    void GetComment();
+        
 private:
     Ui::GetCommentForm widget;
 };

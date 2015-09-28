@@ -10,11 +10,14 @@
 
 #include "ui_MyWindow.h"
 #include "GetCommentForm.h"
+#include "RetrieveForm.h"
 using namespace std;
 
 
 class FileArchiver;
+class FileRecord;
 typedef FileArchiver* FilePtr;
+class TableModel;
 
 
 class MyWindow : public QMainWindow {
@@ -33,7 +36,9 @@ public slots:
     void SetReferenceVersion();
 private:
     Ui::MyWindow widget;
-    GetCommentForm * getComment;
+    GetCommentForm * getCommentWindow;
+    RetrieveForm * retrieveWindow;
+    TableModel * tablemodel;
 };
 
 #endif	/* _MYWINDOW_H */
