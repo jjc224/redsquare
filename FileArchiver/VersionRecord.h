@@ -29,6 +29,9 @@ public:
         
         // Returns the modification time.
         unsigned int GetModificationTime();
+        
+        // Returns a formatted string of the modification time/date.
+        std::string GetFormattedModificationTime();
 	
 	//public members for transfer of record to/from persistent storage - the function signatures will depend on the persistance mechanism that is chosen
 	bool CreateVersion(std::string keyFilename, std::string pathFilename, unsigned int currentVersion, unsigned int newHash, std::string newComment);

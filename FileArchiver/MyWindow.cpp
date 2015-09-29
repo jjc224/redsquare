@@ -89,16 +89,17 @@ void MyWindow::SelectFile() {
     for(vector<VersionRecord>::iterator it = versionRecs.begin(); it != versionRecs.end(); ++it)
     {
         myModel->setItem(currentRow, 0, new QStandardItem(QString(boost::lexical_cast<string>(it->GetVersionNumber()).c_str())));
-        myModel->setItem(currentRow, 1, new QStandardItem(QString(boost::lexical_cast<string>(it->GetModificationTime()).c_str())));
+        myModel->setItem(currentRow, 1, new QStandardItem(QString(it->GetFormattedModificationTime().c_str())));
         myModel->setItem(currentRow, 2, new QStandardItem(QString(boost::lexical_cast<string>(it->GetSize()).c_str())));
     
         ++currentRow;
     }
     
-    //fileRec.RetrieveFileRecordFromDB(stdFileName);
-//    myModel.addRecord(fileRec);
-    
     widget.tableView->setModel(myModel);
+    widget.tableView->resizeColumnsToContents();
+    widget.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    widget.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    widget.tableView->setSelectionMode(QAbstractItemView::SingleSelection);
     widget.tableView->show();
 }
 

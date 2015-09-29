@@ -75,6 +75,9 @@
     </property>
    </widget>
    <widget class="QTableView" name="tableView">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -150,7 +153,6 @@
     </property>
    </widget>
    <zorder>labelFile</zorder>
-   <zorder>selectFilePath</zorder>
    <zorder>selectFilePath</zorder>
    <zorder>selectFileBttn</zorder>
    <zorder>labelVersionData</zorder>
