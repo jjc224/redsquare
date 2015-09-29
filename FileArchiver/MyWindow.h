@@ -39,6 +39,7 @@ private:
     GetCommentForm * getCommentWindow;
     RetrieveForm * retrieveWindow;
     TableModel * tablemodel;
+    QString fileName;
 };
 
 #endif	/* _MYWINDOW_H */

@@ -62,7 +62,6 @@ void MyWindow::SelectFile() {
     }
 
     //Display name of file as chosen by user
-    QString fileName;
     if(!fileNames.isEmpty())
     {
         fileName = fileNames[0];
@@ -88,31 +87,7 @@ void MyWindow::SelectFile() {
         CreateFirstVersion(stdFileName);
     }
     
-    FileRecord fileRec(stdFileName);
-    QStandardItemModel *myModel = new QStandardItemModel(fileRec.GetNumberOfVersions(), 3, this);
-    
-    myModel->setHorizontalHeaderItem(0, new QStandardItem(QString("Version #")));
-    myModel->setHorizontalHeaderItem(1, new QStandardItem(QString("Date")));
-    myModel->setHorizontalHeaderItem(2, new QStandardItem(QString("Size")));
-    
-    vector<VersionRecord> versionRecs = fileRec.GetAllVersions();
-    unsigned int currentRow = 0;
-    
-    for(vector<VersionRecord>::iterator it = versionRecs.begin(); it != versionRecs.end(); ++it)
-    {
-        myModel->setItem(currentRow, 0, new QStandardItem(QString(boost::lexical_cast<string>(it->GetVersionNumber()).c_str())));
-        myModel->setItem(currentRow, 1, new QStandardItem(QString(it->GetFormattedModificationTime().c_str())));
-        myModel->setItem(currentRow, 2, new QStandardItem(QString(boost::lexical_cast<string>(it->GetSize()).c_str())));
-    
-        ++currentRow;
-    }
-    
-    widget.tableView->setModel(myModel);
-    widget.tableView->resizeColumnsToContents();
-    widget.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    widget.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    widget.tableView->setSelectionMode(QAbstractItemView::SingleSelection);
-    widget.tableView->show();
+    RetrieveVersionDataForFile();
 }
 
 void MyWindow::SaveCurrent()
@@ -173,15 +148,31 @@ void MyWindow::CreateFirstVersion(std::string fileName)
 
 void MyWindow::RetrieveVersionDataForFile()
 {
+    FileRecord fileRec(fileName.toStdString());
+    QStandardItemModel *myModel = new QStandardItemModel(fileRec.GetNumberOfVersions(), 3, this);
     
-    /* 
-
-    ---RetrieveVersionDataForFile()
-    Clear any existing data in table model used to display version database
-    Invoke FileArchiver::getVersionInfo(filename) via FileArchiver object
-    Repopulate table model with VersionInfoRecords displayed
-    Adjust display*/
+    myModel->setHorizontalHeaderItem(0, new QStandardItem(QString("Version #")));
+    myModel->setHorizontalHeaderItem(1, new QStandardItem(QString("Date")));
+    myModel->setHorizontalHeaderItem(2, new QStandardItem(QString("Size")));
     
+    vector<VersionRecord> versionRecs = fileRec.GetAllVersions();
+    unsigned int currentRow = 0;
+    
+    for(vector<VersionRecord>::iterator it = versionRecs.begin(); it != versionRecs.end(); ++it)
+    {
+        myModel->setItem(currentRow, 0, new QStandardItem(QString(boost::lexical_cast<string>(it->GetVersionNumber()).c_str())));
+        myModel->setItem(currentRow, 1, new QStandardItem(QString(it->GetFormattedModificationTime().c_str())));
+        myModel->setItem(currentRow, 2, new QStandardItem(QString(boost::lexical_cast<string>(it->GetSize()).c_str())));
+    
+        ++currentRow;
+    }
+    
+    widget.tableView->setModel(myModel);
+    widget.tableView->resizeColumnsToContents();
+    widget.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    widget.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    widget.tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    widget.tableView->show();
 }
 
 void MyWindow::RetrieveVersion()
