@@ -4,6 +4,7 @@
 #include <string>
 #include "TableModel.h"
 #include "FileArchiver.h"
+#include "FileLib.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ TableModel::TableModel(QObject* parent)
 
 int TableModel::rowCount(const QModelIndex& /* parent */) const
 {
-    return recordsCollection->size();
+    return recordsCollection.size();
 }
 
 int TableModel::columnCount(const QModelIndex& /* parent */) const
@@ -49,21 +50,34 @@ QVariant TableModel::data(const QModelIndex& index, int role) const
     {
         if(index.column() == 0)
         {
-            //return QString(recordsCollection->at(index.row())->get);   
+            return QString(recordsCollection.at(index.row()).versionNum.c_str());   
+        }
+        
+        if(index.column() == 1)
+        {
+            return QString(recordsCollection.at(index.row()).versionDate.c_str());  
+        }
+        
+        if(index.column() == 2)
+        {
+            return QString(recordsCollection.at(index.row()).versionSize.c_str());  
         }
     }
+    
+    return QVariant();
 }
 
-void TableModel::addRecord(vector<VersionRecord> newone)
+void TableModel::addRecord(FileRecord newone)
 {
-    string currRow[3];
+    vector<VersionRecord> versionRecs = newone.GetAllVersions();
+    RecordData currRecord;
     
-    for(vector<VersionRecord>::iterator it = newone.begin(); it != newone.end(); ++it)
+    for(vector<VersionRecord>::iterator it = versionRecs.begin(); it != versionRecs.end(); ++it)
     {
-        currRow[0] = boost::lexical_cast<string>(it->GetVersionNumber());   // ...
-        currRow[1] = boost::lexical_cast<string>(FileLib::GetModifiedDate(it->GetVersionId()));
-        currRow[2] = boost::lexical_cast<string>(it->GetSize());
+        currRecord.versionNum  = boost::lexical_cast<string>(it->GetVersionNumber());
+        currRecord.versionDate = boost::lexical_cast<string>(FileLib::GetModifiedDate(newone.GetFilename()));
+        currRecord.versionSize = boost::lexical_cast<string>(it->GetSize());
 
-        recordsCollection.push_back(currRow);
+        recordsCollection.push_back(currRecord);
     }
 }

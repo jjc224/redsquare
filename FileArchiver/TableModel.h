@@ -11,11 +11,11 @@
 #include <QAbstractTableModel>
 #include <QtGui>
 #include <vector>
-#include "VersionRecord.h"
+#include "FileRecord.h"
 
 class FileRecord;
 
-class TableModel: public QAbstractTableModel
+class TableModel : public QAbstractTableModel
 {
     Q_OBJECT;
 public:
@@ -30,10 +30,17 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
     bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex());
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex());*/
-    void addRecord(std::vector<VersionRecord> newone);
+    void addRecord(FileRecord newone);
     
  private:
-    std::vector<std::string[3]> recordsCollection;
+     struct RecordData
+     {
+         std::string versionNum;
+         std::string versionDate;
+         std::string versionSize;
+     };
+     
+    std::vector<RecordData> recordsCollection;
     
     // Disallow value operations
     TableModel& operator=(const TableModel&);
