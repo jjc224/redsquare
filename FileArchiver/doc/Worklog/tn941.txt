@@ -1,0 +1,103 @@
+6/09/2015
+
+Read documentation
+Created Google doc to start putting outlines of what needs to be done in.
+Researched MySQL and its use with c++
+Time: 3:00pm-7:00pm
+
+Created FileArchive.h & FileArchive.cpp.
+Defined class members and modified names.
+Insured code was correct.
+Time: 7:00pm-7:30pm
+
+Created a rough version of the database MySQL code.
+Currently untested and needs to be checked.
+Time: 7:30pm-8:00pm
+
+
+14/09/2015
+
+Put SQL in MySQL server. 
+Fixed a few small errors in the code.
+Tested operation.
+Database ready to be used.
+Time: 9:00pm-10:00pm
+
+
+15/09/2015
+
+Wrote the code to connect to MySQL server.
+Tested operation over internet and returned data.
+Updated some of the class in the FileArchiver with the code.
+The functions are not complete but have the frame work to used.
+Time: 9:00pm-11:00pm
+
+
+17/09/2015
+
+Fixed indentation in FileAchiver.
+Finished Function: bool FileArchiver::Exists(std::string filename). Checked by creating record manually.
+Finished Function: bool FileArchiver::Compare(std::string filename), just needs to be checked when a has is in db
+Finished Function: char* FileArchiver::GetDataFromFile(string filename, int &length). 
+Time: 8:00am-11:30am
+
+
+19/09/2015
+
+Drew up complete system diagram with Phil.
+Redefined the classes and class member functions. Rewrote headers.
+Modified design of database and updated code and put on server.
+Added some logic for VersionRecord.cpp
+Time: 12:00pm-12:00am
+
+21/09/2015
+
+Created an ERD for the new database structure.
+Time 8:00am-8:30am
+
+
+24/09/2015
+
+Backed up google documents to git as it was not done yet.
+Time 9:30pm-9:45pm
+
+Create a document to reflect our design process. Included pictures.
+Time 10:00pm-11:00pm
+
+Wrote code to handle compression of file and the moving of a file to a temp location as well as extraction.
+Tested code worked. Shared with Phil incase he has time to implement before me.
+Time 11:00pm-12:30pm
+
+
+25/09/2015
+
+Developed the SQL code for purging a version in VtoB and then removing orphand blocks.
+Tested SQL code.
+Wrote VersionRecord::PurgeVersion c++ code using the SQL. Tested, commented and uploaded.
+Time: 10:30pm-12:00am
+
+26/09/2015
+
+Fixed a logic error with PurgeVersion.
+Implemented CompressionUtils.cpp and CompressionUtils.h into VersionRecord. 
+Created temp directory for compression usage. Tested. Working.
+Fixed CompressionUtils to use gzip instead of zip, as per assignment spec.
+Time: 12:00pm-7:00pm
+
+27/09/2015
+
+Cleaned up some code in the CompressionUtils.
+Created report document and fleshed out all the headings and described what was needed under each.
+Began writing some of the sections.
+Generated class diagrams for VersionRecord, FileArchiver, DBConnector and FileRecord.
+Uploaded screen shots and images.
+Implemented sql prepared statements in some of the functions in VersionRecord.
+Time: 11:00am-9:00pm
+
+
+29/09/2015
+Found that some data was not being inserted into the database. Fixed and tested.
+Wrote some documentation for implementation.
+Helped get some small parts of the GUI working.
+Fixed a couple of small logic errors in functions.
+Time 2:00pm-11:30pm
