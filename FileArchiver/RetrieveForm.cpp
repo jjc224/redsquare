@@ -15,14 +15,11 @@
 RetrieveForm::RetrieveForm() {
     widget.setupUi(this);
     
+	//select directory button
     connect(widget.pushButtonDirectory, SIGNAL(clicked()), this, SLOT(SelectDirectory()));
-    
-    
-        widget.buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
-                                     | QDialogButtonBox::Cancel);
-
-        connect(widget.buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-        connect(widget.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+   //ok | cancel buttons
+    connect(widget.buttonBox, SIGNAL(accepted()), this, SLOT(SetFileName()));
+    connect(widget.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 RetrieveForm::~RetrieveForm() {
@@ -45,7 +42,7 @@ void RetrieveForm::SelectDirectory()
          dirNames = dialogDir.selectedFiles();
     }
 
-    //Display name of file as chosen by user
+    //Display name of directory as chosen by user
     QString dirName;
     if(!dirNames.isEmpty())
     {
@@ -53,14 +50,21 @@ void RetrieveForm::SelectDirectory()
         widget.lineEditDirectory->setText(dirName);
     }
     
-    //convert to std string
-    std::string stdFileName;
-    stdFileName = dirName.toStdString();
-
+	directoryPath = dirName;
 
 }
-void RetrieveForm::GetFileName(){
+void RetrieveForm::SetFileName(){
     
-    //QString filename = widget.lineEditFilename->toPlainText();
+    outputFilename = widget.lineEditFilename->text();
 
+}
+
+QString RetrieveForm::GetDirectory()
+{
+	return directoryPath;
+}
+
+QString RetrieveForm::GetOutputFilename()
+{
+	return outputFilename;
 }

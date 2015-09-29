@@ -24,7 +24,6 @@ GetCommentForm::~GetCommentForm() {
 
 void GetCommentForm::SetComment()
 {
-
     comment = widget.textGetCommentForm->toPlainText();  
 }
 

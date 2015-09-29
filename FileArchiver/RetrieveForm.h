@@ -18,9 +18,13 @@ public:
     virtual ~RetrieveForm();
 public slots:
     void SelectDirectory();
-    void GetFileName();
+    void SetFileName();
+	QString GetDirectory();
+	QString GetOutputFilename();
 private:
     Ui::RetrieveForm widget;
+	QString directoryPath;
+	QString outputFilename;
     
 };
 
