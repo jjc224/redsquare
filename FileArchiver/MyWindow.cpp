@@ -18,12 +18,24 @@
 
 MyWindow::MyWindow() {
     widget.setupUi(this);
+	
+	//widget.saveCurrentBttn->setEnabled(false);
+	//widget.retrieveVersionBttn->setEnabled(false);
+	//widget.setReferenceBttn->setEnabled(false);
+	//widget.showCommentBttn->setEnabled(false);
     
-    //connect SelectFile() to selectFileBttn
+    //connect SelectFile() with selectFileBttn
     connect(widget.selectFileBttn, SIGNAL(clicked()), this, SLOT(SelectFile()));
+	//connect saveCurrentBttn with SaveCurrent()
+	connect(widget.saveCurrentBttn, SIGNAL(clicked()), this, SLOT(SaveCurrent()));
+	//connect RetrieveVersion() with retrieveVersionBttn which will open RetrieveForm
     connect(widget.retrieveVersionBttn, SIGNAL(clicked()), this, SLOT(RetrieveVersion()));
-    
-    
+
+	//connect setReferenceBttn with SetReferenceVersion() to delete unnecessary file versions
+	connect(widget.setReferenceBttn, SIGNAL(clicked()), this, SLOT(SetReferenceVersion()));
+	//connect ShowComment() with showCommentBttn
+	connect(widget.showCommentBttn, SIGNAL(clicked()), this, SLOT(ShowComment()));
+
 }
 
 MyWindow::~MyWindow() {
@@ -118,6 +130,12 @@ void MyWindow::ShowComment()
     /*
           Invoke FileArchiver::getComment(filename,version-number) via FileArchiver object.
   Display comment using standard Qt “Information Dialog” */
+	
+	//get version number of the selected version
+		//code here using tableview
+	
+	//get comment 
+	
 }
 
 void MyWindow::SetReferenceVersion()
@@ -168,15 +186,30 @@ void MyWindow::RetrieveVersionDataForFile()
 
 void MyWindow::RetrieveVersion()
 {
-    
-    /*Retrieve version
-   Use RetrievForm dialog to get details of where retrieved file to be placed
-   Invoke FileArchiver::retrieveVersion(version-number, filename, retrieved name) via 
-          FileArchiver object*/
-    
+	//get current version by selected item from tableview
+		//need code here
+	
+    QString directory;
+	QString outFilename;
     retrieveWindow = new RetrieveForm;
-    
-    retrieveWindow->show();
+	//execute RetrieveForm and details of where retrieved file will be placed
+    if(retrieveWindow->exec() == QDialog::Accepted)
+    {
+        directory = retrieveWindow->GetDirectory();
+		outFilename = retrieveWindow->GetOutputFilename();
+    }
+	
+	//convert data from RetrieveForm to full file output path
+	std::string fullOutputPath;
+	
+	fullOutputPath += directory.toStdString();
+	fullOutputPath += "/";
+	fullOutputPath += outFilename.toStdString();
+	
+	//retrieve version
+	//VersionRecord selectedVersion(filename, versionNum);
+	//selectedVersion.GetFileData(fullOutputPath);
+		
 
 }
 
