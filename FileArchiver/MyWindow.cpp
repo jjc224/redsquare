@@ -8,6 +8,7 @@
 #include <QApplication>
 #include <iostream>
 #include <string>
+#include <QDebug>
 
 #include "MyWindow.h"
 #include "FileArchiver.h"
@@ -57,39 +58,23 @@ void MyWindow::SelectFile() {
     stdFileName = fileName.toStdString();
     
     
-    //need db connection to test this part
-    /*
-    try
-    {
-        FilePtr currentPath = new FileArchiver;
-    }
-    catch(std::bad_alloc)
-    {
-        // Message dialog with something like "Error: unable to allocate memory. Terminating."
-        exit(1);
-    }*/
-    
     //for now not catching exception bad_alloc
     FilePtr currentPath = new FileArchiver;
     
-    /*
+    
     //If a record already exists
     if(currentPath->Exists(stdFileName))
     {
-        //VersionRecord record;
-        //record = currentPath->GetFile(stdFileName).GetVersionFileContents()
         //Invoke this->retrieveVersionDataForFile() to get collection of VersionInfoRecords 
-
         //and enable Save
     }    
     else
     {
        // Invoke this->createFirstVersion() to create initial version of file in persistent storage
-        //CreateFirstVersion(stdFileName);
+        CreateFirstVersion(stdFileName);
 
-        
     }
-    */
+    
     
 }
 
@@ -124,24 +109,21 @@ void MyWindow::CreateFirstVersion(std::string fileName)
 {
     //Use GetCommentForm dialog to go with this initial version
     getCommentWindow = new GetCommentForm(); // Be sure to destroy you window somewhere
-    getCommentWindow->show();
-    
-    //--->create function in GetCommentForm
-        //QString comment = widget.textGetCommentForm->toPlainText();
-    
-    
+    QString comm;
+
+    if(getCommentWindow->exec() == QDialog::Accepted)
+    {
+        comm = getCommentWindow->GetComment();
+    }
+
+    std::string commentStd = comm.toStdString();
+    //Invoke FileArchiver::insertNew()
     //create new record --> catch bad_alloc
     FilePtr file = new FileArchiver;
+    file->AddFile(fileName, commentStd);
     
+   //invoke this->retrieveVersionDataForFile()
     
-    file->AddFile(fileName, "comment");
-    /* 
-    -----createFirstVersion()
-    Use dialog to get comment to go with this initial version
-    Invoke FileArchiver::insertNew()
-    Invoke this->retrieveVersionDataForFile()
-     
-    */
 
 }
 

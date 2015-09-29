@@ -13,6 +13,10 @@
 
 GetCommentForm::GetCommentForm() {
     widget.setupUi(this);
+
+    connect(widget.buttonBoxComment, SIGNAL(accepted()), this, SLOT(SetComment()));
+    connect(widget.buttonBoxComment, SIGNAL(rejected()), this, SLOT(reject()));
+
 }
 
 GetCommentForm::~GetCommentForm() {
@@ -20,10 +24,11 @@ GetCommentForm::~GetCommentForm() {
 
 void GetCommentForm::SetComment()
 {
-    QString comment = widget.textGetCommentForm->toPlainText();
-    
+
+    comment = widget.textGetCommentForm->toPlainText();  
 }
 
-void GetCommentForm::GetComment()
+QString GetCommentForm::GetComment()
 {
+    return comment;
 }
