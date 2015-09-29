@@ -1,7 +1,11 @@
 /********************************************************************************
 ** Form generated from reading UI file 'GetCommentForm.ui'
 **
+<<<<<<< HEAD
 ** Created: Sun Sep 27 15:07:28 2015
+=======
+** Created: Wed Sep 30 03:50:09 2015
+>>>>>>> a64dd150894d09314da530ad31cdb43f656cbdf5
 **      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

@@ -194,6 +194,11 @@ unsigned int VersionRecord::GetHash()
 	return Hash;
 } 
 
+unsigned int VersionRecord::GetModificationTime()
+{
+        return FileModificationTime;
+}
+
 bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
 {
 	const char* insertVersion = "insert into Version(filename, version, hash, filemodtime, size, time, comment) values (?, ?, ?, ?, ?, ?, ?)";

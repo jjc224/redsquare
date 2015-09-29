@@ -9,10 +9,12 @@
 #include <iostream>
 #include <string>
 #include <QDebug>
+#include <boost/lexical_cast.hpp>
 
 #include "MyWindow.h"
 #include "FileArchiver.h"
 #include "FileRecord.h"
+#include "TableModel.h"
 
 MyWindow::MyWindow() {
     widget.setupUi(this);
@@ -28,10 +30,15 @@ MyWindow::MyWindow() {
 	connect(widget.saveCurrentBttn, SIGNAL(clicked()), this, SLOT(SaveCurrent()));
 	//connect RetrieveVersion() with retrieveVersionBttn which will open RetrieveForm
     connect(widget.retrieveVersionBttn, SIGNAL(clicked()), this, SLOT(RetrieveVersion()));
+<<<<<<< HEAD
 	//connect setReferenceBttn with SetReferenceVersion() to delete unnecessary file versions
 	connect(widget.setReferenceBttn, SIGNAL(clicked()), this, SLOT(SetReferenceVersion()));
 	//connect ShowComment() with showCommentBttn
 	connect(widget.showCommentBttn, SIGNAL(clicked()), this, SLOT(ShowComment()));
+=======
+    
+    
+>>>>>>> a64dd150894d09314da530ad31cdb43f656cbdf5
 }
 
 MyWindow::~MyWindow() {
@@ -69,10 +76,8 @@ void MyWindow::SelectFile() {
     std::string stdFileName;
     stdFileName = fileName.toStdString();
     
-    
     //for now not catching exception bad_alloc
     FilePtr currentPath = new FileArchiver;
-    
     
     //If a record already exists
     if(currentPath->Exists(stdFileName))
@@ -84,10 +89,32 @@ void MyWindow::SelectFile() {
     {
        // Invoke this->createFirstVersion() to create initial version of file in persistent storage
         CreateFirstVersion(stdFileName);
-
     }
     
+    FileRecord fileRec(stdFileName);
+    QStandardItemModel *myModel = new QStandardItemModel(fileRec.GetNumberOfVersions(), 3, this);
     
+    myModel->setHorizontalHeaderItem(0, new QStandardItem(QString("Version #")));
+    myModel->setHorizontalHeaderItem(1, new QStandardItem(QString("Date")));
+    myModel->setHorizontalHeaderItem(2, new QStandardItem(QString("Size")));
+    
+    vector<VersionRecord> versionRecs = fileRec.GetAllVersions();
+    unsigned int currentRow = 0;
+    
+    for(vector<VersionRecord>::iterator it = versionRecs.begin(); it != versionRecs.end(); ++it)
+    {
+        myModel->setItem(currentRow, 0, new QStandardItem(QString(boost::lexical_cast<string>(it->GetVersionNumber()).c_str())));
+        myModel->setItem(currentRow, 1, new QStandardItem(QString(boost::lexical_cast<string>(it->GetModificationTime()).c_str())));
+        myModel->setItem(currentRow, 2, new QStandardItem(QString(boost::lexical_cast<string>(it->GetSize()).c_str())));
+    
+        ++currentRow;
+    }
+    
+    //fileRec.RetrieveFileRecordFromDB(stdFileName);
+//    myModel.addRecord(fileRec);
+    
+    widget.tableView->setModel(myModel);
+    widget.tableView->show();
 }
 
 void MyWindow::SaveCurrent()
@@ -137,8 +164,9 @@ void MyWindow::CreateFirstVersion(std::string fileName)
     std::string commentStd = comm.toStdString();
     //Invoke FileArchiver::insertNew()
     //create new record --> catch bad_alloc
-    FilePtr file = new FileArchiver;
-    file->AddFile(fileName, commentStd);
+    //FilePtr file = new FileArchiver;
+    FileRecord fileRec;
+    fileRec.CreateFile(fileName, commentStd);
     
    //invoke this->retrieveVersionDataForFile()
     

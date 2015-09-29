@@ -70,10 +70,14 @@ sql::Connection* DBConnector::GetConnection()
 	getline(ins, host);
 	ins.close();	
 
-	host = decrypt(host);
+	/* host = decrypt(host);
 	dbname = decrypt(dbname);
 	user = decrypt(user);
-	pw = decrypt(pw);
+	pw = decrypt(pw); */
+        
+        host = "127.0.0.1";
+        dbname = "redsquare";
+        user = pw = "root";
 
 	log("host: " + host);
 	log("user: " + user);
