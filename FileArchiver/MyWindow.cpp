@@ -20,6 +20,8 @@ MyWindow::MyWindow() {
     //connect SelectFile() to selectFileBttn
     connect(widget.selectFileBttn, SIGNAL(clicked()), this, SLOT(SelectFile()));
     connect(widget.retrieveVersionBttn, SIGNAL(clicked()), this, SLOT(RetrieveVersion()));
+    
+    
 }
 
 MyWindow::~MyWindow() {
@@ -57,14 +59,15 @@ void MyWindow::SelectFile() {
     std::string stdFileName;
     stdFileName = fileName.toStdString();
     
-    
     //for now not catching exception bad_alloc
     FilePtr currentPath = new FileArchiver;
-    
     
     //If a record already exists
     if(currentPath->Exists(stdFileName))
     {
+        FileRecord fileRec = currentPath->GetFile(stdFileName);
+        // Table shit.
+        
         //Invoke this->retrieveVersionDataForFile() to get collection of VersionInfoRecords 
         //and enable Save
     }    

@@ -18,11 +18,11 @@ RetrieveForm::RetrieveForm() {
     connect(widget.pushButtonDirectory, SIGNAL(clicked()), this, SLOT(SelectDirectory()));
     
     
-        widget.buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
+    widget.buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
                                      | QDialogButtonBox::Cancel);
 
-        connect(widget.buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-        connect(widget.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(widget.buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(widget.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 RetrieveForm::~RetrieveForm() {
