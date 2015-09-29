@@ -30,15 +30,12 @@ MyWindow::MyWindow() {
 	connect(widget.saveCurrentBttn, SIGNAL(clicked()), this, SLOT(SaveCurrent()));
 	//connect RetrieveVersion() with retrieveVersionBttn which will open RetrieveForm
     connect(widget.retrieveVersionBttn, SIGNAL(clicked()), this, SLOT(RetrieveVersion()));
-<<<<<<< HEAD
+
 	//connect setReferenceBttn with SetReferenceVersion() to delete unnecessary file versions
 	connect(widget.setReferenceBttn, SIGNAL(clicked()), this, SLOT(SetReferenceVersion()));
 	//connect ShowComment() with showCommentBttn
 	connect(widget.showCommentBttn, SIGNAL(clicked()), this, SLOT(ShowComment()));
-=======
-    
-    
->>>>>>> a64dd150894d09314da530ad31cdb43f656cbdf5
+
 }
 
 MyWindow::~MyWindow() {

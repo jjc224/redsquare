@@ -17,17 +17,15 @@ RetrieveForm::RetrieveForm() {
     
 	//select directory button
     connect(widget.pushButtonDirectory, SIGNAL(clicked()), this, SLOT(SelectDirectory()));
-<<<<<<< HEAD
+
    //ok | cancel buttons
     connect(widget.buttonBox, SIGNAL(accepted()), this, SLOT(SetFileName()));
-=======
-    
     
     widget.buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok
                                      | QDialogButtonBox::Cancel);
 
     connect(widget.buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
->>>>>>> a64dd150894d09314da530ad31cdb43f656cbdf5
+
     connect(widget.buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
