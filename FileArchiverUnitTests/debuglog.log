@@ -1,0 +1,340 @@
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("testData/testDataagain.dat.0", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: testData/testDataagain.dat.0
+ERROR: File does not exist
+ERROR: Failed to create new file: testData/testDataagain.dat.0
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("testData/testDataagain.dat.0", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: testData/testDataagain.dat.0
+Hash generated for new version = 2161000654
+Adding new version
+Failed to open file. Cannot create version
+ERROR: Failed to create new file: testData/testDataagain.dat.0
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("testData/testDataagain.dat.0", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: testData/testDataagain.dat.0
+Hash generated for new version = 2161000654
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 2077725796 and hash2 = 3430504105
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "initial version", version = 1, hash = 2161000654 where id = 1;
+New version added
+update File set curhash = 2161000654, curversion = 1, numversions = 1 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.1
+Hash generated for new version = 779608585
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 2781468043 and hash2 = 3344652915
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "Version: 1", version = 2, hash = 779608585 where id = 2;
+New version added
+update File set curhash = 779608585, curversion = 2, numversions = 2 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.2
+Hash generated for new version = 2897081843
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 2972226526 and hash2 = 3263919082
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (3, 3, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "Version: 2", version = 3, hash = 2897081843 where id = 3;
+New version added
+update File set curhash = 2897081843, curversion = 3, numversions = 3 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.3
+Hash generated for new version = 1343865324
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 985640113 and hash2 = 571872759
+blockId = 4
+insert into VtoB(versionid, blockid, versionindex) values (4, 4, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "Version: 3", version = 4, hash = 1343865324 where id = 4;
+New version added
+update File set curhash = 1343865324, curversion = 4, numversions = 4 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.4
+Hash generated for new version = 221764271
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 2243778040 and hash2 = 883305261
+blockId = 5
+insert into VtoB(versionid, blockid, versionindex) values (5, 5, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "Version: 4", version = 5, hash = 221764271 where id = 5;
+New version added
+update File set curhash = 221764271, curversion = 5, numversions = 5 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.5
+Hash generated for new version = 3450351907
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 3424511167 and hash2 = 2656125681
+blockId = 6
+insert into VtoB(versionid, blockid, versionindex) values (6, 6, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "Version: 5", version = 6, hash = 3450351907 where id = 6;
+New version added
+update File set curhash = 3450351907, curversion = 6, numversions = 6 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.6
+Hash generated for new version = 1886690477
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 2231139851 and hash2 = 1806825794
+blockId = 7
+insert into VtoB(versionid, blockid, versionindex) values (7, 7, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "Version: 6", version = 7, hash = 1886690477 where id = 7;
+New version added
+update File set curhash = 1886690477, curversion = 7, numversions = 7 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.7
+Hash generated for new version = 717389814
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 3593195560 and hash2 = 703473336
+blockId = 8
+insert into VtoB(versionid, blockid, versionindex) values (8, 8, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "Version: 7", version = 8, hash = 717389814 where id = 8;
+New version added
+update File set curhash = 717389814, curversion = 8, numversions = 8 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.8
+Hash generated for new version = 629441767
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 935200205 and hash2 = 3347209661
+blockId = 9
+insert into VtoB(versionid, blockid, versionindex) values (9, 9, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "Version: 8", version = 9, hash = 629441767 where id = 9;
+New version added
+update File set curhash = 629441767, curversion = 9, numversions = 9 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.9
+Hash generated for new version = 2814285173
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 194847414 and hash2 = 3305491170
+blockId = 10
+insert into VtoB(versionid, blockid, versionindex) values (10, 10, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599838, filemodtime = 1443599838, comment = "Version: 9", version = 10, hash = 2814285173 where id = 10;
+New version added
+update File set curhash = 2814285173, curversion = 10, numversions = 10 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.10
+Hash generated for new version = 3808928763
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 53414864 and hash2 = 811174592
+blockId = 11
+insert into VtoB(versionid, blockid, versionindex) values (11, 11, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 10", version = 11, hash = 3808928763 where id = 11;
+New version added
+update File set curhash = 3808928763, curversion = 11, numversions = 11 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.11
+Hash generated for new version = 3638704445
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 1595010284 and hash2 = 2047082931
+blockId = 12
+insert into VtoB(versionid, blockid, versionindex) values (12, 12, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 11", version = 12, hash = 3638704445 where id = 12;
+New version added
+update File set curhash = 3638704445, curversion = 12, numversions = 12 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.12
+Hash generated for new version = 132463102
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 371419756 and hash2 = 1379902174
+blockId = 13
+insert into VtoB(versionid, blockid, versionindex) values (13, 13, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 12", version = 13, hash = 132463102 where id = 13;
+New version added
+update File set curhash = 132463102, curversion = 13, numversions = 13 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.13
+Hash generated for new version = 3736955767
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 2311110592 and hash2 = 1499909799
+blockId = 14
+insert into VtoB(versionid, blockid, versionindex) values (14, 14, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 13", version = 14, hash = 3736955767 where id = 14;
+New version added
+update File set curhash = 3736955767, curversion = 14, numversions = 14 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.14
+Hash generated for new version = 118583711
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 3703895258 and hash2 = 2273382542
+blockId = 15
+insert into VtoB(versionid, blockid, versionindex) values (15, 15, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 14", version = 15, hash = 118583711 where id = 15;
+New version added
+update File set curhash = 118583711, curversion = 15, numversions = 15 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.15
+Hash generated for new version = 2184899910
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 350377188 and hash2 = 321082784
+blockId = 16
+insert into VtoB(versionid, blockid, versionindex) values (16, 16, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 15", version = 16, hash = 2184899910 where id = 16;
+New version added
+update File set curhash = 2184899910, curversion = 16, numversions = 16 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.16
+Hash generated for new version = 930987916
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 3409826235 and hash2 = 1194512680
+blockId = 17
+insert into VtoB(versionid, blockid, versionindex) values (17, 17, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 16", version = 17, hash = 930987916 where id = 17;
+New version added
+update File set curhash = 930987916, curversion = 17, numversions = 17 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.17
+Hash generated for new version = 671961736
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 603957598 and hash2 = 36434873
+blockId = 18
+insert into VtoB(versionid, blockid, versionindex) values (18, 18, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 17", version = 18, hash = 671961736 where id = 18;
+New version added
+update File set curhash = 671961736, curversion = 18, numversions = 18 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.18
+Hash generated for new version = 2315031275
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 1487884297 and hash2 = 1253103886
+blockId = 19
+insert into VtoB(versionid, blockid, versionindex) values (19, 19, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 18", version = 19, hash = 2315031275 where id = 19;
+New version added
+update File set curhash = 2315031275, curversion = 19, numversions = 19 where filename = "testData/testDataagain.dat.0";
+Trying to add new version
+Attempting to add new version from file: testData/testDataagain.dat.19
+Hash generated for new version = 1087318463
+Adding new version
+block size is 20028
+Hash equals zero 
+select id from Block where hash1 = 1478815339 and hash2 = 4181795962
+blockId = 20
+insert into VtoB(versionid, blockid, versionindex) values (20, 20, 0)
+update Version set filename = "testData/testDataagain.dat.0", size = 20000, time = 1443599839, filemodtime = 1443599839, comment = "Version: 19", version = 20, hash = 1087318463 where id = 20;
+New version added
+update File set curhash = 1087318463, curversion = 20, numversions = 20 where filename = "testData/testDataagain.dat.0";
+select blockid from VtoB where versionid = 1 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 2 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 3 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 4 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 5 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 6 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 7 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 8 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 9 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 10 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 11 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 12 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 13 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 14 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 15 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 16 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 17 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 18 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 19 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly
+select blockid from VtoB where versionid = 20 order by versionindex ASC
+retrieved block
+Hashes matched. Retrieval worked correctly

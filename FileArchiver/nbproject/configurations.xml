@@ -14,7 +14,6 @@
       <itemPath>MyWindow.h</itemPath>
       <itemPath>ProjectConstants.h</itemPath>
       <itemPath>RetrieveForm.h</itemPath>
-      <itemPath>TableModel.h</itemPath>
       <itemPath>TestUtilities.h</itemPath>
       <itemPath>VersionRecord.h</itemPath>
     </logicalFolder>
@@ -39,7 +38,6 @@
       <itemPath>MurmurHash3.cpp</itemPath>
       <itemPath>MyWindow.cpp</itemPath>
       <itemPath>RetrieveForm.cpp</itemPath>
-      <itemPath>TableModel.cpp</itemPath>
       <itemPath>TestUtilities.cpp</itemPath>
       <itemPath>Utilities.cpp</itemPath>
       <itemPath>VersionRecord.cpp</itemPath>
@@ -126,10 +124,6 @@
       </item>
       <item path="RetrieveForm.ui" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="TableModel.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="TableModel.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="TestUtilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TestUtilities.h" ex="false" tool="3" flavor2="0">
@@ -140,6 +134,22 @@
       </item>
       <item path="VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="sql/CreateTables.sql" ex="false" tool="3" flavor2="0">
@@ -219,10 +229,6 @@
       </item>
       <item path="RetrieveForm.ui" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="TableModel.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="TableModel.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="TestUtilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TestUtilities.h" ex="false" tool="3" flavor2="0">
@@ -233,6 +239,22 @@
       </item>
       <item path="VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="sql/CreateTables.sql" ex="false" tool="3" flavor2="0">
