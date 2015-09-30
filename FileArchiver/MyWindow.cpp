@@ -122,10 +122,8 @@ void MyWindow::ShowComment()
             VersionRecord selectedVersion(fileName.toStdString(), data.toInt());
 			if(selectedVersion.IsValid())
 			{
-				QMessageBox msgBox;
 
-				QMessageBox msgBox(QMessageBox::Information, "Comment for selected version", 
-				QString(selectedVersion.GetComment().c_str()), QMessageBox::Ok, 0);
+				QMessageBox msgBox(QMessageBox::Information, "Comment for selected version", QString(selectedVersion.GetComment().c_str()), QMessageBox::Ok, 0);
             
 			   msgBox.exec();
 			}

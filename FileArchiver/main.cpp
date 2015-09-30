@@ -26,8 +26,8 @@ int main(int argc, char *argv[]) {
 
 	QApplication app(argc, argv);
 	
-	DropTables();
-	CreateTables();
+	//DropTables();
+	//CreateTables();
 	
         /*
 	GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/testDataagain.dat", 20000,20);
