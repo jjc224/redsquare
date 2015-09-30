@@ -20,10 +20,10 @@
 MyWindow::MyWindow() {
     widget.setupUi(this);
 	
-	//widget.saveCurrentBttn->setEnabled(false);
-	//widget.retrieveVersionBttn->setEnabled(false);
-	//widget.setReferenceBttn->setEnabled(false);
-	//widget.showCommentBttn->setEnabled(false);
+    widget.saveCurrentBttn->setEnabled(false);
+    widget.retrieveVersionBttn->setEnabled(false);
+    widget.setReferenceBttn->setEnabled(false);
+    widget.showCommentBttn->setEnabled(false);
     
     //connect SelectFile() with selectFileBttn
     connect(widget.selectFileBttn, SIGNAL(clicked()), this, SLOT(SelectFile()));
@@ -36,7 +36,6 @@ MyWindow::MyWindow() {
 	connect(widget.setReferenceBttn, SIGNAL(clicked()), this, SLOT(SetReferenceVersion()));
 	//connect ShowComment() with showCommentBttn
 	connect(widget.showCommentBttn, SIGNAL(clicked()), this, SLOT(ShowComment()));
-
 }
 
 MyWindow::~MyWindow() {
@@ -46,7 +45,6 @@ MyWindow::~MyWindow() {
 
 //file selection
 void MyWindow::SelectFile() {
-    
     //declare new select file dialog
     QFileDialog dialog(this);
     //set mode to existing file
@@ -55,13 +53,14 @@ void MyWindow::SelectFile() {
     dialog.setViewMode(QFileDialog::Detail);
     
     QStringList fileNames;
-    //QString fileName;
-    if (dialog.exec())
+
+    if (dialog.exec() == QDialog::Rejected)
     {
-        //dialog.selectFile(fileName);
-         fileNames = dialog.selectedFiles();
+        return;
     }
 
+    fileNames = dialog.selectedFiles();
+    
     //Display name of file as chosen by user
     if(!fileNames.isEmpty())
     {
@@ -77,18 +76,17 @@ void MyWindow::SelectFile() {
     FilePtr currentPath = new FileArchiver;
     
     //If a record already exists
-    if(currentPath->Exists(stdFileName))
+    if(!currentPath->Exists(stdFileName))
     {
-        //Invoke this->retrieveVersionDataForFile() to get collection of VersionInfoRecords 
-        //and enable Save
-    }    
-    else
-    {
-       // Invoke this->createFirstVersion() to create initial version of file in persistent storage
         CreateFirstVersion(stdFileName);
-    }
+    }    
     
     RetrieveVersionDataForFile();
+    
+    widget.saveCurrentBttn->setEnabled(true);
+    widget.retrieveVersionBttn->setEnabled(true);
+    widget.showCommentBttn->setEnabled(true);
+    widget.setReferenceBttn->setEnabled(true);
 }
 
 void MyWindow::SaveCurrent()
