@@ -11,6 +11,8 @@
 
 using namespace std;
 
+// Remember to link boost_regex.
+
 vector<string> FileLib::SplitPath(string path)
 {
 	vector<string> splittedPath;
@@ -18,11 +20,6 @@ vector<string> FileLib::SplitPath(string path)
 	path = Normalize(path);
 	boost::split(splittedPath, path, boost::is_any_of("/"), boost::token_compress_on);    // Split path by forward slash ("/") into vector.
 
-        // There will be a null-byte in the last string if the path ends in the delimiter.
-        // So, remove it.
-        if(splittedPath.back().empty())
-            splittedPath.pop_back();
-        
 	return splittedPath;
 }
 
@@ -30,7 +27,7 @@ vector<string> FileLib::SplitPath(string path)
 string FileLib::Normalize(string path)
 {
 	boost::regex re("\\\\+|//+");
-	path = boost::regex_replace(path, re, "/", boost::match_default | boost::format_all);
+	path = boost::regex_replace(path, re, "/");
 
 	return path;
 }
@@ -50,7 +47,7 @@ string FileLib::GetPath(string path)
 
 string FileLib::GetFilename(string path)
 {
-	return SplitPath(path).back();
+	return SplitPath(Normalize(path)).back();
 }
 
 time_t FileLib::GetModifiedDate(string path)
@@ -58,6 +55,8 @@ time_t FileLib::GetModifiedDate(string path)
 	time_t modificationTime;
 	path = Normalize(path);
 	
+	// Possibly temporary error-handling (and for illustration purposes).
+	// I think error-handling should be handled by a higher-level class.
 	try
 	{
 		modificationTime = boost::filesystem::last_write_time(path.c_str());
@@ -70,12 +69,9 @@ time_t FileLib::GetModifiedDate(string path)
 	return modificationTime;
 }
 
-string FileLib::AppendPath(string &path1, string path2)
+void FileLib::AppendPath(string &path1, string path2)
 {
 	path1.append(path2);
-        path1 = Normalize(path1);
-        
-        return path1;
 }
 
 unsigned int FileLib::GetHash(string path)
@@ -84,4 +80,24 @@ unsigned int FileLib::GetHash(string path)
 
 	MurmurHash3_x86_32_FromFile(path, MURMUR_SEED_1, &hash);
 	return hash;
+}
+
+int main(void)
+{
+	//string path = "/home/\\undergrad\\\\///j/jjc224/FileLibTest/FileLib.cpp";
+	string path = "/home/undergrad/j/jjc224/FileLibTest/FileLib.cpp";	
+	vector<string> splitted = FileLib::SplitPath(path);
+
+	cout << "Vector: " << endl;
+
+	for(vector<string>::iterator it = splitted.begin(); it != splitted.end(); ++it)
+		cout << "\t" << *it << endl;
+	cout << endl;
+
+	cout << "GetPath: " << FileLib::GetPath(path) << endl;
+	cout << "GetFilename: " << FileLib::GetFilename(path) << endl;
+	cout << "GetModifiedDate: " << FileLib::GetModifiedDate(path) << endl;
+	cout << "GetHash: " << FileLib::GetHash(path) << endl;
+
+	return 0;
 }

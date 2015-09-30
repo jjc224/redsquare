@@ -118,15 +118,16 @@ void MyWindow::ShowComment()
 			//get version number of selected record
 			QVariant data = indexes[0].data(0);
             //retrieve version
+			
             VersionRecord selectedVersion(fileName.toStdString(), data.toInt());
 			if(selectedVersion.IsValid())
 			{
 				QMessageBox msgBox;
 
-				msgBox.setWindowTitle("Comment for selected version");
-				msgBox.setText(QString(selectedVersion.GetComment().c_str()));
-				msgBox.setStandardButtons(QMessageBox::Ok);
-				msgBox.exec();
+				QMessageBox msgBox(QMessageBox::Information, "Comment for selected version", 
+				QString(selectedVersion.GetComment().c_str()), QMessageBox::Ok, 0);
+            
+			   msgBox.exec();
 			}
         }
 }
@@ -137,11 +138,8 @@ void MyWindow::SetReferenceVersion()
         
         if(indexes.size() > 0)
         {
-            QMessageBox msgBox;
-            
-            msgBox.setWindowTitle("Set reference version");
-            msgBox.setText("Are you sure you want to purge these records?");
-            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            QMessageBox msgBox(QMessageBox::Question, "Set reference version", 
+                    "Are you sure you want to purge these records?", QMessageBox::Yes | QMessageBox::No, 0);
             msgBox.setDefaultButton(QMessageBox::No);
             
             if(msgBox.exec() == QMessageBox::Yes)
@@ -205,7 +203,7 @@ void MyWindow::RetrieveVersionDataForFile()
         widget.tableView->close();
         return;
     }
-    
+        
     QStandardItemModel *myModel = new QStandardItemModel(fileRec.GetNumberOfVersions(), 3, this);
     myModel->clear();
     
@@ -238,6 +236,18 @@ void MyWindow::RetrieveVersion()
     QString directory;
     QString outFilename;
     
+    QModelIndexList indexes = widget.tableView->selectionModel()->selectedRows();
+    
+    if(!(indexes.size() > 0))
+    {
+        QMessageBox msgBox(QMessageBox::Information, "Error", 
+                    "Please select the version to be retrieved", QMessageBox::Ok, 0);
+            
+        msgBox.exec();
+        return;
+        
+    }
+    
     retrieveWindow = new RetrieveForm;
 	//execute RetrieveForm and details of where retrieved file will be placed
     
@@ -254,8 +264,6 @@ void MyWindow::RetrieveVersion()
 	fullOutputPath += "/";
 	fullOutputPath += outFilename.toStdString();
 	
-        QModelIndexList indexes = widget.tableView->selectionModel()->selectedRows();
-        
 	//retrieve version
         if(indexes.size() > 0)
         {
