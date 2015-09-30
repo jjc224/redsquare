@@ -34,6 +34,8 @@ private:
     void hashFileTest();
     void commitRetrieveTest();
     void purgeTest();
+    
+    bool GenerateFilesAndCommitVersionsAndVerifyRetrieval(std::string path, unsigned int size, unsigned int numVersions);
 };
 
 #endif	/* BACKENDTESTS_H */

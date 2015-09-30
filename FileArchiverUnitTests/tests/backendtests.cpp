@@ -9,6 +9,10 @@
 #include "MurmurHash3.h"
 #include "ProjectConstants.h"
 #include "TestUtilities.h"
+#include "FileArchiver.h"
+#include "FileRecord.h"
+#include "VersionRecord.h"
+#include "boost/lexical_cast.hpp"
 
 #include <string>
 using namespace std;
@@ -26,25 +30,92 @@ backendtests::~backendtests()
 
 void backendtests::setUp()
 {
+	DropTables();
+	CreateTables();
 }
 
 void backendtests::tearDown()
 {
 }
 
-void backendtests::testMethod()
-{
-	CPPUNIT_ASSERT(true);
-}
-
-void backendtests::testFailedMethod()
-{
-	CPPUNIT_ASSERT(false);
+bool backendtests::GenerateFilesAndCommitVersionsAndVerifyRetrieval(std::string path, unsigned int size, unsigned int numVersions)
+{	
+	FileRecord myRecord;
+	bool bSuccess = true;
+	
+	for(unsigned int i = 0; i < numVersions; i++)
+	{
+		if(bSuccess == false)
+		{
+			break;
+		}
+		string currentpath = path + "." + boost::lexical_cast<string>(i);
+		createFile(i * 200, currentpath, size);
+		if(i == 0)
+		{
+			bSuccess = myRecord.CreateFile(currentpath, "initial version");
+			if(bSuccess == false)
+			{
+				log("ERROR: Failed to create new file: " + currentpath);
+				CPPUNIT_ASSERT_MESSAGE("ERROR: Failed to create new file: " + currentpath,false);
+			}
+		}
+		else
+		{
+			log("Trying to add new version");
+			if(myRecord.IsValid())
+			{
+				bSuccess = myRecord.AddNewVersion(currentpath, "Version: " + boost::lexical_cast<string>(i) );
+				if(bSuccess == false)
+				{
+					log("ERROR: Failed to create new version: " + currentpath);
+					CPPUNIT_ASSERT_MESSAGE("ERROR: Failed to create new version: " + currentpath,false);
+				}
+			}
+		}
+		
+	}
+	
+	if(bSuccess)
+	{
+		string originalName = path + ".0";
+		for(unsigned int i = 0; i < numVersions; i++)
+		{
+			string currentpath = path + "." + boost::lexical_cast<string>(i) + ".ret";
+			VersionRecord currentRecord(originalName, i + 1);
+			unsigned int retrievedHash = 0;
+			
+			if(currentRecord.IsValid())
+			{
+				currentRecord.GetFileData(currentpath);
+				MurmurHash3_x86_32_FromFile(currentpath, MURMUR_SEED_1, &retrievedHash);
+				if(retrievedHash != currentRecord.GetHash())
+				{
+					log("HASHES DID NOT MATCH! " + currentpath);
+					CPPUNIT_ASSERT_MESSAGE("HASHES DID NOT MATCH! " + currentpath,false);
+					bSuccess = false;
+					break;
+				}
+				else
+				{
+					log("Hashes matched. Retrieval worked correctly");
+				}
+			}
+			else
+			{
+				bSuccess = false;
+				CPPUNIT_ASSERT_MESSAGE("Invalid version record retrieved",false);
+				break;
+			}
+		}
+	}
+	
+	return bSuccess;
 }
 
 void backendtests::hashFileTest()
 {
-	string file1 = "testData/hashFile2.dat";
+	string file1 = "testData/hashFile1.dat";
 	string file2 = "testData/hashFile2.dat";
 	
 	//hash files of different lengths
@@ -52,26 +123,52 @@ void backendtests::hashFileTest()
 	createFile(24000, file1, 14000);
 	createFile(2888000, file2, 24000);
 	
-	unsigned int hash1;
-	unsigned int hash2;
+	unsigned int hash1 = 0;
+	unsigned int hash2 = 0;
 	
-	MurmurHash3_x86_32_FromFile(file1, MURMUR_SEED_1, hash1);
-	MurmurHash3_x86_32_FromFile(file2, MURMUR_SEED_1, hash2);
+	MurmurHash3_x86_32_FromFile(file1, MURMUR_SEED_1, &hash1);
+	MurmurHash3_x86_32_FromFile(file2, MURMUR_SEED_1, &hash2);
 	
+	//if the hashes match this is an error
 	if(hash1 == hash2)
 	{
-		//hashes are the same, this isn't right
-		CPPUNIT_ASSERT(false);
+		CPPUNIT_ASSERT_MESSAGE("Files of different lengths", false);
 	}
 	
 	//hash files of the same length
+	createFile(24000, file1, 14000);
+	createFile(28000, file2, 14000);
+	
+	MurmurHash3_x86_32_FromFile(file1, MURMUR_SEED_1, &hash1);
+	MurmurHash3_x86_32_FromFile(file2, MURMUR_SEED_1, &hash2);
+	
+	if(hash1 == hash2)
+	{
+		CPPUNIT_ASSERT_MESSAGE("Files of the same length", false);
+	}
+	
 	
 	//hash the same file with different seeds
+	MurmurHash3_x86_32_FromFile(file1, MURMUR_SEED_1, &hash1);
+	MurmurHash3_x86_32_FromFile(file1, MURMUR_SEED_2, &hash2);
+	if(hash1 == hash2)
+	{
+		CPPUNIT_ASSERT_MESSAGE("Same file with different seeds", false);
+	}
+	
 }
 
 void backendtests::commitRetrieveTest()
 {
-
+	bool bSuccess;
+	bSuccess = GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/20VersionFile.dat", 30000, 20);
+	CPPUNIT_ASSERT_MESSAGE("20 version file had an unknown error", bSuccess);
+	
+	bSuccess = GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/30VersionFile.dat", 100000, 30);
+	CPPUNIT_ASSERT_MESSAGE("30 version file had an unknown error", bSuccess);
+	
+	bSuccess = GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/40VersionFile.dat", 80000, 40);
+	CPPUNIT_ASSERT_MESSAGE("40 version file had an unknown error", bSuccess);
 }
 
 void backendtests::purgeTest()
