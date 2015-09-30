@@ -12,6 +12,7 @@
 #include "FileArchiver.h"
 #include "FileRecord.h"
 #include "VersionRecord.h"
+#include "FileLib.h"
 #include "boost/lexical_cast.hpp"
 
 #include <string>
@@ -30,6 +31,7 @@ backendtests::~backendtests()
 
 void backendtests::setUp()
 {
+        FileLib::SetupWorkingDirectories();
 	DropTables();
 	CreateTables();
 }
