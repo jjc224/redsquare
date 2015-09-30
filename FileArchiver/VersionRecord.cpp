@@ -199,7 +199,7 @@ unsigned int VersionRecord::GetModificationTime()
         return FileModificationTime;
 }
 
-<<<<<<< HEAD
+
 string VersionRecord::GetFormattedModificationTime()
 {
     char buffer[80];
@@ -210,73 +210,70 @@ string VersionRecord::GetFormattedModificationTime()
 }
 
 bool VersionRecord::InsertVersionIntoDB(string keyFilename)
-=======
-bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
->>>>>>> cc1a20d9c3f30f72d74f212fd30e069e565db8fb
 {
-	// Prepare for sql statements
-	bool bSuccess = false;
-	const char* insertVersion = "insert into Version(filename, version, hash, filemodtime, size, time, comment) values (?, ?, ?, ?, ?, ?, ?)";
-	const char* selectVersion = "select id from Version where hash=?"; 
-	sql::PreparedStatement *pstmt = NULL;
-	sql::ResultSet *rs = NULL;
-	
-	// Try to insert record and get the id
-	try 
-	{
-		pstmt = dbcon->prepareStatement(insertVersion);
-		pstmt->setString(1, keyFilename);
-		pstmt->setInt64(2, VersionNumber);
-		pstmt->setInt64(3, Hash);
-		pstmt->setInt64(4, FileModificationTime);
-		pstmt->setInt64(5, Size);
-		pstmt->setInt64(6, Time);
-		pstmt->setString(7, Comment);		
-		
-		bool bNewVersionMade = pstmt->executeUpdate();
-		
-		if (bNewVersionMade == false)
-		{
-			return false;
-		}
-		
-		// Run Query
-		pstmt = dbcon->prepareStatement(selectVersion);
-		pstmt->setInt64(1, Hash);
-		rs = pstmt->executeQuery();
+        // Prepare for sql statements
+        bool bSuccess = false;
+        const char* insertVersion = "insert into Version(filename, version, hash, filemodtime, size, time, comment) values (?, ?, ?, ?, ?, ?, ?)";
+        const char* selectVersion = "select id from Version where hash=?"; 
+        sql::PreparedStatement *pstmt = NULL;
+        sql::ResultSet *rs = NULL;
+        
+        // Try to insert record and get the id
+        try 
+        {
+                pstmt = dbcon->prepareStatement(insertVersion);
+                pstmt->setString(1, keyFilename);
+                pstmt->setInt64(2, VersionNumber);
+                pstmt->setInt64(3, Hash);
+                pstmt->setInt64(4, FileModificationTime);
+                pstmt->setInt64(5, Size);
+                pstmt->setInt64(6, Time);
+                pstmt->setString(7, Comment);           
+                
+                bool bNewVersionMade = pstmt->executeUpdate();
+                
+                if (bNewVersionMade == false)
+                {
+                        return false;
+                }
+                
+                // Run Query
+                pstmt = dbcon->prepareStatement(selectVersion);
+                pstmt->setInt64(1, Hash);
+                rs = pstmt->executeQuery();
 
-		// Output Results
-		while(rs->next())
-		{
-			VersionID = rs->getUInt(1);
-		}
-		bSuccess = true;
-		
-		if(bSuccess)
-		{
-			RetrieveVersionRecordFromDB(keyFilename, VersionNumber);
-			if(!IsValid())
-			{
-				log("Failed to retrieve version record from database. This version was not created correctly");
-				bSuccess = false;
-			}
-		}
-	}
-	catch (sql::SQLException &e)
-	{
-		log("ERROR: ");
-		log(e.what());
-		log(e.getErrorCode());
-		log(e.getSQLState());
-		log("Failed to create version in table Version");
-		bSuccess = false;
-	}
+                // Output Results
+                while(rs->next())
+                {
+                        VersionID = rs->getUInt(1);
+                }
+                bSuccess = true;
+                
+                if(bSuccess)
+                {
+                        RetrieveVersionRecordFromDB(keyFilename, VersionNumber);
+                        if(!IsValid())
+                        {
+                                log("Failed to retrieve version record from database. This version was not created correctly");
+                                bSuccess = false;
+                        }
+                }
+        }
+        catch (sql::SQLException &e)
+        {
+                log("ERROR: ");
+                log(e.what());
+                log(e.getErrorCode());
+                log(e.getSQLState());
+                log("Failed to create version in table Version");
+                bSuccess = false;
+        }
 
-	pstmt->close();
-	pstmt = NULL;
-	delete rs;
-	rs = NULL;
-	return bSuccess;
+        pstmt->close();
+        pstmt = NULL;
+        delete rs;
+        rs = NULL;
+        return bSuccess;
 }
 
 bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
