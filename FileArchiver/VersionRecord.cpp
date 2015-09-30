@@ -200,15 +200,6 @@ unsigned int VersionRecord::GetModificationTime()
         return FileModificationTime;
 }
 
-string VersionRecord::GetFormattedModificationTime()
-{
-    char buffer[80];
-    time_t fileTime = FileModificationTime;
-    
-    strftime(buffer, 80, "%F %T", localtime(&fileTime));
-    return string(buffer);
-}
-
 bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
 {
 	const char* insertVersion = "insert into Version(filename, version, hash, filemodtime, size, time, comment) values (?, ?, ?, ?, ?, ?, ?)";

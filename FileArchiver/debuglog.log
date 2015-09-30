@@ -1,0 +1,25 @@
+ERROR: 
+Access denied for user 'thomas'@'localhost' (using password: NO)
+1045
+28000
+ERROR: 
+Access denied for user 'thomas'@'localhost' (using password: NO)
+1045
+28000
+host: 127.0.0.1
+user: root
+pw: root
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 1003415272 and hash2 = 467368793
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443635173, filemodtime = 1443621472, comment = "54y45y", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
