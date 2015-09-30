@@ -16,6 +16,7 @@
 #include "MyWindow.h"
 #include "FileArchiver.h"
 #include "FileRecord.h"
+#include "FileLib.h"
 
 MyWindow::MyWindow() {
     widget.setupUi(this);
@@ -209,7 +210,7 @@ void MyWindow::RetrieveVersionDataForFile()
     for(vector<VersionRecord>::iterator it = versionRecs.begin(); it != versionRecs.end(); ++it)
     {
         myModel->setItem(currentRow, 0, new QStandardItem(QString(boost::lexical_cast<string>(it->GetVersionNumber()).c_str())));
-        myModel->setItem(currentRow, 1, new QStandardItem(QString(it->GetFormattedModificationTime().c_str())));
+        myModel->setItem(currentRow, 1, new QStandardItem(QString(FileLib::GetFormattedModificationDate(fileRec.GetFilename()).c_str())));
         myModel->setItem(currentRow, 2, new QStandardItem(QString(boost::lexical_cast<string>(it->GetSize()).c_str())));
     
         ++currentRow;
