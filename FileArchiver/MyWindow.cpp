@@ -39,8 +39,6 @@ MyWindow::MyWindow() {
 }
 
 MyWindow::~MyWindow() {
-    
-    delete getCommentWindow;
 }
 
 //file selection
@@ -83,10 +81,7 @@ void MyWindow::SelectFile() {
     
     RetrieveVersionDataForFile();
     
-    widget.saveCurrentBttn->setEnabled(true);
-    widget.retrieveVersionBttn->setEnabled(true);
-    widget.showCommentBttn->setEnabled(true);
-    widget.setReferenceBttn->setEnabled(true);
+    
 }
 
 void MyWindow::SaveCurrent()
@@ -161,15 +156,22 @@ void MyWindow::CreateFirstVersion(std::string fileName)
     getCommentWindow = new GetCommentForm();
     QString comm;
 
-    if(getCommentWindow->exec() == QDialog::Accepted)
+    if(getCommentWindow->exec() == QDialog::Rejected)
     {
-        comm = getCommentWindow->GetComment();
+        return;
     }
+    
+    comm = getCommentWindow->GetComment();
 
     std::string commentStd = comm.toStdString();
     FileRecord fileRec;
     
     fileRec.CreateFile(fileName, commentStd);
+    
+    widget.saveCurrentBttn->setEnabled(true);
+    widget.retrieveVersionBttn->setEnabled(true);
+    widget.showCommentBttn->setEnabled(true);
+    widget.setReferenceBttn->setEnabled(true);
 }
 
 void MyWindow::AddNewVersion(std::string fileName)
@@ -177,19 +179,25 @@ void MyWindow::AddNewVersion(std::string fileName)
     getCommentWindow = new GetCommentForm();
     QString comm;
 
-    if(getCommentWindow->exec() == QDialog::Accepted)
+    if(getCommentWindow->exec() == QDialog::Rejected)
     {
-        comm = getCommentWindow->GetComment();
-		
-		std::string commentStd = comm.toStdString();
-		FileRecord fileRec(fileName);
 
-		fileRec.AddNewVersion(fileName, commentStd);
+        return;
     }
+    
+    comm = getCommentWindow->GetComment();
+    
+    std::string commentStd = comm.toStdString();
+    FileRecord fileRec(fileName);
 
-    
-    
-   //invoke this->retrieveVersionDataForFile()
+        comm = getCommentWindow->GetComment();
+        fileRec.AddNewVersion(fileName, commentStd);
+
+    widget.saveCurrentBttn->setEnabled(true);
+    widget.retrieveVersionBttn->setEnabled(true);
+    widget.showCommentBttn->setEnabled(true);
+    widget.setReferenceBttn->setEnabled(true);
+
 }
 
 void MyWindow::RetrieveVersionDataForFile()
@@ -198,7 +206,6 @@ void MyWindow::RetrieveVersionDataForFile()
     
     if(fileRec.GetNumberOfVersions() == 0)
     {
-        widget.tableView->close();
         return;
     }
         
