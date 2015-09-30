@@ -115,14 +115,19 @@ void MyWindow::ShowComment()
         
         if(indexes.size() > 0)
         {
+			//get version number of selected record
+			QVariant data = indexes[0].data(0);
             //retrieve version
-            VersionRecord selectedVersion(fileName.toStdString(), indexes[0].row() + 1);
-            QMessageBox msgBox;
-        
-            msgBox.setWindowTitle("Comment for selected version");
-            msgBox.setText(QString(selectedVersion.GetComment().c_str()));
-            msgBox.setStandardButtons(QMessageBox::Ok);
-            msgBox.exec();
+            VersionRecord selectedVersion(fileName.toStdString(), data.toInt());
+			if(selectedVersion.IsValid())
+			{
+				QMessageBox msgBox;
+
+				msgBox.setWindowTitle("Comment for selected version");
+				msgBox.setText(QString(selectedVersion.GetComment().c_str()));
+				msgBox.setStandardButtons(QMessageBox::Ok);
+				msgBox.exec();
+			}
         }
 }
 
@@ -179,12 +184,14 @@ void MyWindow::AddNewVersion(std::string fileName)
     if(getCommentWindow->exec() == QDialog::Accepted)
     {
         comm = getCommentWindow->GetComment();
+		
+		std::string commentStd = comm.toStdString();
+		FileRecord fileRec(fileName);
+
+		fileRec.AddNewVersion(fileName, commentStd);
     }
 
-    std::string commentStd = comm.toStdString();
-    FileRecord fileRec(fileName);
     
-    fileRec.AddNewVersion(fileName, commentStd);
     
    //invoke this->retrieveVersionDataForFile()
 }
