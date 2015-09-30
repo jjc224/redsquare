@@ -291,33 +291,44 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 	// Create a new version
 	bSuccess = InsertVersionIntoDB(keyFilename);
 	
-	// Clean temp folder just incase
-	zipRemoveZip();
-	
-	// Copy file to temp folder
-	zipCopyContents(pathFilename);
-	
-	// Compress file in temp folder
-	zipCompress();
-	
-	// Create Zip path
-	string zipPath = "./temp/data.gz";
-	
-	// Create Blocks In Database
-	bSuccess = InsertBlocks(zipPath);
-	
-	// Update
-	UpdateRecordInDB();
-	
-	// Clean up temp folder
-	zipRemoveZip();
+	if(bSuccess)
+	{	
+		// Clean temp folder just incase
+		zipRemoveZip();
+
+		// Copy file to temp folder
+		zipCopyContents(pathFilename);
+
+		// Compress file in temp folder
+		zipCompress();
+
+		// Create Zip path
+		string zipPath = "./temp/data.gz";
+
+		// Create Blocks In Database
+		bSuccess = InsertBlocks(zipPath);
+		if(!bSuccess)
+		{
+			log("Failed to insert blocks for this version");
+		}
+
+		// Update
+		UpdateRecordInDB();
+
+		// Clean up temp folder
+		zipRemoveZip();
+	}
+	else
+	{
+		log("Failed to create a record in the database for this version");
+	}
 	
 	return bSuccess;
 }
 
 bool VersionRecord::InsertBlocks(string zipPath)
 {
-	bool bSuccess;
+	bool bSuccess = true;
 	
 	// Open File
 	ifstream ins(zipPath.c_str());	
