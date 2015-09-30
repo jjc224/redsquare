@@ -11,11 +11,11 @@
 #include <string>
 #include <QDebug>
 #include <boost/lexical_cast.hpp>
+#include <QStandardItemModel>
 
 #include "MyWindow.h"
 #include "FileArchiver.h"
 #include "FileRecord.h"
-#include "TableModel.h"
 
 MyWindow::MyWindow() {
     widget.setupUi(this);
@@ -80,8 +80,6 @@ void MyWindow::SelectFile() {
     }    
     
     RetrieveVersionDataForFile();
-    
-    
 }
 
 void MyWindow::SaveCurrent()
@@ -167,11 +165,6 @@ void MyWindow::CreateFirstVersion(std::string fileName)
     FileRecord fileRec;
     
     fileRec.CreateFile(fileName, commentStd);
-    
-    widget.saveCurrentBttn->setEnabled(true);
-    widget.retrieveVersionBttn->setEnabled(true);
-    widget.showCommentBttn->setEnabled(true);
-    widget.setReferenceBttn->setEnabled(true);
 }
 
 void MyWindow::AddNewVersion(std::string fileName)
@@ -190,14 +183,8 @@ void MyWindow::AddNewVersion(std::string fileName)
     std::string commentStd = comm.toStdString();
     FileRecord fileRec(fileName);
 
-        comm = getCommentWindow->GetComment();
-        fileRec.AddNewVersion(fileName, commentStd);
-
-    widget.saveCurrentBttn->setEnabled(true);
-    widget.retrieveVersionBttn->setEnabled(true);
-    widget.showCommentBttn->setEnabled(true);
-    widget.setReferenceBttn->setEnabled(true);
-
+    comm = getCommentWindow->GetComment();
+    fileRec.AddNewVersion(fileName, commentStd);
 }
 
 void MyWindow::RetrieveVersionDataForFile()
@@ -233,6 +220,12 @@ void MyWindow::RetrieveVersionDataForFile()
     widget.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     widget.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     widget.tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+	
+	widget.saveCurrentBttn->setEnabled(true);
+    widget.retrieveVersionBttn->setEnabled(true);
+    widget.showCommentBttn->setEnabled(true);
+    widget.setReferenceBttn->setEnabled(true);
+	
     widget.tableView->show();
 }
 
