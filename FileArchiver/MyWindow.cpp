@@ -6,6 +6,7 @@
  */
 #include <QFileDialog>
 #include <QApplication>
+#include <QMessageBox>
 #include <iostream>
 #include <string>
 #include <QDebug>
@@ -102,15 +103,19 @@ void MyWindow::SaveCurrent()
 
 void MyWindow::ShowComment()
 {
-    /*
-          Invoke FileArchiver::getComment(filename,version-number) via FileArchiver object.
-  Display comment using standard Qt “Information Dialog” */
-	
-	//get version number of the selected version
-		//code here using tableview
-	
-	//get comment 
-	
+        QModelIndexList indexes = widget.tableView->selectionModel()->selectedRows();
+        
+        if(indexes.size() > 0)
+        {
+            //retrieve version
+            VersionRecord selectedVersion(fileName.toStdString(), indexes[0].row() + 1);
+            QMessageBox msgBox;
+        
+            msgBox.setWindowTitle("Comment for selected version");
+            msgBox.setText(QString(selectedVersion.GetComment().c_str()));
+            msgBox.setStandardButtons(QMessageBox::Ok);
+            msgBox.exec();
+        }
 }
 
 void MyWindow::SetReferenceVersion()
@@ -181,13 +186,15 @@ void MyWindow::RetrieveVersion()
 		//need code here
 	
     QString directory;
-	QString outFilename;
+    QString outFilename;
+    
     retrieveWindow = new RetrieveForm;
 	//execute RetrieveForm and details of where retrieved file will be placed
+    
     if(retrieveWindow->exec() == QDialog::Accepted)
     {
         directory = retrieveWindow->GetDirectory();
-		outFilename = retrieveWindow->GetOutputFilename();
+        outFilename = retrieveWindow->GetOutputFilename();
     }
 	
 	//convert data from RetrieveForm to full file output path
@@ -197,11 +204,11 @@ void MyWindow::RetrieveVersion()
 	fullOutputPath += "/";
 	fullOutputPath += outFilename.toStdString();
 	
+        QModelIndexList indexes = widget.tableView->selectionModel()->selectedRows();
+        
 	//retrieve version
-	//VersionRecord selectedVersion(filename, versionNum);
-	//selectedVersion.GetFileData(fullOutputPath);
-		
-
+	VersionRecord selectedVersion(fileName.toStdString(), indexes[0].row());
+	selectedVersion.GetFileData(fullOutputPath);
 }
 
 
