@@ -21,4 +21,4 @@ QMAKE_CC = gcc
 QMAKE_CXX = g++
 DEFINES += 
 INCLUDEPATH += 
-LIBS += 
+LIBS += `cppunit-config --libs` `cppunit-config --libs` `cppunit-config --libs`  
