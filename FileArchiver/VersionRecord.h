@@ -54,7 +54,11 @@ protected:
 	//updates the FileRecord in the database;
 	bool UpdateRecordInDB();
 	void Init();
+	
+	bool InsertVersionIntoDB(std::string keyFileName);
 
+	bool InsertBlocks(std::string zipPath);
+	
 	//The version identifier - generated primary key
 	unsigned int VersionID;
 		
