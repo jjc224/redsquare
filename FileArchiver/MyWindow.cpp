@@ -93,12 +93,22 @@ void MyWindow::SelectFile() {
 
 void MyWindow::SaveCurrent()
 {
-    /*
-       Invoke FileArchiver::differs(filename) via FileArchiver object
-   If the files are the same, notify the user and return.
-   Use dialog to get comment to go with new version
-   Invoke FileArchiver::update(filename,comment) via FileArchiver object
-   Invoke this->retrieveVersionDataForFile() */
+    FileRecord fileRec(fileName.toStdString());
+    
+    if(fileRec.IsChanged())
+    {
+        AddNewVersion(fileName.toStdString());
+        RetrieveVersionDataForFile();
+    }
+    else
+    {
+        QMessageBox msgBox;
+        
+        msgBox.setWindowTitle("No save required.");
+        msgBox.setText("No modifications since last version. No save necessary.");
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec();
+    }
 }
 
 void MyWindow::ShowComment()
@@ -120,18 +130,36 @@ void MyWindow::ShowComment()
 
 void MyWindow::SetReferenceVersion()
 {
-    /*
-             Use a Qt confirmation dialog to confirm that user wishes this destructive action
-   Use the GetComment dialog to get a comment to go with the new reference version 
-   Invoke FileArchiver::setReference(filename, version-number, comment) via 
-          FileArchiver object.   
-   Invoke this->retrieveVersionDataForFile() */
+        QModelIndexList indexes = widget.tableView->selectionModel()->selectedRows();
+        
+        if(indexes.size() > 0)
+        {
+            QMessageBox msgBox;
+            
+            msgBox.setWindowTitle("Set reference version");
+            msgBox.setText("Are you sure you want to purge these records?");
+            msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            msgBox.setDefaultButton(QMessageBox::No);
+            
+            if(msgBox.exec() == QMessageBox::Yes)
+            {
+                FileRecord fileRec(fileName.toStdString());
+                const QAbstractItemModel *myModel = indexes[0].model();
+                
+                for(int i = myModel->data(myModel->index(0, 0)).toInt(); i < myModel->data(myModel->index(indexes[0].row(), 0)).toInt(); ++i)
+                {
+                    fileRec.GetVersion(i).PurgeVersion();
+                }
+                
+                // Repopulate the table.
+                RetrieveVersionDataForFile();
+            }
+        }
 }
 
 void MyWindow::CreateFirstVersion(std::string fileName)
 {
-    //Use GetCommentForm dialog to go with this initial version
-    getCommentWindow = new GetCommentForm(); // Be sure to destroy you window somewhere
+    getCommentWindow = new GetCommentForm();
     QString comm;
 
     if(getCommentWindow->exec() == QDialog::Accepted)
@@ -140,21 +168,41 @@ void MyWindow::CreateFirstVersion(std::string fileName)
     }
 
     std::string commentStd = comm.toStdString();
-    //Invoke FileArchiver::insertNew()
-    //create new record --> catch bad_alloc
-    //FilePtr file = new FileArchiver;
     FileRecord fileRec;
+    
     fileRec.CreateFile(fileName, commentStd);
+}
+
+void MyWindow::AddNewVersion(std::string fileName)
+{
+    getCommentWindow = new GetCommentForm();
+    QString comm;
+
+    if(getCommentWindow->exec() == QDialog::Accepted)
+    {
+        comm = getCommentWindow->GetComment();
+    }
+
+    std::string commentStd = comm.toStdString();
+    FileRecord fileRec(fileName);
+    
+    fileRec.AddNewVersion(fileName, commentStd);
     
    //invoke this->retrieveVersionDataForFile()
-    
-
 }
 
 void MyWindow::RetrieveVersionDataForFile()
 {
     FileRecord fileRec(fileName.toStdString());
+    
+    if(fileRec.GetNumberOfVersions() == 0)
+    {
+        widget.tableView->close();
+        return;
+    }
+    
     QStandardItemModel *myModel = new QStandardItemModel(fileRec.GetNumberOfVersions(), 3, this);
+    myModel->clear();
     
     myModel->setHorizontalHeaderItem(0, new QStandardItem(QString("Version #")));
     myModel->setHorizontalHeaderItem(1, new QStandardItem(QString("Date")));
@@ -182,9 +230,6 @@ void MyWindow::RetrieveVersionDataForFile()
 
 void MyWindow::RetrieveVersion()
 {
-	//get current version by selected item from tableview
-		//need code here
-	
     QString directory;
     QString outFilename;
     
@@ -207,14 +252,9 @@ void MyWindow::RetrieveVersion()
         QModelIndexList indexes = widget.tableView->selectionModel()->selectedRows();
         
 	//retrieve version
-	VersionRecord selectedVersion(fileName.toStdString(), indexes[0].row() + 1);
-	selectedVersion.GetFileData(fullOutputPath);
+        if(indexes.size() > 0)
+        {
+            VersionRecord selectedVersion(fileName.toStdString(), indexes[0].row() + 1);
+            selectedVersion.GetFileData(fullOutputPath);
+        }
 }
-
-
-
-/*Selection of Entry in version table display
-  Record in instance members details of the row selected and the actual version number that
-      corresponds to the selected row*/
-
-

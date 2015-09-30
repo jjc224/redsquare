@@ -31,6 +31,7 @@ public slots:
     void SaveCurrent();
     void ShowComment();
     void CreateFirstVersion(std::string fileName);
+    void AddNewVersion(std::string fileName);
     void RetrieveVersionDataForFile();
     void RetrieveVersion();
     void SetReferenceVersion();
