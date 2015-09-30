@@ -7,9 +7,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/philipedwards/groupproj/redsquare/FileArchiver/main.cpp</file>
-            <file>file:/home/philipedwards/groupproj/redsquare/FileArchiver/MyWindow.cpp</file>
-            <file>file:/home/philipedwards/groupproj/redsquare/FileArchiver/FileArchiver.h</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiverUnitTests/tests/backendtests.h</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/DBConnector.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiverUnitTests/tests/backendtests.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiverUnitTests/FileLibTesterRunner.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/FileRecord.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiver/TestUtilities.cpp</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiverUnitTests/tests/FileLibTester.h</file>
+            <file>file:/home/thomas/NetBeansProjects/redsquare/FileArchiverUnitTests/tests/FileLibTester.cpp</file>
         </group>
     </open-files>
 </project-private>

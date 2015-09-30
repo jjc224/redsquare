@@ -155,7 +155,6 @@ void backendtests::hashFileTest()
 	{
 		CPPUNIT_ASSERT_MESSAGE("Same file with different seeds", false);
 	}
-	
 }
 
 void backendtests::commitRetrieveTest()
@@ -173,5 +172,36 @@ void backendtests::commitRetrieveTest()
 
 void backendtests::purgeTest()
 {
+    std::string path  = "testData/purgeFile.dat";
+    unsigned int size = 24000;
+    unsigned int numVersions = 5, numVersionsToKeep = 2;
+    bool bSuccess = GenerateFilesAndCommitVersionsAndVerifyRetrieval(path, size, numVersions);
+    
+    // GenerateFilesAndCommitVersionsAndVerifyRetrieval() will check equality of hashes on generation.
+    CPPUNIT_ASSERT(bSuccess);
+    
+    log("Before purge.");
+    
+    FileRecord fileRec(path + ".0");
+    
+    CPPUNIT_ASSERT(fileRec.IsValid());
+    fileRec.PurgeOldVersions(numVersionsToKeep);
+    
+    vector<VersionRecord> versionRecs = fileRec.GetAllVersions();
+    
+    // Check that the expected number of versions are the actual number of versions (post-purge).
+    CPPUNIT_ASSERT(numVersionsToKeep == versionRecs.size());
 
+    unsigned int hash;
+    std::string testPath = path + ".ret";
+    
+    for(vector<VersionRecord>::iterator it = versionRecs.begin(); it != versionRecs.end(); ++it)
+    {
+        it->GetFileData(testPath);
+        MurmurHash3_x86_32_FromFile(testPath, MURMUR_SEED_1, &hash);
+        
+        CPPUNIT_ASSERT(hash == it->GetHash());
+    }
+    
+    log("End of test.");
 }
