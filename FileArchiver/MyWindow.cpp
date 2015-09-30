@@ -207,7 +207,7 @@ void MyWindow::RetrieveVersion()
         QModelIndexList indexes = widget.tableView->selectionModel()->selectedRows();
         
 	//retrieve version
-	VersionRecord selectedVersion(fileName.toStdString(), indexes[0].row());
+	VersionRecord selectedVersion(fileName.toStdString(), indexes[0].row() + 1);
 	selectedVersion.GetFileData(fullOutputPath);
 }
 
