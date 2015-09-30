@@ -181,9 +181,7 @@ void backendtests::purgeTest()
     
     // GenerateFilesAndCommitVersionsAndVerifyRetrieval() will check equality of hashes on generation.
     CPPUNIT_ASSERT(bSuccess);
-    
-    log("Before purge.");
-    
+
     FileRecord fileRec(path + ".0");
     
     CPPUNIT_ASSERT(fileRec.IsValid());
@@ -204,6 +202,4 @@ void backendtests::purgeTest()
         
         CPPUNIT_ASSERT(hash == it->GetHash());
     }
-    
-    log("End of test.");
 }
