@@ -9,6 +9,8 @@
 #include "MurmurHash3.h"
 #include "ProjectConstants.h"
 #include "TestUtilities.h"
+#include "FileRecord.h"
+#include "VersionRecord.h"
 
 #include <string>
 using namespace std;
@@ -32,41 +34,8 @@ void backendtests::tearDown()
 {
 }
 
-void backendtests::testMethod()
-{
-	CPPUNIT_ASSERT(true);
-}
-
-void backendtests::testFailedMethod()
-{
-	CPPUNIT_ASSERT(false);
-}
-
 void backendtests::hashFileTest()
 {
-	string file1 = "testData/hashFile2.dat";
-	string file2 = "testData/hashFile2.dat";
-	
-	//hash files of different lengths
-	
-	createFile(24000, file1, 14000);
-	createFile(2888000, file2, 24000);
-	
-	unsigned int hash1;
-	unsigned int hash2;
-	
-	MurmurHash3_x86_32_FromFile(file1, MURMUR_SEED_1, hash1);
-	MurmurHash3_x86_32_FromFile(file2, MURMUR_SEED_1, hash2);
-	
-	if(hash1 == hash2)
-	{
-		//hashes are the same, this isn't right
-		CPPUNIT_ASSERT(false);
-	}
-	
-	//hash files of the same length
-	
-	//hash the same file with different seeds
 }
 
 void backendtests::commitRetrieveTest()
@@ -76,5 +45,39 @@ void backendtests::commitRetrieveTest()
 
 void backendtests::purgeTest()
 {
+    DropTables();
+    CreateTables();
+    
+    std::string path  = "testData/purgeFile.dat";
+    unsigned int size = 24000;
+    unsigned int numVersions = 5, numVersionsToKeep = 2;
+    bool bSuccess = GenerateFilesAndCommitVersionsAndVerifyRetrieval(path, size, numVersions);
+    
+    // GenerateFilesAndCommitVersionsAndVerifyRetrieval() will check equality of hashes on generation.
+    CPPUNIT_ASSERT(bSuccess);
+    
+    log("Before purge.");
+    
+    FileRecord fileRec(path + ".0");
+    
+    CPPUNIT_ASSERT(fileRec.IsValid());
+    fileRec.PurgeOldVersions(numVersionsToKeep);
+    
+    vector<VersionRecord> versionRecs = fileRec.GetAllVersions();
+    
+    // Check that the expected number of versions are the actual number of versions (post-purge).
+    CPPUNIT_ASSERT(numVersionsToKeep == versionRecs.size());
 
+    unsigned int hash;
+    std::string testPath = path + ".ret";
+    
+    for(vector<VersionRecord>::iterator it = versionRecs.begin(); it != versionRecs.end(); ++it)
+    {
+        it->GetFileData(testPath);
+        MurmurHash3_x86_32_FromFile(testPath, MURMUR_SEED_1, &hash);
+        
+        CPPUNIT_ASSERT(hash == it->GetHash());
+    }
+    
+    log("End of test.");
 }

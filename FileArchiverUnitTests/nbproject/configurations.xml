@@ -45,6 +45,15 @@
         <itemPath>tests/backendtests.cpp</itemPath>
         <itemPath>tests/backendtests.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="FileLibTester"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/FileLibTester.cpp</itemPath>
+        <itemPath>tests/FileLibTester.cpp_1</itemPath>
+        <itemPath>tests/FileLibTester.h</itemPath>
+        <itemPath>FileLibTesterRunner.cpp</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -112,6 +121,8 @@
       </item>
       <item path="../FileArchiver/VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="FileLibTesterRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
@@ -126,7 +137,27 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.cpp_1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/backendtestrunner.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -202,6 +233,8 @@
       </item>
       <item path="../FileArchiver/VersionRecord.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="FileLibTesterRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
@@ -216,7 +249,27 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.cpp_1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/backendtestrunner.cpp" ex="false" tool="1" flavor2="0">
       </item>
