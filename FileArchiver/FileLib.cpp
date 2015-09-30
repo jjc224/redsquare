@@ -70,6 +70,15 @@ time_t FileLib::GetModifiedDate(string path)
 	return modificationTime;
 }
 
+string FileLib::GetFormattedModificationDate(string path)
+{
+    char buffer[80];
+    time_t fileTime = GetModifiedDate(path);
+    
+    strftime(buffer, 80, "%F %T", localtime(&fileTime));
+    return string(buffer);
+}
+
 string FileLib::AppendPath(string &path1, string path2)
 {
 	path1.append(path2);

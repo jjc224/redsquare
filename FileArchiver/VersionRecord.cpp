@@ -199,6 +199,7 @@ unsigned int VersionRecord::GetModificationTime()
         return FileModificationTime;
 }
 
+<<<<<<< HEAD
 string VersionRecord::GetFormattedModificationTime()
 {
     char buffer[80];
@@ -209,6 +210,9 @@ string VersionRecord::GetFormattedModificationTime()
 }
 
 bool VersionRecord::InsertVersionIntoDB(string keyFilename)
+=======
+bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
+>>>>>>> cc1a20d9c3f30f72d74f212fd30e069e565db8fb
 {
 	// Prepare for sql statements
 	bool bSuccess = false;

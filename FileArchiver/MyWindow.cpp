@@ -11,11 +11,12 @@
 #include <string>
 #include <QDebug>
 #include <boost/lexical_cast.hpp>
+#include <QStandardItemModel>
 
 #include "MyWindow.h"
 #include "FileArchiver.h"
 #include "FileRecord.h"
-#include "TableModel.h"
+#include "FileLib.h"
 
 MyWindow::MyWindow() {
     widget.setupUi(this);
@@ -39,8 +40,6 @@ MyWindow::MyWindow() {
 }
 
 MyWindow::~MyWindow() {
-    
-    delete getCommentWindow;
 }
 
 //file selection
@@ -82,11 +81,6 @@ void MyWindow::SelectFile() {
     }    
     
     RetrieveVersionDataForFile();
-    
-    widget.saveCurrentBttn->setEnabled(true);
-    widget.retrieveVersionBttn->setEnabled(true);
-    widget.showCommentBttn->setEnabled(true);
-    widget.setReferenceBttn->setEnabled(true);
 }
 
 void MyWindow::SaveCurrent()
@@ -161,10 +155,12 @@ void MyWindow::CreateFirstVersion(std::string fileName)
     getCommentWindow = new GetCommentForm();
     QString comm;
 
-    if(getCommentWindow->exec() == QDialog::Accepted)
+    if(getCommentWindow->exec() == QDialog::Rejected)
     {
-        comm = getCommentWindow->GetComment();
+        return;
     }
+    
+    comm = getCommentWindow->GetComment();
 
     std::string commentStd = comm.toStdString();
     FileRecord fileRec;
@@ -177,19 +173,19 @@ void MyWindow::AddNewVersion(std::string fileName)
     getCommentWindow = new GetCommentForm();
     QString comm;
 
-    if(getCommentWindow->exec() == QDialog::Accepted)
+    if(getCommentWindow->exec() == QDialog::Rejected)
     {
-        comm = getCommentWindow->GetComment();
-		
-		std::string commentStd = comm.toStdString();
-		FileRecord fileRec(fileName);
 
-		fileRec.AddNewVersion(fileName, commentStd);
+        return;
     }
+    
+    comm = getCommentWindow->GetComment();
+    
+    std::string commentStd = comm.toStdString();
+    FileRecord fileRec(fileName);
 
-    
-    
-   //invoke this->retrieveVersionDataForFile()
+    comm = getCommentWindow->GetComment();
+    fileRec.AddNewVersion(fileName, commentStd);
 }
 
 void MyWindow::RetrieveVersionDataForFile()
@@ -198,7 +194,6 @@ void MyWindow::RetrieveVersionDataForFile()
     
     if(fileRec.GetNumberOfVersions() == 0)
     {
-        widget.tableView->close();
         return;
     }
         
@@ -215,7 +210,7 @@ void MyWindow::RetrieveVersionDataForFile()
     for(vector<VersionRecord>::iterator it = versionRecs.begin(); it != versionRecs.end(); ++it)
     {
         myModel->setItem(currentRow, 0, new QStandardItem(QString(boost::lexical_cast<string>(it->GetVersionNumber()).c_str())));
-        myModel->setItem(currentRow, 1, new QStandardItem(QString(it->GetFormattedModificationTime().c_str())));
+        myModel->setItem(currentRow, 1, new QStandardItem(QString(FileLib::GetFormattedModificationDate(fileRec.GetFilename()).c_str())));
         myModel->setItem(currentRow, 2, new QStandardItem(QString(boost::lexical_cast<string>(it->GetSize()).c_str())));
     
         ++currentRow;
@@ -226,6 +221,12 @@ void MyWindow::RetrieveVersionDataForFile()
     widget.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     widget.tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     widget.tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+	
+	widget.saveCurrentBttn->setEnabled(true);
+    widget.retrieveVersionBttn->setEnabled(true);
+    widget.showCommentBttn->setEnabled(true);
+    widget.setReferenceBttn->setEnabled(true);
+	
     widget.tableView->show();
 }
 
