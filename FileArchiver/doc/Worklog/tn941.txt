@@ -1,5 +1,11 @@
-6/09/2015
 
+Work Diary
+
+
+Author: Thomas Nixon
+
+
+6/09/2015
 Read documentation
 Created Google doc to start putting outlines of what needs to be done in.
 Researched MySQL and its use with c++
