@@ -20,8 +20,10 @@
 
 #include <streambuf>
 #include <istream>
+#include <ctime> 
 
 #include "CompressUtils.h"
+#include "FileLib.h"
 
 using namespace std;
 
@@ -193,15 +195,48 @@ unsigned int VersionRecord::GetHash()
 	return Hash;
 } 
 
+unsigned int VersionRecord::GetModificationTime()
+{
+        return FileModificationTime;
+}
+
+string VersionRecord::GetFormattedModificationTime()
+{
+    char buffer[80];
+    time_t fileTime = FileModificationTime;
+    
+    strftime(buffer, 80, "%F %T", localtime(&fileTime));
+    return string(buffer);
+}
+
 bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
 {
+	const char* insertVersion = "insert into Version(filename, version, hash, filemodtime, size, time, comment) values (?, ?, ?, ?, ?, ?, ?)";
 	bool bSuccess = true;
+	FileModificationTime = FileLib::GetModifiedDate(pathFilename);
+	Time = time(0);
+	Size = RetrieveSizeFromDisk(pathFilename);
 	
 	// Create a new version
 	sql::Statement *stmt = dbcon->createStatement();
+	
 	try 
 	{
-		bool bNewVersionMade = stmt->executeUpdate("insert into Version(filename, version, hash) values ('" + boost::lexical_cast<string>(keyFilename) + "', " + boost::lexical_cast<string>(currentVersion) + ", " + boost::lexical_cast<string>(newHash) + ")");
+		sql::PreparedStatement *pstmt = NULL;
+		pstmt = dbcon->prepareStatement(insertVersion);
+		pstmt->setString(1, keyFilename);
+		pstmt->setInt64(2, currentVersion);
+		pstmt->setInt64(3, newHash);
+		pstmt->setInt64(4, FileModificationTime);
+		pstmt->setInt64(5, Size);
+		pstmt->setInt64(6, Time);
+		pstmt->setString(7, Comment);
+		
+		
+		bool bNewVersionMade = pstmt->executeUpdate();
+		pstmt->close();
+		pstmt = NULL;
+		//stmt->executeUpdate("insert into Version(filename, version, hash) values ('" + boost::lexical_cast<string>(keyFilename) + "', " + boost::lexical_cast<string>(currentVersion) + ", " + boost::lexical_cast<string>(newHash) + ")");
 		if (bNewVersionMade == false)
 		{
 			return false;
@@ -237,8 +272,6 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 			bSuccess = false;
 		}
 	}
- 
-	Size = RetrieveSizeFromDisk(pathFilename);
 	
 	// Clean temp folder just incase
 	zipRemoveZip();
@@ -445,24 +478,22 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 	return bSuccess;
 }
 
+// Returns the size of a file passed to it
 unsigned int VersionRecord::RetrieveSizeFromDisk(string path)
 {
-	bool bSuccess;
 	ifstream ins(path.c_str());
 	
 	if (!ins.good())
 	{
 		log("Failed to open file. Cannot get file size.");
-		bSuccess = false;
 	}
 	
 	int fileSize = 0;
-	if(bSuccess)
+	if(ins.good())
 	{
 		ins.seekg (0, ios::end);
 		fileSize = ins.tellg();
 		ins.seekg (0, ios::beg);
-		//store the length of this file in the version record itself
 	}
 	
 	return fileSize;

@@ -1,7 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'MyWindow.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.6
+** Created: Wed Sep 30 09:52:25 2015
+**      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -62,6 +63,7 @@ public:
         labelVersionData->setScaledContents(false);
         tableView = new QTableView(centralwidget);
         tableView->setObjectName(QString::fromUtf8("tableView"));
+        tableView->setEnabled(true);
         tableView->setGeometry(QRect(30, 130, 551, 391));
         saveCurrentBttn = new QPushButton(centralwidget);
         saveCurrentBttn->setObjectName(QString::fromUtf8("saveCurrentBttn"));
@@ -81,7 +83,6 @@ public:
         selectFilePath->setGeometry(QRect(50, 20, 581, 27));
         MyWindow->setCentralWidget(centralwidget);
         labelFile->raise();
-        selectFilePath->raise();
         selectFilePath->raise();
         selectFileBttn->raise();
         labelVersionData->raise();

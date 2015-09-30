@@ -1,77 +1,2333 @@
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
-host: 
-user: 
-pw: 
-ERROR: 
-Access denied for user 'io447'@'localhost' (using password: NO)
-1045
-28000
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: 
+ERROR: File does not exist
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1392173955 and hash2 = 1400848282
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443550897, filemodtime = 1442443364, comment = "fregergerg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1168621910 and hash2 = 2038549525
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443550930, filemodtime = 1442443364, comment = "ggggg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 869878465 and hash2 = 1281973651
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443550970, filemodtime = 1442443364, comment = "gtgtg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 897773902 and hash2 = 3716989631
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443551003, filemodtime = 1442443364, comment = "rffefe", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1144839701 and hash2 = 3186299869
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443551531, filemodtime = 1442443364, comment = "rgreger", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1825645090 and hash2 = 1847478785
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443552006, filemodtime = 1442443364, comment = "tger", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1108214124 and hash2 = 2380078414
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443552047, filemodtime = 1442443364, comment = "rfreg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1897891731 and hash2 = 68330340
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443552106, filemodtime = 1442443364, comment = "dsfsdf", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 752920387 and hash2 = 2069757036
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443552127, filemodtime = 1442443364, comment = "sdcsdcd", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2894374617 and hash2 = 2494921120
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443552497, filemodtime = 1442443364, comment = "5tgrtgrt", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 68976429 and hash2 = 2646224222
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443552733, filemodtime = 1442443364, comment = "thtrh", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1244813167 and hash2 = 3556602545
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443552813, filemodtime = 1442443364, comment = "rgergrg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 857878320 and hash2 = 1868339141
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443553009, filemodtime = 1442443364, comment = "yhty", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/DBConfigurationFileUtility.cpp", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/DBConfigurationFileUtility.cpp
+Hash generated for new version = 44311910
+Adding new version
+block size is 405
+Hash equals zero 
+select id from Block where hash1 = 178444307 and hash2 = 4044944850
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/DBConfigurationFileUtility.cpp", size = 1159, time = 1443553181, filemodtime = 1443463993, comment = "", version = 1, hash = 44311910 where id = 1;
+New version added
+update File set curhash = 44311910, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/DBConfigurationFileUtility.cpp";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 444906584 and hash2 = 1444419372
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443553192, filemodtime = 1442443364, comment = "tthh", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 4083059399 and hash2 = 4272573280
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443553250, filemodtime = 1442443364, comment = "rtht", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 20660176 and hash2 = 1227202944
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443553356, filemodtime = 1442443364, comment = "65y56", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2798327284 and hash2 = 4282057623
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443553405, filemodtime = 1442443364, comment = "hthrth", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1459108910 and hash2 = 3154247121
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443554560, filemodtime = 1442443364, comment = "hey man
+", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3438400968 and hash2 = 2396341123
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443554815, filemodtime = 1442443364, comment = "", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2780657731 and hash2 = 3891140525
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443555218, filemodtime = 1442443364, comment = "gbgbg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2984796001 and hash2 = 2943238939
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443555678, filemodtime = 1442443364, comment = "vfvfv", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 973641316 and hash2 = 2424881677
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443555712, filemodtime = 1442443364, comment = "dcdcd", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3328994571 and hash2 = 1680260594
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443555785, filemodtime = 1442443364, comment = "hyyhty", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1946358994 and hash2 = 3597931872
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443555895, filemodtime = 1442443364, comment = "vffdvdfv", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2372612653 and hash2 = 2714473051
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443556103, filemodtime = 1442443364, comment = "feefefef", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2776033030 and hash2 = 416192529
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443556351, filemodtime = 1442443364, comment = "ergerge", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3790057257 and hash2 = 1433814923
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443556378, filemodtime = 1442443364, comment = "fddfd", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 4190775401 and hash2 = 429376598
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443557314, filemodtime = 1442443364, comment = "dfvdfv", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 223405353 and hash2 = 2185377234
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443557451, filemodtime = 1442443364, comment = "ttrht", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1917700515 and hash2 = 615928250
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443557712, filemodtime = 1442443364, comment = "dsffsd", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2948718171 and hash2 = 3033249468
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443557902, filemodtime = 1442443364, comment = "fvdfv", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2400053970 and hash2 = 3844757449
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443557981, filemodtime = 1442443364, comment = "vfdvv", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1420677066 and hash2 = 1676072817
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443558232, filemodtime = 1442443364, comment = "gfg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1390917065 and hash2 = 201952459
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443558353, filemodtime = 1442443364, comment = "fgggf", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 877719879 and hash2 = 1427452209
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443558379, filemodtime = 1442443364, comment = "rrgerg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2579618945 and hash2 = 3594093690
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443558842, filemodtime = 1442443364, comment = "rggge", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3364657192 and hash2 = 3773148583
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443561841, filemodtime = 1442443364, comment = "grger", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3841781204 and hash2 = 3373814432
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443562828, filemodtime = 1442443364, comment = "yhhrtht", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3280524330 and hash2 = 2331018062
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443562927, filemodtime = 1442443364, comment = "ergr", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 635817110 and hash2 = 1067025705
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443562960, filemodtime = 1442443364, comment = "ffddfdf", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 224291677 and hash2 = 2739201027
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443565439, filemodtime = 1442443364, comment = "jtyjtyj", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/DBConfigurationFileUtility.cpp", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/DBConfigurationFileUtility.cpp
+Hash generated for new version = 44311910
+Adding new version
+block size is 405
+Hash equals zero 
+select id from Block where hash1 = 2224380173 and hash2 = 82965317
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/DBConfigurationFileUtility.cpp", size = 1159, time = 1443565559, filemodtime = 1443463993, comment = "", version = 1, hash = 44311910 where id = 1;
+New version added
+update File set curhash = 44311910, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/DBConfigurationFileUtility.cpp";
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1798420443 and hash2 = 4209000496
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443565588, filemodtime = 1442443364, comment = "rergerg", version = 1, hash = 2339191219 where id = 2;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 301989896 and hash2 = 3512886666
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443566073, filemodtime = 1442443364, comment = "rgergreg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1873091914 and hash2 = 1292014403
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443566344, filemodtime = 1442443364, comment = "regerger", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 525948345 and hash2 = 2200474380
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443566417, filemodtime = 1442443364, comment = "gerggr", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 547616413 and hash2 = 1666278081
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443566476, filemodtime = 1442443364, comment = "gregrgr", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1232752745 and hash2 = 1366986973
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443566493, filemodtime = 1442443364, comment = "dfdfwe", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2813291988 and hash2 = 2700438956
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443570764, filemodtime = 1442443364, comment = "dffdg", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 766407784 and hash2 = 4041366747
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443571440, filemodtime = 1442443364, comment = "ewrerwer", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Pictures/Cool-Background-Green-Leaf.jpg", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Pictures/Cool-Background-Green-Leaf.jpg
+Hash generated for new version = 2698880716
+Adding new version
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 3981434786 and hash2 = 2536105926
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 4083357182 and hash2 = 2286191098
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (1, 2, 1)
+block size is 160789
+Hash equals zero 
+select id from Block where hash1 = 4292468098 and hash2 = 3874434765
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (1, 3, 2)
+update Version set filename = "/home/thomas/Pictures/Cool-Background-Green-Leaf.jpg", size = 974068, time = 1443571733, filemodtime = 1442618177, comment = "Fuck you.", version = 1, hash = 2698880716 where id = 1;
+New version added
+update File set curhash = 2698880716, curversion = 1, numversions = 1 where filename = "/home/thomas/Pictures/Cool-Background-Green-Leaf.jpg";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: 
+ERROR: File does not exist
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3263344645 and hash2 = 1041860329
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443572292, filemodtime = 1442443364, comment = "Fuck you bitch.", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3259414970 and hash2 = 3910263912
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443572349, filemodtime = 1442443364, comment = "rfergerger", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3100684176 and hash2 = 1013087850
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443572382, filemodtime = 1442443364, comment = "Fucking cunt.", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 3355794415 and hash2 = 256012097
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443572439, filemodtime = 1442443364, comment = "CUNT.", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 2710400189 and hash2 = 1901864998
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt", size = 61, time = 1443572519, filemodtime = 1442443364, comment = "ergergre", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/NetBeansProjects/redsquare/FileArchiver/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Pictures/Cool-Background-Green-Leaf.jpg", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Pictures/Cool-Background-Green-Leaf.jpg
+Hash generated for new version = 2698880716
+Adding new version
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 3583925915 and hash2 = 108303644
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 4083357182 and hash2 = 2286191098
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (1, 2, 1)
+block size is 160789
+Hash equals zero 
+select id from Block where hash1 = 4292468098 and hash2 = 3874434765
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (1, 3, 2)
+update Version set filename = "/home/thomas/Pictures/Cool-Background-Green-Leaf.jpg", size = 974068, time = 1443572815, filemodtime = 1442618177, comment = "Fuck you.", version = 1, hash = 2698880716 where id = 1;
+New version added
+update File set curhash = 2698880716, curversion = 1, numversions = 1 where filename = "/home/thomas/Pictures/Cool-Background-Green-Leaf.jpg";
+select blockid from VtoB where versionid = 1 order by versionindex ASC
+retrieved block
+retrieved block
+retrieved block
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Desktop/test.jpg", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Desktop/test.jpg
+Hash generated for new version = 2698880716
+Adding new version
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 1127765422 and hash2 = 1471092849
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 4083357182 and hash2 = 2286191098
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (1, 2, 1)
+block size is 160789
+Hash equals zero 
+select id from Block where hash1 = 4292468098 and hash2 = 3874434765
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (1, 3, 2)
+update Version set filename = "/home/thomas/Desktop/test.jpg", size = 974068, time = 1443573737, filemodtime = 1443572829, comment = "rwfrreger", version = 1, hash = 2698880716 where id = 1;
+New version added
+update File set curhash = 2698880716, curversion = 1, numversions = 1 where filename = "/home/thomas/Desktop/test.jpg";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Desktop/test.jpg", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Desktop/test.jpg
+Hash generated for new version = 2698880716
+Adding new version
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 4130269466 and hash2 = 3854383463
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 4083357182 and hash2 = 2286191098
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (1, 2, 1)
+block size is 160789
+Hash equals zero 
+select id from Block where hash1 = 4292468098 and hash2 = 3874434765
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (1, 3, 2)
+update Version set filename = "/home/thomas/Desktop/test.jpg", size = 974068, time = 1443573792, filemodtime = 1443572829, comment = "dfgerg", version = 1, hash = 2698880716 where id = 1;
+New version added
+update File set curhash = 2698880716, curversion = 1, numversions = 1 where filename = "/home/thomas/Desktop/test.jpg";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Desktop/test.jpg", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Desktop/test.jpg
+Hash generated for new version = 2698880716
+Adding new version
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 1299442100 and hash2 = 288174473
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 4083357182 and hash2 = 2286191098
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (1, 2, 1)
+block size is 160789
+Hash equals zero 
+select id from Block where hash1 = 4292468098 and hash2 = 3874434765
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (1, 3, 2)
+update Version set filename = "/home/thomas/Desktop/test.jpg", size = 974068, time = 1443574159, filemodtime = 1443572829, comment = "dfgrgdr", version = 1, hash = 2698880716 where id = 1;
+New version added
+update File set curhash = 2698880716, curversion = 1, numversions = 1 where filename = "/home/thomas/Desktop/test.jpg";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Desktop/test.jpg", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Desktop/test.jpg
+Hash generated for new version = 2698880716
+Adding new version
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 1081626839 and hash2 = 3509636961
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 4083357182 and hash2 = 2286191098
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (1, 2, 1)
+block size is 160789
+Hash equals zero 
+select id from Block where hash1 = 4292468098 and hash2 = 3874434765
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (1, 3, 2)
+update Version set filename = "/home/thomas/Desktop/test.jpg", size = 974068, time = 1443574368, filemodtime = 1443572829, comment = "4545y", version = 1, hash = 2698880716 where id = 1;
+New version added
+update File set curhash = 2698880716, curversion = 1, numversions = 1 where filename = "/home/thomas/Desktop/test.jpg";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Desktop/test.jpg", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Desktop/test.jpg
+Hash generated for new version = 2698880716
+Adding new version
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 3903487854 and hash2 = 1692043673
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+block size is 400000
+Hash equals zero 
+select id from Block where hash1 = 4083357182 and hash2 = 2286191098
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (1, 2, 1)
+block size is 160789
+Hash equals zero 
+select id from Block where hash1 = 4292468098 and hash2 = 3874434765
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (1, 3, 2)
+update Version set filename = "/home/thomas/Desktop/test.jpg", size = 974068, time = 1443575465, filemodtime = 1443572829, comment = "rtetet", version = 1, hash = 2698880716 where id = 1;
+New version added
+update File set curhash = 2698880716, curversion = 1, numversions = 1 where filename = "/home/thomas/Desktop/test.jpg";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2339191219
+Adding new version
+block size is 86
+Hash equals zero 
+select id from Block where hash1 = 1569550701 and hash2 = 2474753051
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 61, time = 1443575498, filemodtime = 1442443364, comment = "sdffgr", version = 1, hash = 2339191219 where id = 1;
+New version added
+update File set curhash = 2339191219, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 3914708259
+Adding new version
+block size is 94
+Hash equals zero 
+select id from Block where hash1 = 3699203660 and hash2 = 2984903738
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 69, time = 1443575544, filemodtime = 1443575534, comment = "Awww shiiit.", version = 2, hash = 3914708259 where id = 2;
+New version added
+update File set curhash = 3914708259, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 3914708259
+Adding new version
+block size is 94
+Hash equals zero 
+select id from Block where hash1 = 1022636404 and hash2 = 1897190717
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 69, time = 1443575589, filemodtime = 1443575534, comment = "4et34t34", version = 1, hash = 3914708259 where id = 1;
+New version added
+update File set curhash = 3914708259, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 382167927 and hash2 = 9784068
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443575621, filemodtime = 1443575615, comment = "erfreergergr", version = 2, hash = 2964917068 where id = 2;
+New version added
+update File set curhash = 2964917068, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2248696354
+Adding new version
+block size is 96
+Hash equals zero 
+select id from Block where hash1 = 1357802410 and hash2 = 1493152168
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (3, 3, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 72, time = 1443575662, filemodtime = 1443575659, comment = "sdcsdssdfsdf", version = 3, hash = 2248696354 where id = 3;
+New version added
+update File set curhash = 2248696354, curversion = 3, numversions = 3 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 585724174
+Adding new version
+block size is 92
+Hash equals zero 
+select id from Block where hash1 = 1857496766 and hash2 = 3139311274
+blockId = 4
+insert into VtoB(versionid, blockid, versionindex) values (4, 4, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 67, time = 1443575674, filemodtime = 1443575671, comment = "rfrferf", version = 4, hash = 585724174 where id = 4;
+New version added
+update File set curhash = 585724174, curversion = 4, numversions = 4 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 585724174
+Adding new version
+block size is 92
+Hash equals zero 
+select id from Block where hash1 = 79029427 and hash2 = 464418810
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 67, time = 1443575920, filemodtime = 1443575671, comment = "rger", version = 1, hash = 585724174 where id = 1;
+New version added
+update File set curhash = 585724174, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 491730111 and hash2 = 738114412
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443575937, filemodtime = 1443575932, comment = "rgreg", version = 2, hash = 2964917068 where id = 2;
+New version added
+update File set curhash = 2964917068, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 585724174
+Adding new version
+block size is 92
+Hash equals zero 
+select id from Block where hash1 = 748455723 and hash2 = 3018858037
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (3, 3, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 67, time = 1443575948, filemodtime = 1443575944, comment = "vvv", version = 3, hash = 585724174 where id = 3;
+New version added
+update File set curhash = 585724174, curversion = 3, numversions = 3 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 585724174
+Adding new version
+block size is 92
+Hash equals zero 
+select id from Block where hash1 = 4287357387 and hash2 = 3677481670
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 67, time = 1443576012, filemodtime = 1443575944, comment = "vvv", version = 1, hash = 585724174 where id = 1;
+New version added
+update File set curhash = 585724174, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 1356898783
+Adding new version
+block size is 93
+Hash equals zero 
+select id from Block where hash1 = 1812770681 and hash2 = 1889217003
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 68, time = 1443576029, filemodtime = 1443576025, comment = "ff", version = 2, hash = 1356898783 where id = 2;
+New version added
+update File set curhash = 1356898783, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 3914708259
+Adding new version
+block size is 94
+Hash equals zero 
+select id from Block where hash1 = 1826086807 and hash2 = 2932915837
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (3, 3, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 69, time = 1443576036, filemodtime = 1443576033, comment = "rrr", version = 3, hash = 3914708259 where id = 3;
+New version added
+update File set curhash = 3914708259, curversion = 3, numversions = 3 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2712377595
+Adding new version
+block size is 95
+Hash equals zero 
+select id from Block where hash1 = 3433708887 and hash2 = 1007589253
+blockId = 4
+insert into VtoB(versionid, blockid, versionindex) values (4, 4, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 70, time = 1443576045, filemodtime = 1443576040, comment = "rgg", version = 4, hash = 2712377595 where id = 4;
+New version added
+update File set curhash = 2712377595, curversion = 4, numversions = 4 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 3455763197 and hash2 = 1980577046
+blockId = 5
+insert into VtoB(versionid, blockid, versionindex) values (5, 5, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443576063, filemodtime = 1443576059, comment = "wfwef", version = 5, hash = 2964917068 where id = 5;
+New version added
+update File set curhash = 2964917068, curversion = 5, numversions = 5 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 2341185484 and hash2 = 1115258304
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443577646, filemodtime = 1443576059, comment = "rewf", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 685403144
+Adding new version
+block size is 90
+Hash equals zero 
+select id from Block where hash1 = 4123564903 and hash2 = 2658843725
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 65, time = 1443577701, filemodtime = 1443577687, comment = "efe", version = 2, hash = 685403144 where id = 2;
+New version added
+update File set curhash = 685403144, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 585724174
+Adding new version
+block size is 90
+Hash equals zero 
+select id from Block where hash1 = 1785911186 and hash2 = 2438211808
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (3, 3, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 67, time = 1443577714, filemodtime = 1443577711, comment = "sdfd", version = 3, hash = 585724174 where id = 3;
+New version added
+update File set curhash = 585724174, curversion = 3, numversions = 3 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 4065292576 and hash2 = 2458306650
+blockId = 4
+insert into VtoB(versionid, blockid, versionindex) values (4, 4, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443577724, filemodtime = 1443577720, comment = "bbg", version = 4, hash = 2964917068 where id = 4;
+New version added
+update File set curhash = 2964917068, curversion = 4, numversions = 4 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 1754713228 and hash2 = 4086119727
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443577899, filemodtime = 1443577720, comment = "dfgfg", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 685403144
+Adding new version
+block size is 90
+Hash equals zero 
+select id from Block where hash1 = 3569150095 and hash2 = 49739861
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 65, time = 1443577916, filemodtime = 1443577911, comment = "vff", version = 2, hash = 685403144 where id = 2;
+New version added
+update File set curhash = 685403144, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 1024531965
+Adding new version
+block size is 91
+Hash equals zero 
+select id from Block where hash1 = 3727507889 and hash2 = 2817765192
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (3, 3, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 66, time = 1443577925, filemodtime = 1443577922, comment = "dfvsd", version = 3, hash = 1024531965 where id = 3;
+New version added
+update File set curhash = 1024531965, curversion = 3, numversions = 3 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 3914708259
+Adding new version
+block size is 94
+Hash equals zero 
+select id from Block where hash1 = 3771778088 and hash2 = 996173412
+blockId = 4
+insert into VtoB(versionid, blockid, versionindex) values (4, 4, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 69, time = 1443577947, filemodtime = 1443577944, comment = "dffds", version = 4, hash = 3914708259 where id = 4;
+New version added
+update File set curhash = 3914708259, curversion = 4, numversions = 4 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 1246299762 and hash2 = 4217326101
+blockId = 5
+insert into VtoB(versionid, blockid, versionindex) values (5, 5, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443577956, filemodtime = 1443577952, comment = "dd", version = 5, hash = 2964917068 where id = 5;
+New version added
+update File set curhash = 2964917068, curversion = 5, numversions = 5 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 1305870639 and hash2 = 2723560554
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443578073, filemodtime = 1443577952, comment = "fff", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 685403144
+Adding new version
+block size is 90
+Hash equals zero 
+select id from Block where hash1 = 3703256532 and hash2 = 1688542304
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 65, time = 1443578087, filemodtime = 1443578081, comment = "ff", version = 2, hash = 685403144 where id = 2;
+New version added
+update File set curhash = 685403144, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 1024531965
+Adding new version
+block size is 91
+Hash equals zero 
+select id from Block where hash1 = 3315467104 and hash2 = 3339287515
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (3, 3, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 66, time = 1443578095, filemodtime = 1443578092, comment = "dssdf", version = 3, hash = 1024531965 where id = 3;
+New version added
+update File set curhash = 1024531965, curversion = 3, numversions = 3 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 925160333 and hash2 = 2547603505
+blockId = 4
+insert into VtoB(versionid, blockid, versionindex) values (4, 4, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443578108, filemodtime = 1443578105, comment = "t", version = 4, hash = 2964917068 where id = 4;
+New version added
+update File set curhash = 2964917068, curversion = 4, numversions = 4 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 1310705256 and hash2 = 2855372513
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443578258, filemodtime = 1443578105, comment = "rtt", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 685403144
+Adding new version
+block size is 90
+Hash equals zero 
+select id from Block where hash1 = 2392075741 and hash2 = 646894308
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 65, time = 1443578271, filemodtime = 1443578267, comment = "f", version = 2, hash = 685403144 where id = 2;
+New version added
+update File set curhash = 685403144, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 1024531965
+Adding new version
+block size is 91
+Hash equals zero 
+select id from Block where hash1 = 3262903836 and hash2 = 2376070345
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (3, 3, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 66, time = 1443578284, filemodtime = 1443578281, comment = "sdd", version = 3, hash = 1024531965 where id = 3;
+New version added
+update File set curhash = 1024531965, curversion = 3, numversions = 3 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 2879089861 and hash2 = 53422351
+blockId = 4
+insert into VtoB(versionid, blockid, versionindex) values (4, 4, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443578298, filemodtime = 1443578295, comment = "sdsd", version = 4, hash = 2964917068 where id = 4;
+New version added
+update File set curhash = 2964917068, curversion = 4, numversions = 4 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 3486881283 and hash2 = 2657828936
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443578382, filemodtime = 1443578295, comment = "re", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 685403144
+Adding new version
+block size is 90
+Hash equals zero 
+select id from Block where hash1 = 626376365 and hash2 = 2512996613
+blockId = 2
+insert into VtoB(versionid, blockid, versionindex) values (2, 2, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 65, time = 1443578405, filemodtime = 1443578399, comment = "ds", version = 2, hash = 685403144 where id = 2;
+New version added
+update File set curhash = 685403144, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 585724174
+Adding new version
+block size is 90
+Hash equals zero 
+select id from Block where hash1 = 2763810679 and hash2 = 2805045714
+blockId = 3
+insert into VtoB(versionid, blockid, versionindex) values (3, 3, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 67, time = 1443578412, filemodtime = 1443578409, comment = "fd", version = 3, hash = 585724174 where id = 3;
+New version added
+update File set curhash = 585724174, curversion = 3, numversions = 3 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 3914708259
+Adding new version
+block size is 90
+Hash equals zero 
+select id from Block where hash1 = 1818655600 and hash2 = 542549057
+blockId = 4
+insert into VtoB(versionid, blockid, versionindex) values (4, 4, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 69, time = 1443578417, filemodtime = 1443578414, comment = "d", version = 4, hash = 3914708259 where id = 4;
+New version added
+update File set curhash = 3914708259, curversion = 4, numversions = 4 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2351146167
+Adding new version
+block size is 90
+Hash equals zero 
+select id from Block where hash1 = 1150668249 and hash2 = 2378123328
+blockId = 5
+insert into VtoB(versionid, blockid, versionindex) values (5, 5, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 71, time = 1443578423, filemodtime = 1443578421, comment = "sd", version = 5, hash = 2351146167 where id = 5;
+New version added
+update File set curhash = 2351146167, curversion = 5, numversions = 5 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: 
+ERROR: File does not exist
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: 
+ERROR: File does not exist
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 260105283 and hash2 = 3716427187
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443580331, filemodtime = 1443578467, comment = "trt", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 710348582 and hash2 = 3664475615
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443580454, filemodtime = 1443578467, comment = "tt", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+host: 127.0.0.1
+user: root
+pw: root
+drop table VtoB;
+drop table Block;
+drop table Version;
+drop table File;
+create table File (	filename varchar(767) not null,	curhash int(11) unsigned,	curversion int(11) unsigned,	numversions int(11) unsigned,	primary key (filename));
+create table Version (	id int(11) unsigned not null auto_increment,	filename varchar(767),	size int(11) unsigned,	time int(11) unsigned,	filemodtime int(11) unsigned,	comment mediumtext,	version int(11) unsigned,	hash int(11) unsigned,	primary key (id),	foreign key (filename) references File(filename));
+create table Block (	id int(11) unsigned not null auto_increment,	hash1 int(11) unsigned,	hash2 int(11) unsigned,	data mediumblob,	primary key (id),	index(hash1),	index(hash2));
+create table VtoB (	id int(11) not null auto_increment,	versionid int(11) unsigned,	blockid int(11) unsigned,	versionindex int(11) unsigned,	primary key (id),	foreign key (versionid) references Version(id),	foreign key (blockid) references Block(id));
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 3761349477 and hash2 = 1276615971
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443580783, filemodtime = 1443578467, comment = "fghh", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";

@@ -186,7 +186,8 @@ vector<VersionRecord> FileRecord::GetAllVersions()
 	
 	for(unsigned int i = 0; i < NumberOfVersions; i++)
 	{
-		VersionRecord newVersion = GetVersion(i);
+		VersionRecord newVersion = GetVersion(i + 1);
+                
 		if(newVersion.IsValid())
 		{
 			allVersions.push_back(newVersion);
@@ -359,5 +360,6 @@ bool FileRecord::RetrieveFileRecordFromDB(string inFilename)
 		log(e.getErrorCode());
 		log(e.getSQLState());
 	}
+
 	return bIsValid;
 }

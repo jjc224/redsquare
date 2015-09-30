@@ -1,0 +1,4 @@
+This is required for folder to persist on git.
+
+If this folder does not exists, then pushing 
+and pulling to the sql is not possible.

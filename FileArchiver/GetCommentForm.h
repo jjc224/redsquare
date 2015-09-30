@@ -10,13 +10,18 @@
 
 #include "ui_GetCommentForm.h"
 
-class GetCommentForm : public QDialog {
+class GetCommentForm : public QDialog{
     Q_OBJECT
 public:
     GetCommentForm();
     virtual ~GetCommentForm();
+public slots:
+    void SetComment();
+    QString GetComment();
+        
 private:
     Ui::GetCommentForm widget;
+    QString comment;
 };
 
 #endif	/* _GETCOMMENTFORM_H */

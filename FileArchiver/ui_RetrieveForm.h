@@ -1,7 +1,8 @@
 /********************************************************************************
 ** Form generated from reading UI file 'RetrieveForm.ui'
 **
-** Created by: Qt User Interface Compiler version 4.8.6
+** Created: Wed Sep 30 09:52:25 2015
+**      by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -47,6 +48,7 @@ public:
         labelDirectory->setGeometry(QRect(20, 20, 81, 31));
         lineEditDirectory = new QLineEdit(RetrieveForm);
         lineEditDirectory->setObjectName(QString::fromUtf8("lineEditDirectory"));
+        lineEditDirectory->setEnabled(true);
         lineEditDirectory->setGeometry(QRect(90, 20, 331, 27));
         pushButtonDirectory = new QPushButton(RetrieveForm);
         pushButtonDirectory->setObjectName(QString::fromUtf8("pushButtonDirectory"));
