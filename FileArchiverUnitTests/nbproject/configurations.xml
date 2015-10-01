@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>../FileArchiver/CompressUtils.h</itemPath>
+      <itemPath>../FileArchiver/DBConnector.h</itemPath>
+      <itemPath>../FileArchiver/FileArchiver.h</itemPath>
+      <itemPath>../FileArchiver/FileLib.h</itemPath>
+      <itemPath>../FileArchiver/FileRecord.h</itemPath>
+      <itemPath>../FileArchiver/MurmurHash3.h</itemPath>
+      <itemPath>../FileArchiver/ProjectConstants.h</itemPath>
+      <itemPath>../FileArchiver/TestUtilities.h</itemPath>
+      <itemPath>../FileArchiver/VersionRecord.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>../FileArchiver/CompressUtils.cpp</itemPath>
+      <itemPath>../FileArchiver/DBConfigurationFileUtility.cpp</itemPath>
+      <itemPath>../FileArchiver/DBConnector.cpp</itemPath>
+      <itemPath>../FileArchiver/FileArchiver.cpp</itemPath>
+      <itemPath>../FileArchiver/FileLib.cpp</itemPath>
+      <itemPath>../FileArchiver/FileRecord.cpp</itemPath>
+      <itemPath>../FileArchiver/MurmurHash3.cpp</itemPath>
+      <itemPath>../FileArchiver/TestUtilities.cpp</itemPath>
+      <itemPath>../FileArchiver/Utilities.cpp</itemPath>
+      <itemPath>../FileArchiver/VersionRecord.cpp</itemPath>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="BackendTests"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/backendtestrunner.cpp</itemPath>
+        <itemPath>tests/backendtests.cpp</itemPath>
+        <itemPath>tests/backendtests.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="FileLibTester"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/FileLibTester.cpp</itemPath>
+        <itemPath>tests/FileLibTester.cpp_1</itemPath>
+        <itemPath>tests/FileLibTester.h</itemPath>
+        <itemPath>FileLibTesterRunner.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../FileArchiver/</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
+            <linkerLibLibItem>boost_regex</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="../FileArchiver/CompressUtils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/CompressUtils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/DBConnector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/DBConnector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileArchiver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileArchiver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileLib.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileLib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileRecord.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileRecord.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/MurmurHash3.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/MurmurHash3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/ProjectConstants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/TestUtilities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/TestUtilities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/Utilities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/VersionRecord.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/VersionRecord.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FileLibTesterRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.cpp_1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/backendtestrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/backendtests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/backendtests.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../FileArchiver/</pElem>
+          </incDir>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>mysqlcppconn</linkerLibLibItem>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
+            <linkerLibLibItem>boost_regex</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="../FileArchiver/CompressUtils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/CompressUtils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/DBConnector.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/DBConnector.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileArchiver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileArchiver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileLib.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileLib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileRecord.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/FileRecord.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/MurmurHash3.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/MurmurHash3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/ProjectConstants.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/TestUtilities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/TestUtilities.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../FileArchiver/Utilities.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/VersionRecord.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../FileArchiver/VersionRecord.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FileLibTesterRunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.cpp_1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/FileLibTester.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/backendtestrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/backendtests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/backendtests.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

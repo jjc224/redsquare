@@ -28,9 +28,10 @@ int main(int argc, char *argv[]) {
 	
 	//DropTables();
 	//CreateTables();
+	//GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/testDataagain.dat", 20000,100);
 	
         /*
-	GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/testDataagain.dat", 20000,20);
+	
 	
 	RunTestCommitFileOneVersionRetrieve();
 	//RunTestCommitFileWithTwoVersionsRetrieveBoth();

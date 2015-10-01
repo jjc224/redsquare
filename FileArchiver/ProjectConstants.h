@@ -21,7 +21,7 @@ const int MURMUR_SEED_1 = 23455;
 const int MURMUR_SEED_2 = 2086235969;
 const int FILENAME_LENGTH(767);
 
-const int BLOCK_SIZE = 400000;
+const int BLOCK_SIZE = 4000;
 
 void logToFile(std::string message);
 void log(std::string message);

@@ -82,7 +82,6 @@ bool VersionRecord::RetrieveVersionRecordFromDB(std::string inFilename, unsigned
 	// Try to run Query
 	try
 	{
-		//string sqlstatement = "select * from Version where filename = '" + inFilename + "' and version=" + boost::lexical_cast<string>(versionNumber) + ";";
 		pstmt->setString(1,inFilename);
 		pstmt->setInt(2,versionNumber);
 		rs = pstmt->executeQuery();
@@ -200,6 +199,7 @@ unsigned int VersionRecord::GetModificationTime()
         return FileModificationTime;
 }
 
+
 string VersionRecord::GetFormattedModificationTime()
 {
     char buffer[80];
@@ -209,104 +209,142 @@ string VersionRecord::GetFormattedModificationTime()
     return string(buffer);
 }
 
+bool VersionRecord::InsertVersionIntoDB(string keyFilename)
+{
+        // Prepare for sql statements
+        bool bSuccess = false;
+        const char* insertVersion = "insert into Version(filename, version, hash, filemodtime, size, time, comment) values (?, ?, ?, ?, ?, ?, ?)";
+        const char* selectVersion = "select id from Version where hash=?"; 
+        sql::PreparedStatement *pstmt = NULL;
+        sql::ResultSet *rs = NULL;
+        
+        // Try to insert record and get the id
+        try 
+        {
+                pstmt = dbcon->prepareStatement(insertVersion);
+                pstmt->setString(1, keyFilename);
+                pstmt->setInt64(2, VersionNumber);
+                pstmt->setInt64(3, Hash);
+                pstmt->setInt64(4, FileModificationTime);
+                pstmt->setInt64(5, Size);
+                pstmt->setInt64(6, Time);
+                pstmt->setString(7, Comment);           
+                
+                bool bNewVersionMade = pstmt->executeUpdate();
+                
+                if (bNewVersionMade == false)
+                {
+                        return false;
+                }
+                
+                // Run Query
+                pstmt = dbcon->prepareStatement(selectVersion);
+                pstmt->setInt64(1, Hash);
+                rs = pstmt->executeQuery();
+
+                // Output Results
+                while(rs->next())
+                {
+                        VersionID = rs->getUInt(1);
+                }
+                bSuccess = true;
+                
+                if(bSuccess)
+                {
+                        RetrieveVersionRecordFromDB(keyFilename, VersionNumber);
+                        if(!IsValid())
+                        {
+                                log("Failed to retrieve version record from database. This version was not created correctly");
+                                bSuccess = false;
+                        }
+                }
+        }
+        catch (sql::SQLException &e)
+        {
+                log("ERROR: ");
+                log(e.what());
+                log(e.getErrorCode());
+                log(e.getSQLState());
+                log("Failed to create version in table Version");
+                bSuccess = false;
+        }
+
+        pstmt->close();
+        pstmt = NULL;
+        delete rs;
+        rs = NULL;
+        return bSuccess;
+}
+
 bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsigned int currentVersion, unsigned int newHash, string newComment)
 {
-	const char* insertVersion = "insert into Version(filename, version, hash, filemodtime, size, time, comment) values (?, ?, ?, ?, ?, ?, ?)";
 	bool bSuccess = true;
+	
+	// Set all variables to instance of class
 	FileModificationTime = FileLib::GetModifiedDate(pathFilename);
 	Time = time(0);
 	Size = RetrieveSizeFromDisk(pathFilename);
+	Comment = newComment;
+	VersionNumber = currentVersion;
+	Hash = newHash;
 	
 	// Create a new version
-	sql::Statement *stmt = dbcon->createStatement();
-	
-	try 
-	{
-		sql::PreparedStatement *pstmt = NULL;
-		pstmt = dbcon->prepareStatement(insertVersion);
-		pstmt->setString(1, keyFilename);
-		pstmt->setInt64(2, currentVersion);
-		pstmt->setInt64(3, newHash);
-		pstmt->setInt64(4, FileModificationTime);
-		pstmt->setInt64(5, Size);
-		pstmt->setInt64(6, Time);
-		pstmt->setString(7, Comment);
-		
-		
-		bool bNewVersionMade = pstmt->executeUpdate();
-		pstmt->close();
-		pstmt = NULL;
-		//stmt->executeUpdate("insert into Version(filename, version, hash) values ('" + boost::lexical_cast<string>(keyFilename) + "', " + boost::lexical_cast<string>(currentVersion) + ", " + boost::lexical_cast<string>(newHash) + ")");
-		if (bNewVersionMade == false)
-		{
-			return false;
-		}
-		
-		// Run Query
-		sql::ResultSet *rs = stmt->executeQuery("select id from Version where hash = " + boost::lexical_cast<string>(newHash));
-
-		// Output Results
-		while(rs->next())
-		{
-			this->VersionID = rs->getUInt(1);
-		}
-		
-		delete rs;
-	}
-	catch (sql::SQLException &e)
-	{
-		log("ERROR: ");
-		log(e.what());
-		log(e.getErrorCode());
-		log(e.getSQLState());
-		log("Failed to create version in table Version");
-		bSuccess = false;
-	}
+	bSuccess = InsertVersionIntoDB(keyFilename);
 	
 	if(bSuccess)
-	{
-		RetrieveVersionRecordFromDB(keyFilename, currentVersion);
-		if(!IsValid())
+	{	
+		// Clean temp folder just incase
+		zipRemoveZip();
+
+		// Copy file to temp folder
+		zipCopyContents(pathFilename);
+
+		// Compress file in temp folder
+		zipCompress();
+
+		// Create Zip path
+		string zipPath = "./temp/data.gz";
+
+		// Create Blocks In Database
+		bSuccess = InsertBlocks(zipPath);
+		if(!bSuccess)
 		{
-			log("Failed to retrieve version record from database. This version was not created correctly");
-			bSuccess = false;
+			log("Failed to insert blocks for this version");
 		}
+
+		// Update
+		UpdateRecordInDB();
+
+		// Clean up temp folder
+		zipRemoveZip();
+	}
+	else
+	{
+		log("Failed to create a record in the database for this version");
 	}
 	
-	// Clean temp folder just incase
-	zipRemoveZip();
-	
-	// Copy file to temp folder
-	zipCopyContents(pathFilename);
-	
-	// Compress file in temp folder
-	zipCompress();
-	
-	// Create Zip path
-	string zipPath = "./temp/data.gz";
+	return bSuccess;
+}
+
+bool VersionRecord::InsertBlocks(string zipPath)
+{
+	bool bSuccess = true;
 	
 	// Open File
-	ifstream ins(zipPath.c_str());
-	
+	ifstream ins(zipPath.c_str());	
 	if (!ins.good())
 	{
 		log("Failed to open file. Cannot create version");
 		bSuccess = false;
 	}
 	
-	int fileSize = 0;
+	sql::Statement *stmt = dbcon->createStatement();
 	if(bSuccess)
 	{
-		ins.seekg (0, ios::end);
-		fileSize = ins.tellg();
-		ins.seekg (0, ios::beg);
-	}
-	
-	int bytesRemaining = fileSize;
-	
-	
-	if(bSuccess)
-	{
+		ins.seekg(0,ios::end);
+		int bytesRemaining = ins.tellg();
+		ins.seekg(0,ios::beg);
+		
 		try
 		{
 			unsigned int versionIndex = 0;
@@ -387,13 +425,11 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 						istream in(&sbuf);
 						pstmt->setBlob(3, &in);
 						bSuccess = pstmt->executeUpdate();
-						//sql::Statement *stmt = dbcon->createStatement();
-						//bool bSuccess = stmt->executeUpdate("insert into Block(hash1, hash2, data) values (" + boost::lexical_cast<string>(hash1) + ", " + boost::lexical_cast<string>(hash2) + ", " + boost::lexical_cast<string>(block) + ")");
 						delete pstmt;
 						bSuccess = stmt->executeUpdate("commit");
 
 						// Link block with VtoB
-						bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
+						bSuccess = stmt->executeUpdate("insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")");
 						dbcon->commit();
 					}
 				}
@@ -412,7 +448,6 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 
 					// Run Query
 					dbcon->commit();
-					//bSuccess = stmt->executeUpdate("commit");
 					int i = 0;
 					bool bFound = false;
 					while (bFound == false && i < 100)
@@ -442,11 +477,10 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 
 
 						// Link block with VtoB
-						string sqlstatement = "insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(this->VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")";
+						string sqlstatement = "insert into VtoB(versionid, blockid, versionindex) values (" + boost::lexical_cast<string>(VersionID) + ", " + boost::lexical_cast<string>(blockId) + ", " + boost::lexical_cast<string>(versionIndex++) + ")";
 						log(sqlstatement);
 						bSuccess = stmt->executeUpdate(sqlstatement);
-						stmt->executeUpdate("commit");
-						//dbcon->commit();
+						dbcon->commit();
 					}
 				}
 			}
@@ -461,22 +495,14 @@ bool VersionRecord::CreateVersion(string keyFilename, string pathFilename, unsig
 		}
 	}
 	
-	if(bSuccess)
-	{
-		Comment = newComment;
-		UpdateRecordInDB();
-	}
-	
 	ins.close();
 	
 	delete stmt;
 	stmt = NULL;
 	
-	// Clean up temp folder
-	zipRemoveZip();
-	
 	return bSuccess;
 }
+
 
 // Returns the size of a file passed to it
 unsigned int VersionRecord::RetrieveSizeFromDisk(string path)
