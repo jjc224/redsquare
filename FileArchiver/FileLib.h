@@ -17,6 +17,7 @@ class FileLib
                 static std::string GetFormattedModificationDate(std::string path);       // Returns a user-friendly date for the GUI.
 		static std::string AppendPath(std::string &path1, std::string path2);    // Appends path2 onto path1.
 		static unsigned int GetHash(std::string path);
+                static void SetupWorkingDirectories();
 };
 
 #endif	/* FILELIB_H */

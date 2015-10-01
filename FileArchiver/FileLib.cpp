@@ -3,6 +3,7 @@
 #include "FileLib.h"
 #include "MurmurHash3.h"
 #include "ProjectConstants.h"
+#include <cstdlib>                                      // For FileLib::SetupWorkingDirectories(): command execution (system()).
 #include <boost/algorithm/string/classification.hpp>    // For FileLib::SplitPath(): string searching (boost::is_any_of()) to assist splitting.
 #include <boost/algorithm/string/split.hpp>		// For FileLib::SplitPath(): string splitting (boost::split()).
 #include <boost/algorithm/string.hpp>			// For FileLib::Normalize(): string trimming  (boost::algorithm::trim()).
@@ -21,7 +22,9 @@ vector<string> FileLib::SplitPath(string path)
         // There will be a null-byte in the last string if the path ends in the delimiter.
         // So, remove it.
         if(splittedPath.back().empty())
+        {
             splittedPath.pop_back();
+        }
         
 	return splittedPath;
 }
@@ -72,11 +75,11 @@ time_t FileLib::GetModifiedDate(string path)
 
 string FileLib::GetFormattedModificationDate(string path)
 {
-    char buffer[80];
-    time_t fileTime = GetModifiedDate(path);
+        char buffer[80];
+        time_t fileTime = GetModifiedDate(path);
     
-    strftime(buffer, 80, "%F %T", localtime(&fileTime));
-    return string(buffer);
+        strftime(buffer, 80, "%F %T", localtime(&fileTime));
+        return string(buffer);
 }
 
 string FileLib::AppendPath(string &path1, string path2)
@@ -93,4 +96,20 @@ unsigned int FileLib::GetHash(string path)
 
 	MurmurHash3_x86_32_FromFile(path, MURMUR_SEED_1, &hash);
 	return hash;
+}
+
+void FileLib::SetupWorkingDirectories()
+{
+        const string unitTestPath      = "./testData";
+        const string tempRetrievalPath = "./temp";
+        
+        const string clearUnitTestPath       = "rm -rf " + unitTestPath;
+        const string clearTempRetrievalPath  = "rm -rf " + tempRetrievalPath;
+        const string createUnitTestPath      = "mkdir "  + unitTestPath;
+        const string createTempRetrievalPath = "mkdir "  + tempRetrievalPath;
+    
+	system(clearUnitTestPath.c_str());
+	system(clearTempRetrievalPath.c_str());
+	system(createUnitTestPath.c_str());
+	system(createTempRetrievalPath.c_str());
 }

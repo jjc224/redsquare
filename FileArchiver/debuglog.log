@@ -1,0 +1,1328 @@
+ERROR: 
+Access denied for user 'thomas'@'localhost' (using password: NO)
+1045
+28000
+ERROR: 
+Access denied for user 'thomas'@'localhost' (using password: NO)
+1045
+28000
+host: 127.0.0.1
+user: root
+pw: root
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 1003415272 and hash2 = 467368793
+blockId = 1
+insert into VtoB(versionid, blockid, versionindex) values (1, 1, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443635173, filemodtime = 1443621472, comment = "54y45y", version = 1, hash = 2964917068 where id = 1;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+ERROR: 
+Access denied for user 'thomas'@'localhost' (using password: NO)
+1045
+28000
+ERROR: 
+Access denied for user 'thomas'@'localhost' (using password: NO)
+1045
+28000
+host: 127.0.0.1
+user: root
+pw: root
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/Stuff/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/Stuff/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 420184222 and hash2 = 4277909591
+blockId = 36
+insert into VtoB(versionid, blockid, versionindex) values (6, 36, 0)
+update Version set filename = "/home/thomas/Documents/Stuff/db.txt", size = 62, time = 1443655137, filemodtime = 1443621472, comment = "Database login file.", version = 1, hash = 2964917068 where id = 6;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/Stuff/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/Stuff/db.txt
+Hash generated for new version = 2248696354
+Adding new version
+block size is 95
+Hash equals zero 
+select id from Block where hash1 = 3499992267 and hash2 = 3057026875
+blockId = 37
+insert into VtoB(versionid, blockid, versionindex) values (7, 37, 0)
+update Version set filename = "/home/thomas/Documents/Stuff/db.txt", size = 72, time = 1443655306, filemodtime = 1443655227, comment = "Added info.", version = 2, hash = 2248696354 where id = 7;
+New version added
+update File set curhash = 2248696354, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/Stuff/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/Stuff/db.txt
+Hash generated for new version = 2712377595
+Adding new version
+block size is 95
+Hash equals zero 
+select id from Block where hash1 = 2807339215 and hash2 = 1549622197
+blockId = 38
+insert into VtoB(versionid, blockid, versionindex) values (8, 38, 0)
+update Version set filename = "/home/thomas/Documents/Stuff/db.txt", size = 70, time = 1443655380, filemodtime = 1443655333, comment = "Changed password.", version = 3, hash = 2712377595 where id = 8;
+New version added
+update File set curhash = 2712377595, curversion = 3, numversions = 3 where filename = "/home/thomas/Documents/Stuff/db.txt";
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Desktop/test.jpg", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Desktop/test.jpg
+Hash generated for new version = 2698880716
+Adding new version
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2414008639 and hash2 = 2770759215
+blockId = 39
+insert into VtoB(versionid, blockid, versionindex) values (9, 39, 0)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 859306290 and hash2 = 981536704
+blockId = 40
+insert into VtoB(versionid, blockid, versionindex) values (9, 40, 1)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 802670211 and hash2 = 142393790
+blockId = 41
+insert into VtoB(versionid, blockid, versionindex) values (9, 41, 2)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2717128638 and hash2 = 2645350556
+blockId = 42
+insert into VtoB(versionid, blockid, versionindex) values (9, 42, 3)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 160047644 and hash2 = 1767115525
+blockId = 43
+insert into VtoB(versionid, blockid, versionindex) values (9, 43, 4)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4056150543 and hash2 = 3119260463
+blockId = 44
+insert into VtoB(versionid, blockid, versionindex) values (9, 44, 5)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1846573638 and hash2 = 1658382281
+blockId = 45
+insert into VtoB(versionid, blockid, versionindex) values (9, 45, 6)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4156093761 and hash2 = 3246207358
+blockId = 46
+insert into VtoB(versionid, blockid, versionindex) values (9, 46, 7)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1397773180 and hash2 = 3739928405
+blockId = 47
+insert into VtoB(versionid, blockid, versionindex) values (9, 47, 8)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2744949934 and hash2 = 3790589148
+blockId = 48
+insert into VtoB(versionid, blockid, versionindex) values (9, 48, 9)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3163253346 and hash2 = 1478865525
+blockId = 49
+insert into VtoB(versionid, blockid, versionindex) values (9, 49, 10)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4196773693 and hash2 = 2737169651
+blockId = 50
+insert into VtoB(versionid, blockid, versionindex) values (9, 50, 11)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1463418176 and hash2 = 3329913187
+blockId = 51
+insert into VtoB(versionid, blockid, versionindex) values (9, 51, 12)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3415198997 and hash2 = 192558830
+blockId = 52
+insert into VtoB(versionid, blockid, versionindex) values (9, 52, 13)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 220699273 and hash2 = 285678620
+blockId = 53
+insert into VtoB(versionid, blockid, versionindex) values (9, 53, 14)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 330392926 and hash2 = 826453726
+blockId = 54
+insert into VtoB(versionid, blockid, versionindex) values (9, 54, 15)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1972957450 and hash2 = 3085603146
+blockId = 55
+insert into VtoB(versionid, blockid, versionindex) values (9, 55, 16)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 524082918 and hash2 = 1055290491
+blockId = 56
+insert into VtoB(versionid, blockid, versionindex) values (9, 56, 17)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1604930121 and hash2 = 3980587728
+blockId = 57
+insert into VtoB(versionid, blockid, versionindex) values (9, 57, 18)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1711262071 and hash2 = 2501878829
+blockId = 58
+insert into VtoB(versionid, blockid, versionindex) values (9, 58, 19)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3653291721 and hash2 = 1124459242
+blockId = 59
+insert into VtoB(versionid, blockid, versionindex) values (9, 59, 20)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4253664655 and hash2 = 283348093
+blockId = 60
+insert into VtoB(versionid, blockid, versionindex) values (9, 60, 21)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2754117806 and hash2 = 3625698573
+blockId = 61
+insert into VtoB(versionid, blockid, versionindex) values (9, 61, 22)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 404502395 and hash2 = 2146034575
+blockId = 62
+insert into VtoB(versionid, blockid, versionindex) values (9, 62, 23)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3190578633 and hash2 = 1196702756
+blockId = 63
+insert into VtoB(versionid, blockid, versionindex) values (9, 63, 24)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1854850726 and hash2 = 869267594
+blockId = 64
+insert into VtoB(versionid, blockid, versionindex) values (9, 64, 25)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2904897344 and hash2 = 4014681219
+blockId = 65
+insert into VtoB(versionid, blockid, versionindex) values (9, 65, 26)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3075381721 and hash2 = 3153305304
+blockId = 66
+insert into VtoB(versionid, blockid, versionindex) values (9, 66, 27)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3038335099 and hash2 = 3379094195
+blockId = 67
+insert into VtoB(versionid, blockid, versionindex) values (9, 67, 28)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1467561574 and hash2 = 1477326309
+blockId = 68
+insert into VtoB(versionid, blockid, versionindex) values (9, 68, 29)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2470573443 and hash2 = 2766473800
+blockId = 69
+insert into VtoB(versionid, blockid, versionindex) values (9, 69, 30)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2981141982 and hash2 = 2754430315
+blockId = 70
+insert into VtoB(versionid, blockid, versionindex) values (9, 70, 31)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2453463761 and hash2 = 778023195
+blockId = 71
+insert into VtoB(versionid, blockid, versionindex) values (9, 71, 32)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 832195684 and hash2 = 4022812592
+blockId = 72
+insert into VtoB(versionid, blockid, versionindex) values (9, 72, 33)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3266622164 and hash2 = 1421874671
+blockId = 73
+insert into VtoB(versionid, blockid, versionindex) values (9, 73, 34)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2839578960 and hash2 = 2401945047
+blockId = 74
+insert into VtoB(versionid, blockid, versionindex) values (9, 74, 35)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3225107975 and hash2 = 3741502698
+blockId = 75
+insert into VtoB(versionid, blockid, versionindex) values (9, 75, 36)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2385777100 and hash2 = 4111957227
+blockId = 76
+insert into VtoB(versionid, blockid, versionindex) values (9, 76, 37)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2764986910 and hash2 = 840898759
+blockId = 77
+insert into VtoB(versionid, blockid, versionindex) values (9, 77, 38)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 328407402 and hash2 = 262963239
+blockId = 78
+insert into VtoB(versionid, blockid, versionindex) values (9, 78, 39)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3729560328 and hash2 = 2403660822
+blockId = 79
+insert into VtoB(versionid, blockid, versionindex) values (9, 79, 40)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2735278013 and hash2 = 2957670328
+blockId = 80
+insert into VtoB(versionid, blockid, versionindex) values (9, 80, 41)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2320685112 and hash2 = 326455820
+blockId = 81
+insert into VtoB(versionid, blockid, versionindex) values (9, 81, 42)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1897271273 and hash2 = 661684071
+blockId = 82
+insert into VtoB(versionid, blockid, versionindex) values (9, 82, 43)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1536293642 and hash2 = 1137787968
+blockId = 83
+insert into VtoB(versionid, blockid, versionindex) values (9, 83, 44)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 60543272 and hash2 = 2567370360
+blockId = 84
+insert into VtoB(versionid, blockid, versionindex) values (9, 84, 45)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3732389095 and hash2 = 3199380278
+blockId = 85
+insert into VtoB(versionid, blockid, versionindex) values (9, 85, 46)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2909289334 and hash2 = 2289761603
+blockId = 86
+insert into VtoB(versionid, blockid, versionindex) values (9, 86, 47)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 416047052 and hash2 = 471821614
+blockId = 87
+insert into VtoB(versionid, blockid, versionindex) values (9, 87, 48)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 359663709 and hash2 = 3362396966
+blockId = 88
+insert into VtoB(versionid, blockid, versionindex) values (9, 88, 49)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3868540677 and hash2 = 2448230179
+blockId = 89
+insert into VtoB(versionid, blockid, versionindex) values (9, 89, 50)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1510675329 and hash2 = 3994624783
+blockId = 90
+insert into VtoB(versionid, blockid, versionindex) values (9, 90, 51)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 209219663 and hash2 = 2270484723
+blockId = 91
+insert into VtoB(versionid, blockid, versionindex) values (9, 91, 52)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3500541107 and hash2 = 2941767603
+blockId = 92
+insert into VtoB(versionid, blockid, versionindex) values (9, 92, 53)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3071150794 and hash2 = 4095010693
+blockId = 93
+insert into VtoB(versionid, blockid, versionindex) values (9, 93, 54)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1740802203 and hash2 = 1322285887
+blockId = 94
+insert into VtoB(versionid, blockid, versionindex) values (9, 94, 55)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4068035555 and hash2 = 532165897
+blockId = 95
+insert into VtoB(versionid, blockid, versionindex) values (9, 95, 56)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1700998058 and hash2 = 533583972
+blockId = 96
+insert into VtoB(versionid, blockid, versionindex) values (9, 96, 57)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 981897404 and hash2 = 1726923842
+blockId = 97
+insert into VtoB(versionid, blockid, versionindex) values (9, 97, 58)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1527709719 and hash2 = 2781030524
+blockId = 98
+insert into VtoB(versionid, blockid, versionindex) values (9, 98, 59)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2016122061 and hash2 = 2628155549
+blockId = 99
+insert into VtoB(versionid, blockid, versionindex) values (9, 99, 60)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2697542075 and hash2 = 1683014129
+blockId = 100
+insert into VtoB(versionid, blockid, versionindex) values (9, 100, 61)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 739480285 and hash2 = 2699461897
+blockId = 101
+insert into VtoB(versionid, blockid, versionindex) values (9, 101, 62)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1900150542 and hash2 = 4228631549
+blockId = 102
+insert into VtoB(versionid, blockid, versionindex) values (9, 102, 63)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 521370319 and hash2 = 3699304497
+blockId = 103
+insert into VtoB(versionid, blockid, versionindex) values (9, 103, 64)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 185550543 and hash2 = 3033859349
+blockId = 104
+insert into VtoB(versionid, blockid, versionindex) values (9, 104, 65)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 31148106 and hash2 = 1457428778
+blockId = 105
+insert into VtoB(versionid, blockid, versionindex) values (9, 105, 66)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3896672654 and hash2 = 3976712396
+blockId = 106
+insert into VtoB(versionid, blockid, versionindex) values (9, 106, 67)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3901027412 and hash2 = 623706311
+blockId = 107
+insert into VtoB(versionid, blockid, versionindex) values (9, 107, 68)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2805436797 and hash2 = 1763610485
+blockId = 108
+insert into VtoB(versionid, blockid, versionindex) values (9, 108, 69)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1145252838 and hash2 = 691529860
+blockId = 109
+insert into VtoB(versionid, blockid, versionindex) values (9, 109, 70)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1040519907 and hash2 = 3138718348
+blockId = 110
+insert into VtoB(versionid, blockid, versionindex) values (9, 110, 71)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3082343044 and hash2 = 80015950
+blockId = 111
+insert into VtoB(versionid, blockid, versionindex) values (9, 111, 72)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4034840956 and hash2 = 1766438978
+blockId = 112
+insert into VtoB(versionid, blockid, versionindex) values (9, 112, 73)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3110763451 and hash2 = 3524227489
+blockId = 113
+insert into VtoB(versionid, blockid, versionindex) values (9, 113, 74)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1648906522 and hash2 = 2039640798
+blockId = 114
+insert into VtoB(versionid, blockid, versionindex) values (9, 114, 75)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2898361929 and hash2 = 3906537276
+blockId = 115
+insert into VtoB(versionid, blockid, versionindex) values (9, 115, 76)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3738480013 and hash2 = 4033900740
+blockId = 116
+insert into VtoB(versionid, blockid, versionindex) values (9, 116, 77)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 396896807 and hash2 = 3386019534
+blockId = 117
+insert into VtoB(versionid, blockid, versionindex) values (9, 117, 78)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 83584652 and hash2 = 2065947186
+blockId = 118
+insert into VtoB(versionid, blockid, versionindex) values (9, 118, 79)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1869424016 and hash2 = 1006017839
+blockId = 119
+insert into VtoB(versionid, blockid, versionindex) values (9, 119, 80)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1924658111 and hash2 = 433594770
+blockId = 120
+insert into VtoB(versionid, blockid, versionindex) values (9, 120, 81)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3074394721 and hash2 = 1619317368
+blockId = 121
+insert into VtoB(versionid, blockid, versionindex) values (9, 121, 82)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3087081932 and hash2 = 1936152051
+blockId = 122
+insert into VtoB(versionid, blockid, versionindex) values (9, 122, 83)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1903417360 and hash2 = 966761837
+blockId = 123
+insert into VtoB(versionid, blockid, versionindex) values (9, 123, 84)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1973298885 and hash2 = 1952217190
+blockId = 124
+insert into VtoB(versionid, blockid, versionindex) values (9, 124, 85)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3657517037 and hash2 = 3295545105
+blockId = 125
+insert into VtoB(versionid, blockid, versionindex) values (9, 125, 86)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3928375838 and hash2 = 1498773831
+blockId = 126
+insert into VtoB(versionid, blockid, versionindex) values (9, 126, 87)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2522600893 and hash2 = 49288267
+blockId = 127
+insert into VtoB(versionid, blockid, versionindex) values (9, 127, 88)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3404681809 and hash2 = 4255334766
+blockId = 128
+insert into VtoB(versionid, blockid, versionindex) values (9, 128, 89)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3439755879 and hash2 = 2189879591
+blockId = 129
+insert into VtoB(versionid, blockid, versionindex) values (9, 129, 90)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2714852206 and hash2 = 1803029304
+blockId = 130
+insert into VtoB(versionid, blockid, versionindex) values (9, 130, 91)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 625919293 and hash2 = 3390938559
+blockId = 131
+insert into VtoB(versionid, blockid, versionindex) values (9, 131, 92)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1251037339 and hash2 = 164499
+blockId = 132
+insert into VtoB(versionid, blockid, versionindex) values (9, 132, 93)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 833573907 and hash2 = 239756331
+blockId = 133
+insert into VtoB(versionid, blockid, versionindex) values (9, 133, 94)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 718760502 and hash2 = 1074959507
+blockId = 134
+insert into VtoB(versionid, blockid, versionindex) values (9, 134, 95)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1251654563 and hash2 = 1466361212
+blockId = 135
+insert into VtoB(versionid, blockid, versionindex) values (9, 135, 96)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1799466322 and hash2 = 1093102825
+blockId = 136
+insert into VtoB(versionid, blockid, versionindex) values (9, 136, 97)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 816187108 and hash2 = 1416249053
+blockId = 137
+insert into VtoB(versionid, blockid, versionindex) values (9, 137, 98)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3898136909 and hash2 = 555069052
+blockId = 138
+insert into VtoB(versionid, blockid, versionindex) values (9, 138, 99)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 191941898 and hash2 = 123493895
+blockId = 139
+insert into VtoB(versionid, blockid, versionindex) values (9, 139, 100)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2872488460 and hash2 = 330101321
+blockId = 140
+insert into VtoB(versionid, blockid, versionindex) values (9, 140, 101)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1469414995 and hash2 = 396890949
+blockId = 141
+insert into VtoB(versionid, blockid, versionindex) values (9, 141, 102)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2139944153 and hash2 = 2129562051
+blockId = 142
+insert into VtoB(versionid, blockid, versionindex) values (9, 142, 103)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2034700195 and hash2 = 4063895571
+blockId = 143
+insert into VtoB(versionid, blockid, versionindex) values (9, 143, 104)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2378416011 and hash2 = 2335382617
+blockId = 144
+insert into VtoB(versionid, blockid, versionindex) values (9, 144, 105)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1307891059 and hash2 = 983555852
+blockId = 145
+insert into VtoB(versionid, blockid, versionindex) values (9, 145, 106)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 236908269 and hash2 = 3939114100
+blockId = 146
+insert into VtoB(versionid, blockid, versionindex) values (9, 146, 107)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1863751598 and hash2 = 3454990183
+blockId = 147
+insert into VtoB(versionid, blockid, versionindex) values (9, 147, 108)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 235578585 and hash2 = 3373352429
+blockId = 148
+insert into VtoB(versionid, blockid, versionindex) values (9, 148, 109)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1089371819 and hash2 = 4213997530
+blockId = 149
+insert into VtoB(versionid, blockid, versionindex) values (9, 149, 110)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2878601009 and hash2 = 3083622950
+blockId = 150
+insert into VtoB(versionid, blockid, versionindex) values (9, 150, 111)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2767498181 and hash2 = 89908286
+blockId = 151
+insert into VtoB(versionid, blockid, versionindex) values (9, 151, 112)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2831461503 and hash2 = 3189548569
+blockId = 152
+insert into VtoB(versionid, blockid, versionindex) values (9, 152, 113)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 313198316 and hash2 = 4196665439
+blockId = 153
+insert into VtoB(versionid, blockid, versionindex) values (9, 153, 114)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1077720172 and hash2 = 3915466437
+blockId = 154
+insert into VtoB(versionid, blockid, versionindex) values (9, 154, 115)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 401833129 and hash2 = 4017118823
+blockId = 155
+insert into VtoB(versionid, blockid, versionindex) values (9, 155, 116)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4241256364 and hash2 = 2690143225
+blockId = 156
+insert into VtoB(versionid, blockid, versionindex) values (9, 156, 117)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3855221735 and hash2 = 3700516383
+blockId = 157
+insert into VtoB(versionid, blockid, versionindex) values (9, 157, 118)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2767369318 and hash2 = 1346449751
+blockId = 158
+insert into VtoB(versionid, blockid, versionindex) values (9, 158, 119)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3391824864 and hash2 = 3188838329
+blockId = 159
+insert into VtoB(versionid, blockid, versionindex) values (9, 159, 120)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3676484125 and hash2 = 1289843185
+blockId = 160
+insert into VtoB(versionid, blockid, versionindex) values (9, 160, 121)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2389267909 and hash2 = 4185705514
+blockId = 161
+insert into VtoB(versionid, blockid, versionindex) values (9, 161, 122)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2731660031 and hash2 = 2021615855
+blockId = 162
+insert into VtoB(versionid, blockid, versionindex) values (9, 162, 123)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2098213683 and hash2 = 1495828387
+blockId = 163
+insert into VtoB(versionid, blockid, versionindex) values (9, 163, 124)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 825644152 and hash2 = 3052335476
+blockId = 164
+insert into VtoB(versionid, blockid, versionindex) values (9, 164, 125)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3117094466 and hash2 = 1157226941
+blockId = 165
+insert into VtoB(versionid, blockid, versionindex) values (9, 165, 126)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 207795259 and hash2 = 4135724427
+blockId = 166
+insert into VtoB(versionid, blockid, versionindex) values (9, 166, 127)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1099761613 and hash2 = 2291894925
+blockId = 167
+insert into VtoB(versionid, blockid, versionindex) values (9, 167, 128)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 615734125 and hash2 = 720123142
+blockId = 168
+insert into VtoB(versionid, blockid, versionindex) values (9, 168, 129)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 333595193 and hash2 = 2088672827
+blockId = 169
+insert into VtoB(versionid, blockid, versionindex) values (9, 169, 130)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 547164035 and hash2 = 4233368222
+blockId = 170
+insert into VtoB(versionid, blockid, versionindex) values (9, 170, 131)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 17792200 and hash2 = 1061760674
+blockId = 171
+insert into VtoB(versionid, blockid, versionindex) values (9, 171, 132)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2763792624 and hash2 = 3520371836
+blockId = 172
+insert into VtoB(versionid, blockid, versionindex) values (9, 172, 133)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4056651699 and hash2 = 658863023
+blockId = 173
+insert into VtoB(versionid, blockid, versionindex) values (9, 173, 134)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 677013005 and hash2 = 634482590
+blockId = 174
+insert into VtoB(versionid, blockid, versionindex) values (9, 174, 135)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3082056262 and hash2 = 3948626656
+blockId = 175
+insert into VtoB(versionid, blockid, versionindex) values (9, 175, 136)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4186037733 and hash2 = 948758194
+blockId = 176
+insert into VtoB(versionid, blockid, versionindex) values (9, 176, 137)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4053789113 and hash2 = 1387104854
+blockId = 177
+insert into VtoB(versionid, blockid, versionindex) values (9, 177, 138)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 966263958 and hash2 = 1692435305
+blockId = 178
+insert into VtoB(versionid, blockid, versionindex) values (9, 178, 139)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1528183294 and hash2 = 1671204608
+blockId = 179
+insert into VtoB(versionid, blockid, versionindex) values (9, 179, 140)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2962481050 and hash2 = 3123978202
+blockId = 180
+insert into VtoB(versionid, blockid, versionindex) values (9, 180, 141)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2068016984 and hash2 = 109976579
+blockId = 181
+insert into VtoB(versionid, blockid, versionindex) values (9, 181, 142)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 861241519 and hash2 = 667063713
+blockId = 182
+insert into VtoB(versionid, blockid, versionindex) values (9, 182, 143)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1302125385 and hash2 = 52371086
+blockId = 183
+insert into VtoB(versionid, blockid, versionindex) values (9, 183, 144)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2379751735 and hash2 = 3344352200
+blockId = 184
+insert into VtoB(versionid, blockid, versionindex) values (9, 184, 145)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3051875841 and hash2 = 397845506
+blockId = 185
+insert into VtoB(versionid, blockid, versionindex) values (9, 185, 146)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2092232990 and hash2 = 3874369443
+blockId = 186
+insert into VtoB(versionid, blockid, versionindex) values (9, 186, 147)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 135966581 and hash2 = 2689590793
+blockId = 187
+insert into VtoB(versionid, blockid, versionindex) values (9, 187, 148)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1707640859 and hash2 = 3787646359
+blockId = 188
+insert into VtoB(versionid, blockid, versionindex) values (9, 188, 149)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1778230653 and hash2 = 2489622861
+blockId = 189
+insert into VtoB(versionid, blockid, versionindex) values (9, 189, 150)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 643675085 and hash2 = 2685086470
+blockId = 190
+insert into VtoB(versionid, blockid, versionindex) values (9, 190, 151)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 172443659 and hash2 = 361193665
+blockId = 191
+insert into VtoB(versionid, blockid, versionindex) values (9, 191, 152)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1929706699 and hash2 = 2106915920
+blockId = 192
+insert into VtoB(versionid, blockid, versionindex) values (9, 192, 153)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1550250558 and hash2 = 3400807040
+blockId = 193
+insert into VtoB(versionid, blockid, versionindex) values (9, 193, 154)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1694343671 and hash2 = 2483218814
+blockId = 194
+insert into VtoB(versionid, blockid, versionindex) values (9, 194, 155)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1409833705 and hash2 = 3212723649
+blockId = 195
+insert into VtoB(versionid, blockid, versionindex) values (9, 195, 156)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2769020860 and hash2 = 302394133
+blockId = 196
+insert into VtoB(versionid, blockid, versionindex) values (9, 196, 157)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3100666417 and hash2 = 2380727089
+blockId = 197
+insert into VtoB(versionid, blockid, versionindex) values (9, 197, 158)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2971077732 and hash2 = 3706481181
+blockId = 198
+insert into VtoB(versionid, blockid, versionindex) values (9, 198, 159)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 447160686 and hash2 = 2354438644
+blockId = 199
+insert into VtoB(versionid, blockid, versionindex) values (9, 199, 160)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3439478911 and hash2 = 1217034309
+blockId = 200
+insert into VtoB(versionid, blockid, versionindex) values (9, 200, 161)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 157889652 and hash2 = 348337917
+blockId = 201
+insert into VtoB(versionid, blockid, versionindex) values (9, 201, 162)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3549108937 and hash2 = 1355855761
+blockId = 202
+insert into VtoB(versionid, blockid, versionindex) values (9, 202, 163)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 181819829 and hash2 = 366223205
+blockId = 203
+insert into VtoB(versionid, blockid, versionindex) values (9, 203, 164)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 702414459 and hash2 = 3194737075
+blockId = 204
+insert into VtoB(versionid, blockid, versionindex) values (9, 204, 165)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3213535088 and hash2 = 2192727805
+blockId = 205
+insert into VtoB(versionid, blockid, versionindex) values (9, 205, 166)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1055985491 and hash2 = 3979529343
+blockId = 206
+insert into VtoB(versionid, blockid, versionindex) values (9, 206, 167)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1264973407 and hash2 = 2738578523
+blockId = 207
+insert into VtoB(versionid, blockid, versionindex) values (9, 207, 168)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1067656258 and hash2 = 1486666572
+blockId = 208
+insert into VtoB(versionid, blockid, versionindex) values (9, 208, 169)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1252522487 and hash2 = 3481915004
+blockId = 209
+insert into VtoB(versionid, blockid, versionindex) values (9, 209, 170)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1708060957 and hash2 = 155621703
+blockId = 210
+insert into VtoB(versionid, blockid, versionindex) values (9, 210, 171)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1469233299 and hash2 = 1163752333
+blockId = 211
+insert into VtoB(versionid, blockid, versionindex) values (9, 211, 172)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1181949542 and hash2 = 3795460734
+blockId = 212
+insert into VtoB(versionid, blockid, versionindex) values (9, 212, 173)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 534039914 and hash2 = 351644188
+blockId = 213
+insert into VtoB(versionid, blockid, versionindex) values (9, 213, 174)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2410609117 and hash2 = 640346225
+blockId = 214
+insert into VtoB(versionid, blockid, versionindex) values (9, 214, 175)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1539739151 and hash2 = 2458244582
+blockId = 215
+insert into VtoB(versionid, blockid, versionindex) values (9, 215, 176)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 179961806 and hash2 = 2364209523
+blockId = 216
+insert into VtoB(versionid, blockid, versionindex) values (9, 216, 177)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3695917587 and hash2 = 644250748
+blockId = 217
+insert into VtoB(versionid, blockid, versionindex) values (9, 217, 178)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 320000707 and hash2 = 3266700885
+blockId = 218
+insert into VtoB(versionid, blockid, versionindex) values (9, 218, 179)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3855928845 and hash2 = 1502950480
+blockId = 219
+insert into VtoB(versionid, blockid, versionindex) values (9, 219, 180)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1467163023 and hash2 = 2265595389
+blockId = 220
+insert into VtoB(versionid, blockid, versionindex) values (9, 220, 181)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1624239442 and hash2 = 1844733014
+blockId = 221
+insert into VtoB(versionid, blockid, versionindex) values (9, 221, 182)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2514022961 and hash2 = 1997483593
+blockId = 222
+insert into VtoB(versionid, blockid, versionindex) values (9, 222, 183)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3300570634 and hash2 = 3650731572
+blockId = 223
+insert into VtoB(versionid, blockid, versionindex) values (9, 223, 184)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2554688091 and hash2 = 3747860922
+blockId = 224
+insert into VtoB(versionid, blockid, versionindex) values (9, 224, 185)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 830090822 and hash2 = 1017866191
+blockId = 225
+insert into VtoB(versionid, blockid, versionindex) values (9, 225, 186)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2920279900 and hash2 = 4220007699
+blockId = 226
+insert into VtoB(versionid, blockid, versionindex) values (9, 226, 187)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1598745239 and hash2 = 3205452814
+blockId = 227
+insert into VtoB(versionid, blockid, versionindex) values (9, 227, 188)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 25563410 and hash2 = 2206609986
+blockId = 228
+insert into VtoB(versionid, blockid, versionindex) values (9, 228, 189)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3173867961 and hash2 = 23930311
+blockId = 229
+insert into VtoB(versionid, blockid, versionindex) values (9, 229, 190)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2344937175 and hash2 = 324554039
+blockId = 230
+insert into VtoB(versionid, blockid, versionindex) values (9, 230, 191)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3172467902 and hash2 = 1106082801
+blockId = 231
+insert into VtoB(versionid, blockid, versionindex) values (9, 231, 192)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3234962279 and hash2 = 1421275053
+blockId = 232
+insert into VtoB(versionid, blockid, versionindex) values (9, 232, 193)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1290454194 and hash2 = 3266583491
+blockId = 233
+insert into VtoB(versionid, blockid, versionindex) values (9, 233, 194)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1014774049 and hash2 = 607932042
+blockId = 234
+insert into VtoB(versionid, blockid, versionindex) values (9, 234, 195)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1106837925 and hash2 = 2074516151
+blockId = 235
+insert into VtoB(versionid, blockid, versionindex) values (9, 235, 196)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1362462202 and hash2 = 2843961140
+blockId = 236
+insert into VtoB(versionid, blockid, versionindex) values (9, 236, 197)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3326425379 and hash2 = 1620161639
+blockId = 237
+insert into VtoB(versionid, blockid, versionindex) values (9, 237, 198)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3558081984 and hash2 = 3122890419
+blockId = 238
+insert into VtoB(versionid, blockid, versionindex) values (9, 238, 199)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1084922039 and hash2 = 2153352604
+blockId = 239
+insert into VtoB(versionid, blockid, versionindex) values (9, 239, 200)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1553252022 and hash2 = 1123960874
+blockId = 240
+insert into VtoB(versionid, blockid, versionindex) values (9, 240, 201)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1740294341 and hash2 = 4060041694
+blockId = 241
+insert into VtoB(versionid, blockid, versionindex) values (9, 241, 202)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 577682710 and hash2 = 498037720
+blockId = 242
+insert into VtoB(versionid, blockid, versionindex) values (9, 242, 203)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2867578087 and hash2 = 2765524878
+blockId = 243
+insert into VtoB(versionid, blockid, versionindex) values (9, 243, 204)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3449167205 and hash2 = 2092784237
+blockId = 244
+insert into VtoB(versionid, blockid, versionindex) values (9, 244, 205)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 336533938 and hash2 = 318989084
+blockId = 245
+insert into VtoB(versionid, blockid, versionindex) values (9, 245, 206)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 315273913 and hash2 = 2377559165
+blockId = 246
+insert into VtoB(versionid, blockid, versionindex) values (9, 246, 207)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3268687472 and hash2 = 1085263347
+blockId = 247
+insert into VtoB(versionid, blockid, versionindex) values (9, 247, 208)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2405036066 and hash2 = 2711447931
+blockId = 248
+insert into VtoB(versionid, blockid, versionindex) values (9, 248, 209)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1298180045 and hash2 = 273548220
+blockId = 249
+insert into VtoB(versionid, blockid, versionindex) values (9, 249, 210)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4180177774 and hash2 = 4213949228
+blockId = 250
+insert into VtoB(versionid, blockid, versionindex) values (9, 250, 211)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2775862830 and hash2 = 1736036522
+blockId = 251
+insert into VtoB(versionid, blockid, versionindex) values (9, 251, 212)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3323487387 and hash2 = 107857552
+blockId = 252
+insert into VtoB(versionid, blockid, versionindex) values (9, 252, 213)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2465269209 and hash2 = 666441771
+blockId = 253
+insert into VtoB(versionid, blockid, versionindex) values (9, 253, 214)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 161429951 and hash2 = 3113906437
+blockId = 254
+insert into VtoB(versionid, blockid, versionindex) values (9, 254, 215)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 491364611 and hash2 = 907859591
+blockId = 255
+insert into VtoB(versionid, blockid, versionindex) values (9, 255, 216)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 912837888 and hash2 = 2427546780
+blockId = 256
+insert into VtoB(versionid, blockid, versionindex) values (9, 256, 217)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3525167382 and hash2 = 4060338911
+blockId = 257
+insert into VtoB(versionid, blockid, versionindex) values (9, 257, 218)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2101356010 and hash2 = 1894514852
+blockId = 258
+insert into VtoB(versionid, blockid, versionindex) values (9, 258, 219)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2976927257 and hash2 = 874320743
+blockId = 259
+insert into VtoB(versionid, blockid, versionindex) values (9, 259, 220)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1895966693 and hash2 = 3621638100
+blockId = 260
+insert into VtoB(versionid, blockid, versionindex) values (9, 260, 221)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1449233582 and hash2 = 3093004341
+blockId = 261
+insert into VtoB(versionid, blockid, versionindex) values (9, 261, 222)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2438265873 and hash2 = 649654145
+blockId = 262
+insert into VtoB(versionid, blockid, versionindex) values (9, 262, 223)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 689707448 and hash2 = 1783943524
+blockId = 263
+insert into VtoB(versionid, blockid, versionindex) values (9, 263, 224)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3875954211 and hash2 = 2146041735
+blockId = 264
+insert into VtoB(versionid, blockid, versionindex) values (9, 264, 225)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 2871698996 and hash2 = 2676293335
+blockId = 265
+insert into VtoB(versionid, blockid, versionindex) values (9, 265, 226)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1121525544 and hash2 = 2798912594
+blockId = 266
+insert into VtoB(versionid, blockid, versionindex) values (9, 266, 227)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3862524324 and hash2 = 502523283
+blockId = 267
+insert into VtoB(versionid, blockid, versionindex) values (9, 267, 228)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1441675641 and hash2 = 833780799
+blockId = 268
+insert into VtoB(versionid, blockid, versionindex) values (9, 268, 229)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3259593815 and hash2 = 2705275407
+blockId = 269
+insert into VtoB(versionid, blockid, versionindex) values (9, 269, 230)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1867941011 and hash2 = 1885955322
+blockId = 270
+insert into VtoB(versionid, blockid, versionindex) values (9, 270, 231)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3223580344 and hash2 = 2996270605
+blockId = 271
+insert into VtoB(versionid, blockid, versionindex) values (9, 271, 232)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1722618355 and hash2 = 2252404716
+blockId = 272
+insert into VtoB(versionid, blockid, versionindex) values (9, 272, 233)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 1523768278 and hash2 = 2530676807
+blockId = 273
+insert into VtoB(versionid, blockid, versionindex) values (9, 273, 234)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 4080476237 and hash2 = 3497356758
+blockId = 274
+insert into VtoB(versionid, blockid, versionindex) values (9, 274, 235)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 181241140 and hash2 = 2300220862
+blockId = 275
+insert into VtoB(versionid, blockid, versionindex) values (9, 275, 236)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 182344690 and hash2 = 2031557190
+blockId = 276
+insert into VtoB(versionid, blockid, versionindex) values (9, 276, 237)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3690900068 and hash2 = 3167574216
+blockId = 277
+insert into VtoB(versionid, blockid, versionindex) values (9, 277, 238)
+block size is 4000
+Hash equals zero 
+select id from Block where hash1 = 3143544957 and hash2 = 3050570640
+blockId = 278
+insert into VtoB(versionid, blockid, versionindex) values (9, 278, 239)
+block size is 789
+Hash equals zero 
+select id from Block where hash1 = 1552990114 and hash2 = 259346798
+blockId = 279
+insert into VtoB(versionid, blockid, versionindex) values (9, 279, 240)
+update Version set filename = "/home/thomas/Desktop/test.jpg", size = 974068, time = 1443655460, filemodtime = 1443572829, comment = "hhhhh", version = 1, hash = 2698880716 where id = 9;
+New version added
+update File set curhash = 2698880716, curversion = 1, numversions = 1 where filename = "/home/thomas/Desktop/test.jpg";
+select blockid from VtoB where versionid = 7 order by versionindex ASC
+retrieved block
+host: 127.0.0.1
+user: root
+pw: root
+host: 127.0.0.1
+user: root
+pw: root
+host: 127.0.0.1
+user: root
+pw: root
+host: 127.0.0.1
+user: root
+pw: root
+host: 127.0.0.1
+user: root
+pw: root
+insert into File(filename, curhash, curversion, numversions) values("/home/thomas/Documents/db.txt", 0, 0, 0);
+Retrieving record from db
+Adding new version
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 2964917068
+Adding new version
+block size is 87
+Hash equals zero 
+select id from Block where hash1 = 2657974830 and hash2 = 2821091116
+blockId = 280
+insert into VtoB(versionid, blockid, versionindex) values (10, 280, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 62, time = 1443657029, filemodtime = 1443621472, comment = "vvvv", version = 1, hash = 2964917068 where id = 10;
+New version added
+update File set curhash = 2964917068, curversion = 1, numversions = 1 where filename = "/home/thomas/Documents/db.txt";
+Attempting to add new version from file: /home/thomas/Documents/db.txt
+Hash generated for new version = 685403144
+Adding new version
+block size is 88
+Hash equals zero 
+select id from Block where hash1 = 2122254424 and hash2 = 1679703767
+blockId = 281
+insert into VtoB(versionid, blockid, versionindex) values (11, 281, 0)
+update Version set filename = "/home/thomas/Documents/db.txt", size = 65, time = 1443657055, filemodtime = 1443657050, comment = "ggg", version = 2, hash = 685403144 where id = 11;
+New version added
+update File set curhash = 685403144, curversion = 2, numversions = 2 where filename = "/home/thomas/Documents/db.txt";

@@ -107,26 +107,47 @@ void MyWindow::ShowComment()
 {
         QModelIndexList indexes = widget.tableView->selectionModel()->selectedRows();
         
+        if(!(indexes.size() > 0))
+        {
+            QMessageBox msgBox(QMessageBox::Information, "Error", 
+                    "Please select the file version", QMessageBox::Ok, 0);
+            
+            msgBox.exec();
+            return;
+        
+        }
+        
         if(indexes.size() > 0)
         {
-			//get version number of selected record
-			QVariant data = indexes[0].data(0);
+            //get version number of selected record
+            QVariant data = indexes[0].data(0);
             //retrieve version
 			
             VersionRecord selectedVersion(fileName.toStdString(), data.toInt());
-			if(selectedVersion.IsValid())
-			{
+	    if(selectedVersion.IsValid())
+            {
 
-				QMessageBox msgBox(QMessageBox::Information, "Comment for selected version", QString(selectedVersion.GetComment().c_str()), QMessageBox::Ok, 0);
+		QMessageBox msgBox(QMessageBox::Information, "Comment for selected version", QString(selectedVersion.GetComment().c_str()), QMessageBox::Ok, 0);
             
-			   msgBox.exec();
-			}
+                msgBox.exec();
+            }
         }
 }
 
 void MyWindow::SetReferenceVersion()
 {
         QModelIndexList indexes = widget.tableView->selectionModel()->selectedRows();
+        
+        if(!(indexes.size() > 0))
+        {
+            QMessageBox msgBox(QMessageBox::Information, "Error", 
+                    "Please select the file version", QMessageBox::Ok, 0);
+            
+            msgBox.exec();
+            return;
+        
+        }
+        
         
         if(indexes.size() > 0)
         {

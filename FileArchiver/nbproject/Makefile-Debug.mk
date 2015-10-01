@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lmysqlcppconn -lboost_system -lboost_filesystem -lboost_regex `cppunit-config --libs` `cppunit-config --libs` `cppunit-config --libs`  
+LDLIBSOPTIONS=-lmysqlcppconn -lboost_system -lboost_filesystem -lboost_regex
 
 nbproject/qt-${CND_CONF}.mk: nbproject/qt-${CND_CONF}.pro FORCE
 	${QMAKE} VPATH=. -o qttmp-${CND_CONF}.mk nbproject/qt-${CND_CONF}.pro

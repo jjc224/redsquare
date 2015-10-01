@@ -8,6 +8,7 @@
 #include <QApplication>
 #include "ProjectConstants.h"
 #include "FileRecord.h"
+#include "FileLib.h"
 
 #include <string>
 
@@ -24,8 +25,10 @@ int main(int argc, char *argv[]) {
 	// initialize resources, if needed
 	// Q_INIT_RESOURCE(resfile);
 
+
 	QApplication app(argc, argv);
 	
+        FileLib::SetupWorkingDirectories();
 	//DropTables();
 	//CreateTables();
 	//GenerateFilesAndCommitVersionsAndVerifyRetrieval("testData/testDataagain.dat", 20000,100);

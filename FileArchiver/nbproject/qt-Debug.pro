@@ -21,4 +21,4 @@ QMAKE_CC = gcc
 QMAKE_CXX = g++
 DEFINES += 
 INCLUDEPATH += 
-LIBS += -lmysqlcppconn -lboost_system -lboost_filesystem -lboost_regex `cppunit-config --libs` `cppunit-config --libs` `cppunit-config --libs`  
+LIBS += -lmysqlcppconn -lboost_system -lboost_filesystem -lboost_regex  
