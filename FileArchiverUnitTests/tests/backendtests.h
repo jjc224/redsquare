@@ -15,8 +15,8 @@ class backendtests : public CPPUNIT_NS::TestFixture {
 
     //CPPUNIT_TEST(testMethod);
     //CPPUNIT_TEST(testFailedMethod);
-    //CPPUNIT_TEST(hashFileTest);
-    //CPPUNIT_TEST(commitRetrieveTest);
+    CPPUNIT_TEST(hashFileTest);
+    CPPUNIT_TEST(commitRetrieveTest);
     CPPUNIT_TEST(purgeTest);
 
     CPPUNIT_TEST_SUITE_END();
