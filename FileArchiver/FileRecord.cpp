@@ -199,19 +199,13 @@ vector<VersionRecord> FileRecord::GetAllVersions()
 
 void FileRecord::PurgeOldVersions(int numberOfVersionsToKeep)
 {
-    log("Inside PurgeOldVersions.");
 	for(unsigned int i = 0; i <= NumberOfVersions - numberOfVersionsToKeep; i++)
 	{
-            log("Iteration: " + boost::lexical_cast<string>(i));
-            
 		VersionRecord purgeVersion = GetVersion(i);
 		if(purgeVersion.IsValid())
 		{
-            log("Actual Purge Record No: " + boost::lexical_cast<string>(i));
 			purgeVersion.PurgeVersion();
 		}
-                else
-                    log("Your shit ain't valid cunt.");
 	}
 }
 
